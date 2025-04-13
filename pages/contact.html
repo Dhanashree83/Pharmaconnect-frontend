@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact</title>
     <link rel="stylesheet" href="/css/contact.css">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -13,10 +14,11 @@
             <h1>PharmaConnect</h1>
             <div class="navbar">
                 <ul>
-                    <li><a href="#">Home</a>
-                    <li><a href="#services">About</a></li>
+                    <li><a href="/index.html">Home</a>
+                    <li><a href="/pages/about.html">About</a></li>
                     <li><a href="#pharmacy">Pharmacy</a></li>
                     <li><a href="/pages/contact.html">Contact</a></li>
+                    <li><a href="#">All Doctors</a></li>
                 </ul>
             </div>
            <a href="#"> <button>Create Account</button></a>
@@ -55,70 +57,56 @@
               </form>
           </div>
       </div>
-  
+   
        </section>
 
-       <footer style="background-color: #2c3e50; color: #fff; padding: 40px 0; font-family: Arial, sans-serif;">
-        <div style="max-width: 1200px; margin: auto; display: flex; flex-wrap: wrap; justify-content: space-between;">
-            
-            <!-- About Us Section -->
-            <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
-                <h3 style="color: #f39c12;">About Us</h3>
-                <p style="line-height: 1.6;">
-                    We are dedicated to providing seamless healthcare solutions through our online appointment booking system.  
-                    Book appointments with top doctors, access medical records, and get expert healthcare advice—all in one place.
-                </p>
+       <footer class="footer">
+        <div class="container">
+            <div class="footer-sections">
+                <!-- About Section -->
+                <div class="footer-about">
+                    <h3>About Us</h3>
+                    <p>We provide hassle-free doctor appointment booking with a user-friendly experience.</p>
+                </div>
+    
+                <!-- Quick Links Section -->
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-user-md"></i> Find a Doctor</a></li>
+                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Book Appointment</a></li>
+                        <li><a href="#"><i class="fas fa-heartbeat"></i> Health Tips</a></li>
+                        <li><a href="#"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
+                    </ul>
+                </div>
+    
+                <!-- Contact & Social Media Section -->
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> support@docbooking.com</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 890</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Medical Street, Health City</p>
+    
+                    <!-- Social Icons -->
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
             </div>
     
-            <!-- Quick Links Section -->
-            <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
-                <h3 style="color: #f39c12;">Quick Links</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li><a href="#" style="color: #ecf0f1; text-decoration: none;">Home</a></li>
-                    <li><a href="#" style="color: #ecf0f1; text-decoration: none;">Find a Doctor</a></li>
-                    <li><a href="#" style="color: #ecf0f1; text-decoration: none;">Book an Appointment</a></li>
-                    <li><a href="#" style="color: #ecf0f1; text-decoration: none;">Services</a></li>
-                    <li><a href="#" style="color: #ecf0f1; text-decoration: none;">Contact Us</a></li>
-                </ul>
-            </div>
-    
-            <!-- Contact Information -->
-            <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
-                <h3 style="color: #f39c12;">Contact Us</h3>
-                <p><strong>Address:</strong> 123 Health Street, City, Country</p>
-                <p><strong>Phone:</strong> +123 456 7890</p>
-                <p><strong>Email:</strong> contact@healthcare.com</p>
-            </div>
-    
-            <!-- Newsletter Subscription -->
-            <div style="flex: 1; min-width: 250px; margin-bottom: 20px;">
-                <h3 style="color: #f39c12;">Subscribe to Our Newsletter</h3>
-                <p>Stay updated with our latest healthcare tips, offers, and new services.</p>
-                <input type="email" placeholder="Enter your email" 
-                    style="width: 80%; padding: 10px; border-radius: 5px; border: none;">
-                <button style="background-color: #f39c12; color: white; padding: 10px 15px; border: none; border-radius: 5px; margin-top: 10px; cursor: pointer;">
-                    Subscribe
-                </button>
-            </div>
-    
-        </div>
-    
-        <!-- Social Media Links -->
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="#" style="color: #ecf0f1; margin: 0 10px; text-decoration: none;">Facebook</a> | 
-            <a href="#" style="color: #ecf0f1; margin: 0 10px; text-decoration: none;">Twitter</a> | 
-            <a href="#" style="color: #ecf0f1; margin: 0 10px; text-decoration: none;">Instagram</a> | 
-            <a href="#" style="color: #ecf0f1; margin: 0 10px; text-decoration: none;">LinkedIn</a>
-        </div>
-    
-        <!-- Copyright -->
-        <div style="text-align: center; margin-top: 20px; font-size: 14px; opacity: 0.7;">
-            © 2025 HealthCare. All Rights Reserved.
+            <hr>
+            <p class="footer-copy">&copy; 2025 Doctor Appointment Booking. All rights reserved.</p>
         </div>
     </footer>
     
-
-
+    <!-- Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+    
+    
 
 </body>
 </html>
