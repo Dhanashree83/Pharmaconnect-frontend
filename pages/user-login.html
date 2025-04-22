@@ -12,7 +12,7 @@
 
     <nav class="navbar">
         <div class="logo">PharmaConnect</div>
-        <a href="/pages/doctor.login.html"><button class="admin-login-btn">Admin Login</button></a>
+        <!-- <a href="/pages/doctor.login.html"><button class="admin-login-btn">Admin Login</button></a> -->
     </nav>
 
 
@@ -21,17 +21,19 @@
             <div class="signin-signup">
 
                 <!-- Sign In Form -->
-                <form action="#" class="sign-in-form">
+                <form action="#" id="loginForm"  class="sign-in-form">
                     <h2 class="title">Sign in</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Username" required>
+                        <input type="text" id="email" placeholder="Email" required />
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Password" required>
+                        <input type="password" id="password" placeholder="Password" required />
                     </div>
                     <button type="submit" class="btn">Sign In</button>
+                    <p id="message" style="text-align: center; margin-top: 10px;"></p>
+
             
                 </form>
 
@@ -40,16 +42,35 @@
                     <h2 class="title">Sign up</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="Username" required>
+                        <input type="text" name="firstName" placeholder="firstName" required />
+
+                    </div>
+
+                    <div class="input-field">
+                        <i class="fas fa-user"></i>
+                        <input type="text"  name="lastName" placeholder="lastName" required />
+
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" placeholder="Email" required>
+                        <input type="email" name="email" placeholder="email" required>
                     </div>
+
+                    <div class="input-field">
+                        <i class="fas fa-phone"></i>
+                        <input type="number" name="mobile"placeholder="mobile" required>
+                    </div>
+
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="Password" required>
+                        <input type="password" name="password" placeholder="password" required>
                     </div>
+                    <!-- OTP Input - Hidden by default -->
+                    <div class="input-field otp-field" style="display:none;">
+                        <i class="fas fa-key"></i>
+                        <input type="text" id="otp" placeholder="Enter OTP" />
+                    </div>
+
                     <button type="submit" class="btn">Sign Up</button>
                  
                 </form>
@@ -77,6 +98,13 @@
             </div>
         </div>
     </div>
+
+      <!-- jQuery -->
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+      <!-- your login logic -->
+      <script src="/js/loginAPI.js"></script>
+      <script src="/js/singupApi.js"></script>
 
     <script>
         const sign_in_btn = document.querySelector("#sign-in-btn");
