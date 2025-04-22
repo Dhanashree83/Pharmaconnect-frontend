@@ -1,8 +1,10 @@
 $(document).ready(function () {
     const signUpForm = $(".sign-up-form");
+    const signInForm = $(".sign-in-form");
     const otpField = $(".otp-field");
     let registeredEmail = null;
 
+    // --- SIGN UP & OTP FLOW ---
     signUpForm.on("submit", function (e) {
         e.preventDefault();
 
@@ -17,12 +19,12 @@ $(document).ready(function () {
                 success: function (res) {
                     if (res === "verfied") {
                         alert("✅ OTP verified successfully!");
-                        window.location.href = "/pages/dashboard.html"; // Redirect after verification
+                        window.location.href = "/pages/user-login.html"; // Redirect after verification
                     } else if (res === "invalid otp") {
                         alert("❌ Invalid OTP. Please try again.");
                     } else if (res === "already verified") {
                         alert("ℹ️ Already verified. Please login.");
-                        window.location.href = "/pages/login.html";
+                        window.location.href = "/pages/user-login.html"; // Redirect for already verified
                     } else {
                         alert("⚠️ Unexpected response. Try again.");
                     }
@@ -68,5 +70,45 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    // --- SIGN IN / LOGIN FLOW ---
+    signInForm.on("submit", function (e) {
+        e.preventDefault();
+
+        const email = $("#email").val().trim();
+        const password = $("#password").val().trim();
+
+        if (!email || !password) {
+            return alert("Please enter both email and password.");
+        }
+
+        const loginData = {
+            email: email,
+            password: password
+        };
+
+        $.ajax({
+            url: "http://localhost:8082/auth/login",
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(loginData),
+            success: function (res) {
+                if (res && res.userId && res.token) {
+                    // Store userId and token in localStorage
+                    localStorage.setItem("userId", res.userId);
+                    localStorage.setItem("token", res.token);
+                    localStorage.setItem("role", res.role); // Optional
+
+                    alert("✅ Login successful!");
+                    window.location.href = "/book-appointment.html"; // Redirect after login
+                } else {
+                    alert("❌ Login failed. Please check your credentials.");
+                }
+            },
+            error: function () {
+                alert("❌ Login request failed. Please try again later.");
+            }
+        });
     });
 });
