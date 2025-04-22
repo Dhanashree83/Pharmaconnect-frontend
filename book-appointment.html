@@ -22,7 +22,7 @@
            <a href="/pages/user-login.html"> <button>Create Account</button></a>
         </nav>
     </header>
-    <div class="appointment-container">
+    <!-- <div class="appointment-container">
         <h2>Book Your Appointment</h2>
         <p>Let us know how we can help you!</p>
         <form id="appointmentForm">
@@ -71,7 +71,55 @@
 
             <button type="submit">Confirm Appointment</button>
         </form>
-    </div>
+    </div> -->
+    <div class="appointment-container">
+        <h2>Book Your Appointment</h2>
+        <p>Let us know how we can help you!</p>
+        <form id="appointmentForm">
+          <label>Name</label>
+          <div class="name-container">
+            <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
+            <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
+          </div>
+      
+          <div class="contact-container">
+            <div>
+              <label>Phone Number</label>
+              <input type="text" id="phoneNumber" name="phoneNumber" placeholder="(000) 000-0000" required>
+            </div>
+            <div>
+              <label>E-mail</label>
+              <input type="email" id="email" name="email" placeholder="ex: myname@example.com" required>
+            </div>
+          </div>
+      
+          <div class="radio-group">
+            <label>First Time Visit?</label>
+            <div>
+              <input type="radio" name="firstTimeVisit" id="yes" value="true">
+              <label for="yes">Yes</label>
+            </div>
+            <div>
+              <input type="radio" name="firstTimeVisit" id="no" value="false">
+              <label for="no">No</label>
+            </div>
+          </div>
+      
+          <label for="date">Appointment Date:</label>
+          <input type="date" id="appointmentDate" name="appointmentDate" required>
+      
+          <label for="doctor">Select Doctor:</label>
+          <select id="doctor" name="doctorId" required>
+            <option value="">Choose a Doctor</option>
+            <option value="DRE3A69C5A">Dr. John Smith - Cardiologist</option>
+            <option value="DRE3A69C5B">Dr. Emily Davis - Dermatologist</option>
+            <option value="DRE3A69C5C">Dr. Mark Wilson - Orthopedic</option>
+          </select>
+      
+          <button type="submit">Confirm Appointment</button>
+        </form>
+      </div>
+      
     <footer class="footer">
         <div class="container">
             <div class="footer-sections">
@@ -118,6 +166,9 @@
     
     <!-- Font Awesome for icons -->
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/appointmentApi.js"></script>
     
     <script>
         document.getElementById("appointmentForm").addEventListener("submit", function(event) {
