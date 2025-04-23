@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patient Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 bg-blue-50 shadow-lg p-4 hidden md:block">
+        <h2 class="text-2xl font-bold text-blue-700 mb-8">PharmaConnect</h2>
+        <nav class="space-y-4">
+          <a href="/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
+          <a href="/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium"> Book an Appointments</a>
+          <a href="/userDashboard/pages/prescreption.html" class="block text-gray-700 hover:text-blue-500 font-medium">Prescriptions</a>
+          <a href="#" class="block text-gray-700 hover:text-blue-500 font-medium"> All Doctors</a>
+          <a href="#" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
+          <a href="/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
+         
+        </nav>
+      </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-6 overflow-auto">
+      <!-- Navbar -->
+      <div class="flex items-center justify-between bg-white p-4 rounded-xl shadow mb-6">
+        <div class="text-xl font-semibold text-blue-600">Welcome to PharmaConnect</div>
+        <div class="relative">
+          <button id="profileBtn" class="flex items-center space-x-2 focus:outline-none">
+            <span class="font-medium">Priya</span>
+          </button>
+          <div id="dropdownMenu" class="absolute right-0 mt-2 w-40 bg-white rounded-md shadow-lg border hidden">
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Welcome Banner -->
+      <div class="bg-blue-100 p-4 rounded-2xl shadow-md flex items-center justify-between">
+        <div>
+          <h2 class="text-xl font-semibold">Hello, Priya!</h2>
+          <p class="text-sm text-gray-600">Hope you're feeling better today. Here's a quick overview of your health dashboard.</p>
+        </div>
+      
+      </div>
+
+      <!-- Overview Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 my-6">
+        <div class="bg-white p-4 rounded-2xl shadow-md text-center border-l-4 border-blue-400">
+          <h3 class="text-lg font-semibold">Upcoming</h3>
+          <p class="text-2xl text-blue-500 font-bold">2</p>
+          <p class="text-sm text-gray-500">Appointments</p>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow-md text-center border-l-4 border-green-400">
+          <h3 class="text-lg font-semibold">Completed</h3>
+          <p class="text-2xl text-green-500 font-bold">5</p>
+          <p class="text-sm text-gray-500">Appointments</p>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow-md text-center border-l-4 border-purple-400">
+          <h3 class="text-lg font-semibold">Prescriptions</h3>
+          <p class="text-2xl text-purple-500 font-bold">4</p>
+          <p class="text-sm text-gray-500">Available</p>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow-md text-center border-l-4 border-red-400">
+          <h3 class="text-lg font-semibold">Medical Records</h3>
+          <p class="text-2xl text-red-500 font-bold">3</p>
+          <p class="text-sm text-gray-500">Uploaded</p>
+        </div>
+      </div>
+
+      <!-- Appointments Table -->
+      <div class="bg-white p-4 rounded-2xl shadow-md mb-6">
+        <h3 class="text-lg font-semibold mb-4">Your Upcoming Appointments</h3>
+        <div class="overflow-x-auto">
+          <table class="min-w-full text-sm">
+            <thead>
+              <tr class="bg-blue-50 text-left">
+                <th class="p-2">Doctor</th>
+                <th class="p-2">Specialization</th>
+                <th class="p-2">Date</th>
+                <th class="p-2">Time</th>
+                <th class="p-2">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b">
+                <td class="p-2">Dr. Anjali Mehta</td>
+                <td class="p-2">Cardiologist</td>
+                <td class="p-2">Apr 21, 2025</td>
+                <td class="p-2">10:00 AM</td>
+                <td class="p-2 text-green-500 font-semibold">Confirmed</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Recent Prescriptions -->
+      <div class="bg-white p-4 rounded-2xl shadow-md mb-6">
+        <h3 class="text-lg font-semibold mb-4">Recent Prescriptions</h3>
+        <ul class="space-y-3">
+          <li class="border-b pb-2">
+            <p class="font-semibold">Dr. Anjali Mehta</p>
+            <p class="text-sm text-gray-600">"Continue blood pressure medication twice daily" - Apr 15, 2025</p>
+            <button class="text-blue-500 text-sm mt-1 underline">Download PDF</button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Action Center -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <button class="bg-blue-500 text-white py-3 rounded-xl shadow-md hover:bg-blue-600 transition">Book New Appointment</button>
+        <button class="bg-green-500 text-white py-3 rounded-xl shadow-md hover:bg-green-600 transition">Upload Medical Record</button>
+        <button class="bg-purple-500 text-white py-3 rounded-xl shadow-md hover:bg-purple-600 transition">View Prescriptions</button>
+        <button class="bg-red-500 text-white py-3 rounded-xl shadow-md hover:bg-red-600 transition">Manage Profile</button>
+      </div>
+
+      <!-- Health Tips & Notifications -->
+      <div class="bg-yellow-100 p-4 rounded-2xl shadow-md">
+        <h4 class="text-md font-semibold mb-2">📢 Health Tips & Reminders</h4>
+        <ul class="list-disc pl-4 text-sm text-gray-700 space-y-1">
+          <li>Drink 2-3 liters of water daily 💧</li>
+          <li>Don’t forget your appointment on Apr 21, 2025 🗓️</li>
+          <li>Upload your latest blood report for better diagnosis 📄</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dropdown Toggle Script -->
+  <script>
+    const profileBtn = document.getElementById("profileBtn");
+    const dropdownMenu = document.getElementById("dropdownMenu");
+    profileBtn.addEventListener("click", () => {
+      dropdownMenu.classList.toggle("hidden");
+    });
+    window.addEventListener("click", (e) => {
+      if (!profileBtn.contains(e.target) && !dropdownMenu.contains(e.target)) {
+        dropdownMenu.classList.add("hidden");
+      }
+    });
+  </script>
+</body>
+</html>
