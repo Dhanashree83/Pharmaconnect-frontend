@@ -101,7 +101,7 @@ $(document).ready(function () {
                     localStorage.setItem("role", res.role); // Optional
 
                     alert("✅ Login successful!");
-                    window.location.href = "/book-appointment.html"; // Redirect after login
+                    window.location.href = "/dashboard/userDashboard/user-main.html"; // Redirect after login
                 } else {
                     alert("❌ Login failed. Please check your credentials.");
                 }
