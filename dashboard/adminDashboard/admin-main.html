@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <nav class="flex justify-between items-center bg-blue-600 text-white px-6 py-4">
+        <!-- Logo -->
+        <div class="text-xl font-bold">PharmaConnect</div>
+    
+        <!-- Profile Dropdown -->
+        <div class="relative inline-block text-left">
+          <button id="dropdownButton" class="flex items-center gap-2 focus:outline-none">
+            
+            <span class="font-medium">Dhanashree Thakre</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-40 bg-white text-black rounded-md shadow-lg z-10">
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Settings</a>
+            <a href="#" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+          </div>
+        </div>
+      </nav>
+
+
+      <div class="sidebar-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <a href="#"><i class="bi bi-calendar-check"></i>Appointments</a>
+          <a href="#"><i class="bi bi-person"></i>All Users</a>
+          <a href="#"><i class="bi bi-person-badge"></i>All Doctors</a>
+          <a href="#"><i class="bi bi-person-badge"></i>Upload Medicine</a>
+          <a href="#"><i class="bi bi-capsule"></i>Pharmacy</a>
+          <a href="#"><i class="bi bi-hospital"></i>Hospital</a>
+          <a href="#"><i class="bi bi-plus-circle"></i>Add Doctor</a>
+        </div>
+    
+
+
+            <!-- Content Area -->
+    <main class="flex-1 p-8">
+        <h1 class="text-2xl font-semibold mb-8">Welcome to Your Dashboard <em>Admin</em></h1>
+  
+        <div class="container">
+          <div class="cards">
+            <div class="card blue">
+              <h3>Total Patients</h3>
+              <p>28</p>
+            </div>
+            <div class="card red">
+              <h3>Appointments</h3>
+              <p>458</p>
+            </div>
+            <div class="card orange">
+              <h3>Doctors</h3>
+              <p>10</p>
+            </div>
+          </div>
+      
+         
+      
+          <div class="chart-row">
+              <div class="chart-container">
+                <h3>Appointments Over Time</h3>
+                <canvas id="appointmentsChart"></canvas>
+              </div>
+            
+              <div class="chart-container">
+                <h3>Doctor - Patients</h3>
+                <canvas id="doctorPatientsChart"></canvas>
+              </div>
+            </div>
+            
+        
+      </main>
+    </div>
+  
+
+<script src="js/script.js"></script>
+
+
+</body>
+</html>
