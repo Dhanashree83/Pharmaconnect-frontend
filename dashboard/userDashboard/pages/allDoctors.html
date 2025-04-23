@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/dashboard/userDashboard/styles/alldoctors.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h3>Specialties</h3>
+            <span class="filter-item" onclick="filterDoctors('all')">All Doctors</span>
+            <span class="filter-item" onclick="filterDoctors('Dermatologist')">Dermatologist</span>
+            <span class="filter-item" onclick="filterDoctors('Cardiologist')">Cardiologist</span>
+            <span class="filter-item" onclick="filterDoctors('Pediatrician')">Pediatrician</span>
+            <span class="filter-item" onclick="filterDoctors('Orthopedic')">Orthopedic</span>
+        </div>
+        <div class="content" id="doctors-list">
+            <div class="doctor-card" data-specialty="Dermatologist">
+                <h4>Dr. Alice Johnson</h4>
+                <p>MD, Dermatology</p>
+                <p>Experience: 10 years</p>
+                <p>Location: New York City, NY</p>
+            </div>
+            <div class="doctor-card" data-specialty="Cardiologist">
+                <h4>Dr. Robert Smith</h4>
+                <p>MD, Cardiology</p>
+                <p>Experience: 15 years</p>
+                <p>Location: Los Angeles, CA</p>
+            </div>
+            <div class="doctor-card" data-specialty="Pediatrician">
+                <h4>Dr. Emily Brown</h4>
+                <p>MD, Pediatrics</p>
+                <p>Experience: 8 years</p>
+                <p>Location: Chicago, IL</p>
+            </div>
+            <div class="doctor-card" data-specialty="Orthopedic">
+                <h4>Dr. James Wilson</h4>
+                <p>MD, Orthopedics</p>
+                <p>Experience: 12 years</p>
+                <p>Location: Houston, TX</p>
+            </div>
+            <div class="doctor-card" data-specialty="Dermatologist">
+                <h4>Dr. Sarah Miller</h4>
+                <p>MD, Dermatology</p>
+                <p>Experience: 9 years</p>
+                <p>Location: Phoenix, AZ</p>
+            </div>
+            <div class="doctor-card" data-specialty="Cardiologist">
+                <h4>Dr. William Davis</h4>
+                <p>MD, Cardiology</p>
+                <p>Experience: 20 years</p>
+                <p>Location: Philadelphia, PA</p>
+            </div>
+            <div class="doctor-card" data-specialty="Pediatrician">
+                <h4>Dr. Olivia Taylor</h4>
+                <p>MD, Pediatrics</p>
+                <p>Experience: 7 years</p>
+                <p>Location: San Antonio, TX</p>
+            </div>
+            <div class="doctor-card" data-specialty="Orthopedic">
+                <h4>Dr. Henry Moore</h4>
+                <p>MD, Orthopedics</p>
+                <p>Experience: 11 years</p>
+                <p>Location: San Diego, CA</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
