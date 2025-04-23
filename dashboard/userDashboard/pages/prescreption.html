@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prescription Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/userDashboard/styles/prescreption.css">
+ 
+</head>
+<div class="flex h-screen">
+    <!-- Sidebar -->
+    <div class="w-64 bg-blue-50 shadow-lg p-4 hidden md:block">
+        <h2 class="text-2xl font-bold text-blue-700 mb-8">PharmaConnect</h2>
+        <nav class="space-y-4">
+          <a href="/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
+          <a href="/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium"> Book an Appointments</a>
+          <a href="/userDashboard/pages/prescreption.html" class="block text-gray-700 hover:text-blue-500 font-medium">Prescriptions</a>
+          <a href="#" class="block text-gray-700 hover:text-blue-500 font-medium"> All Doctors</a>
+          <a href="#" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
+          <a href="/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
+         
+        </nav>
+      </div>
+  <div class="main-content">
+    <h1>Prescriptions</h1>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search by doctor or diagnosis..." />
+    </div>
+    <table id="prescriptionTable">
+      <thead>
+        <tr>
+          <th>Doctor</th>
+          <th>Date</th>
+          <th>Diagnosis</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Dr. Smith</td>
+          <td>2025-04-20</td>
+          <td>Flu & Cold</td>
+          <td>
+            <button onclick="viewDetails('Dr. Smith', '2025-04-20', 'Flu & Cold')">View</button>
+      
+          </td>
+        </tr>
+        <tr>
+          <td>Dr. Patel</td>
+          <td>2025-03-15</td>
+          <td>Hypertension</td>
+          <td>
+            <button onclick="viewDetails('Dr. Patel', '2025-03-15', 'Hypertension')">View</button>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="prescriptionModal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h3>Prescription Details</h3>
+      <p><strong>Patient Name:</strong> John Doe</p>
+      <p id="modalDoctor"></p>
+      <p><strong>Date of Visit:</strong> <span id="modalDate"></span></p>
+      <p><strong>Symptoms:</strong> Fever, Sore throat</p>
+      <p><strong>Diagnosis:</strong> <span id="modalDiagnosis"></span></p>
+      <p><strong>Medicines:</strong></p>
+      <ul>
+        <li>Paracetamol 500mg - 3 times a day - 5 days</li>
+        <li>Cough Syrup - 2 times a day - 7 days</li>
+      </ul>
+      <p><strong>Doctor’s Notes:</strong> Rest well and stay hydrated.</p>
+    </div>
+  </div>
+<script src="/userDashboard/js/prescreption.js"></script>
+</body>
+</html>
