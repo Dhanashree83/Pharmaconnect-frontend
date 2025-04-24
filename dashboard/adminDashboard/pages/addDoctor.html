@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/dashboard/adminDashboard/styles/addDoctor.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <nav class="flex justify-between items-center bg-blue-600 text-white px-6 py-4">
+        <!-- Logo -->
+        <div class="text-xl font-bold">PharmaConnect</div>
+      </nav>
+
+
+      <div class="sidebar-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <a href="#"><i class="bi bi-calendar-check"></i>Appointments</a>
+          <a href="/dashboard/adminDashboard/pages/allUser.html"><i class="bi bi-person"></i>All Users</a>
+          <a href="/dashboard/adminDashboard/pages/uploadMedicine.html"><i class="bi bi-person-badge"></i>Upload Medicine</a>
+          <a href="/dashboard/adminDashboard/pages/pharmacy.html"><i class="bi bi-capsule"></i>Pharmacy</a>
+          <a href="/dashboard/adminDashboard/pages/hospital.html"><i class="bi bi-hospital"></i>Hospital</a>
+          <a href="/dashboard/adminDashboard/pages/addDoctor.html"><i class="bi bi-plus-circle"></i>Add Doctor</a>
+        </div>
+    
+  
+ 
+        <div class="container">
+          <header>Resgitration form</header>
+          <p>Resgister as a doctor</p>
+           <form action="#">
+              <div class="form-first">
+                  <div class="details">
+                      <span class="title">Personal Information</span>
+      
+                      <div class="fields">
+                          <div class="input-box">
+                              <label for="name">Full Name</label>
+                              <input type="text" placeholder="Enter your Name" required>
+                          </div>
+      
+                          <div class="input-box">
+                              <label for="">Address</label>
+                             <textarea name="" id=""></textarea>
+                          </div>
+      
+                          <div class="input-box">
+                              <label for="name">Date of birth</label>
+                              <input type="email" placeholder=" Enter your DOB" required>
+                          </div>
+              
+                          <div class="input-box">
+                              <label for="">Nationality:</label>
+                              <input type="text" placeholder="Nationality">
+                          </div>
+      
+                          <div class="input-box">
+                              <label for="">Street:</label>
+                              <textarea name="" id=""></textarea>
+                          </div>
+              
+                          <div class="input-box">
+                              <label for="">City:</label>
+                              <input type="text" placeholder="Refrence">
+                          </div>
+      
+                          <div class="input-box">
+                              <label for="">Postal Code:</label>
+                              <input type="text" placeholder="Area of intrest">
+                          </div>
+              
+                          <div class="input-box">
+                              <label for="">State:</label>
+                              <input type="text" placeholder="Hobbies">
+                          </div>
+                          
+              
+                      </div>
+                  </div>
+      
+                  <div class="details-E">
+                      <span class="title">Contact Information</span>
+      
+                      <div class="fields">
+                          
+                          
+                          <div class="input-box">
+                              <label for="">Email:</label>
+                              <input type="email" placeholder="Enter your email">
+                          </div>
+                          <div class="input-box">
+                              <label for="">Phone Number:</label>
+                              <input type="text" placeholder="Enter your Number">
+                          </div>
+              
+                          <div class="input-box">
+                              <label for="">Consultation Fees:</label>
+                              <input type="text" placeholder="Enter Fees">
+                          </div>
+      
+                          <div class="input-box">
+                              <label for="">Available Days/Hours:</label>
+                              <input type="text" placeholder="Enter here">
+                          </div>  
+                             
+                          </div>
+      
+                          <div class="details-E">
+                              <span class="title">Educational Background</span>
+              
+                              <div class="fields">
+                                  
+                                  
+                                  <div class="input-box">
+                                      <label for="">Medical College:</label>
+                                      <input type="email" placeholder="Enter your College">
+                                  </div>
+                      
+                                  <div class="input-box">
+                                      <label for="">Degree Obtian:</label>
+                                      <input type="text" placeholder="Enter Degree">
+                                  </div>
+                      
+                                  <div class="input-box">
+                                      <label for="">Additonal certificate:</label>
+                                      <input type="text" placeholder="Enter here">
+                                  </div>
+                      
+                                  <div class="input-box">
+                                      <label for="">Year of Passing:</label>
+                                      <input type="text" placeholder="Year of Passing">
+                                  </div>
+                  
+                                  <div class="input-box">
+                                      <label for="">Location:</label>
+                                      <input type="text" placeholder=" ">
+                                  </div>
+                                  </div>
+                          <div class="details-C"></div>
+                          
+                          <span class="title">Work Experience</span>
+                          <div class="fields">
+                          <div class="input-box">
+                              <label for="">Previous workplace:</label>
+                              <input type="text" placeholder=" enter here ">
+                          </div>
+              
+                          <div class="input-box">
+                              <label for="">Hospital/Clinic Name:</label>
+                              <input type="text" placeholder=" Enter here">
+                          </div>
+              
+                          <div class="input-box">
+                              <label for="">Poistion:</label>
+                              <input type="text" placeholder=" Enter your Poistion">
+                          </div>
+              
+                          <div class="input-box">
+                              <label for="">Year of experience:</label>
+                              <input type="text" placeholder=" Enter here ">
+                          </div>
+              
+                          <div class="input-box">
+                              <label for="">Duration:</label>
+                              <input type="text" placeholder=" ">
+                          </div>
+              
+                          <div class="input-box">
+                              <label for="">Responsiblity:</label>
+                              <input type="text" placeholder=" ">
+                          </div> 
+      
+                      
+                  </div>
+                  <div class="buttons">
+                      <button class="nextBtn">
+                          <span class="btnText">Submit</span>
+                          <i class="uil uil-navigator"></i>
+                      </button>
+      
+                        
+                  </div>
+              </div>
+           </form>
+         </div>
+      
+          <script src="/dashboard/adminDashboard/js/allDoctor.js"></script>
+
+
+
+</body>
+</html>

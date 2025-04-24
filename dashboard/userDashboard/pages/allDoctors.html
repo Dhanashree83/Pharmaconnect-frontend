@@ -1,71 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/dashboard/userDashboard/styles/alldoctors.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>All Doctors - PharmaConnect</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .filter-item {
+      cursor: pointer;
+      padding: 6px 12px;
+      background-color: #007bff;
+      color: white;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .filter-item:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
-<body>
-    <div class="container">
-        <div class="sidebar">
-            <h3>Specialties</h3>
-            <span class="filter-item" onclick="filterDoctors('all')">All Doctors</span>
-            <span class="filter-item" onclick="filterDoctors('Dermatologist')">Dermatologist</span>
-            <span class="filter-item" onclick="filterDoctors('Cardiologist')">Cardiologist</span>
-            <span class="filter-item" onclick="filterDoctors('Pediatrician')">Pediatrician</span>
-            <span class="filter-item" onclick="filterDoctors('Orthopedic')">Orthopedic</span>
-        </div>
-        <div class="content" id="doctors-list">
-            <div class="doctor-card" data-specialty="Dermatologist">
-                <h4>Dr. Alice Johnson</h4>
-                <p>MD, Dermatology</p>
-                <p>Experience: 10 years</p>
-                <p>Location: New York City, NY</p>
-            </div>
-            <div class="doctor-card" data-specialty="Cardiologist">
-                <h4>Dr. Robert Smith</h4>
-                <p>MD, Cardiology</p>
-                <p>Experience: 15 years</p>
-                <p>Location: Los Angeles, CA</p>
-            </div>
-            <div class="doctor-card" data-specialty="Pediatrician">
-                <h4>Dr. Emily Brown</h4>
-                <p>MD, Pediatrics</p>
-                <p>Experience: 8 years</p>
-                <p>Location: Chicago, IL</p>
-            </div>
-            <div class="doctor-card" data-specialty="Orthopedic">
-                <h4>Dr. James Wilson</h4>
-                <p>MD, Orthopedics</p>
-                <p>Experience: 12 years</p>
-                <p>Location: Houston, TX</p>
-            </div>
-            <div class="doctor-card" data-specialty="Dermatologist">
-                <h4>Dr. Sarah Miller</h4>
-                <p>MD, Dermatology</p>
-                <p>Experience: 9 years</p>
-                <p>Location: Phoenix, AZ</p>
-            </div>
-            <div class="doctor-card" data-specialty="Cardiologist">
-                <h4>Dr. William Davis</h4>
-                <p>MD, Cardiology</p>
-                <p>Experience: 20 years</p>
-                <p>Location: Philadelphia, PA</p>
-            </div>
-            <div class="doctor-card" data-specialty="Pediatrician">
-                <h4>Dr. Olivia Taylor</h4>
-                <p>MD, Pediatrics</p>
-                <p>Experience: 7 years</p>
-                <p>Location: San Antonio, TX</p>
-            </div>
-            <div class="doctor-card" data-specialty="Orthopedic">
-                <h4>Dr. Henry Moore</h4>
-                <p>MD, Orthopedics</p>
-                <p>Experience: 11 years</p>
-                <p>Location: San Diego, CA</p>
-            </div>
-        </div>
+<body class="bg-gray-100 flex">
+
+  <!-- Sidebar -->
+  <aside class="w-64 bg-white shadow-lg h-screen p-4 hidden md:block fixed top-0 left-0">
+    <h2 class="text-2xl font-bold text-blue-700 mb-8">PharmaConnect</h2>
+    <nav class="space-y-4">
+      <a href="/dashboard/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
+      <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">Book an Appointment</a>
+      <a href="/dashboard/userDashboard/pages/prescreption.html" class="block text-gray-700 hover:text-blue-500 font-medium">Prescriptions</a>
+      <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block text-blue-600 font-bold">All Doctors</a>
+      <a href="#" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
+      <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="ml-0 md:ml-64 flex-1 p-6">
+    
+    <!-- Filter Bar -->
+    <div class="mb-6">
+      <h3 class="text-xl font-semibold text-gray-800 mb-4">Filter by Specialty</h3>
+      <div class="flex flex-wrap gap-3">
+        <div class="filter-item" onclick="filterDoctors('all')">All Doctors</div>
+        <div class="filter-item" onclick="filterDoctors('Dermatologist')">Dermatologist</div>
+        <div class="filter-item" onclick="filterDoctors('Cardiologist')">Cardiologist</div>
+        <div class="filter-item" onclick="filterDoctors('Pediatrician')">Pediatrician</div>
+        <div class="filter-item" onclick="filterDoctors('Orthopedic')">Orthopedic</div>
+      </div>
     </div>
+
+    <!-- Doctors List -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="doctors-list">
+      <!-- Doctor cards (sample) -->
+      <div class="doctor-card" data-specialty="Dermatologist">
+        <div class="bg-white p-4 shadow rounded text-center">
+          <h4 class="text-lg font-bold text-blue-700">Dr. Alice Johnson</h4>
+          <p>MD, Dermatology</p>
+          <p>Experience: 10 years</p>
+          <p>Location: New York City, NY</p>
+        </div>
+      </div>
+      <div class="doctor-card" data-specialty="Cardiologist">
+        <div class="bg-white p-4 shadow rounded text-center">
+          <h4 class="text-lg font-bold text-blue-700">Dr. Robert Smith</h4>
+          <p>MD, Cardiology</p>
+          <p>Experience: 15 years</p>
+          <p>Location: Los Angeles, CA</p>
+        </div>
+      </div>
+      <div class="doctor-card" data-specialty="Pediatrician">
+        <div class="bg-white p-4 shadow rounded text-center">
+          <h4 class="text-lg font-bold text-blue-700">Dr. Emily Brown</h4>
+          <p>MD, Pediatrics</p>
+          <p>Experience: 8 years</p>
+          <p>Location: Chicago, IL</p>
+        </div>
+      </div>
+      <div class="doctor-card" data-specialty="Orthopedic">
+        <div class="bg-white p-4 shadow rounded text-center">
+          <h4 class="text-lg font-bold text-blue-700">Dr. James Wilson</h4>
+          <p>MD, Orthopedics</p>
+          <p>Experience: 12 years</p>
+          <p>Location: Houston, TX</p>
+        </div>
+      </div>
+      <div class="doctor-card" data-specialty="Dermatologist">
+        <div class="bg-white p-4 shadow rounded text-center">
+          <h4 class="text-lg font-bold text-blue-700">Dr. Sarah Miller</h4>
+          <p>MD, Dermatology</p>
+          <p>Experience: 9 years</p>
+          <p>Location: Phoenix, AZ</p>
+        </div>
+      </div>
+      <div class="doctor-card" data-specialty="Cardiologist">
+        <div class="bg-white p-4 shadow rounded text-center">
+          <h4 class="text-lg font-bold text-blue-700">Dr. William Davis</h4>
+          <p>MD, Cardiology</p>
+          <p>Experience: 20 years</p>
+          <p>Location: Philadelphia, PA</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Filter Function -->
+  <script>
+    function filterDoctors(specialty) {
+      const doctors = document.querySelectorAll('.doctor-card');
+      doctors.forEach(doc => {
+        doc.style.display = (specialty === 'all' || doc.dataset.specialty === specialty) ? 'block' : 'none';
+      });
+    }
+  </script>
+
 </body>
 </html>

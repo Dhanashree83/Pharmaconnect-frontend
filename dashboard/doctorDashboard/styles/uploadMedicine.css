@@ -1,0 +1,181 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f9ff;
+    color: #1a1a1a;
+  }
+
+  .sidebar-container {
+    display: flex;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #e6f0ff;
+    padding: 20px;
+    /* position: fixed; */
+  }
+
+  .sidebar h2 {
+    margin-bottom: 30px;
+    color: #004aad;
+  }
+
+  .sidebar a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #004aad;
+    margin: 15px 0;
+    font-weight: 500;
+    gap: 10px;
+    padding: 12px 16px;
+  }
+
+  .sidebar a i {
+    margin-right: 10px;
+  }
+
+  .sidebar a:hover {
+    background-color: #cde0fd;
+    color: #0056b3;
+    cursor: pointer;
+  }
+
+
+  /* upload medicine css goes here */
+  
+  .medicine-container {
+    /* max-width: 400px; */
+    width: 600px;
+    background: #fff;
+    margin: 30px auto;
+    padding: 30px 40px;
+    border-radius: 15px;
+    height: 500px;
+    overflow: scroll;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-heading {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 24px;
+  }
+  
+  .medicine-form .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .medicine-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #34495e;
+    font-weight: 600;
+  }
+  
+  .medicine-form input,
+  .medicine-form textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.3s;
+  }
+  
+  .medicine-form input:focus,
+  .medicine-form textarea:focus {
+    border-color: #2980b9;
+    outline: none;
+  }
+  
+  .submit-btn {
+    width: 100%;
+    background-color: #2980b9;
+    color: #fff;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .submit-btn:hover {
+    background-color: #21618c;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .medicine-container {
+      padding: 20px;
+    }
+  
+    .form-heading {
+      font-size: 20px;
+    }
+  }
+  
+
+  /* toast */
+  .toast {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    padding: 12px;
+    position: fixed;
+    z-index: 1000;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%);
+    font-size: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  .toast.show {
+    visibility: visible;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+  
+  .toast.success {
+    background-color: #27ae60;
+  }
+  
+  .toast.error {
+    background-color: #e74c3c;
+  }
+  
+  @keyframes fadein {
+    from {
+      bottom: 0;
+      opacity: 0;
+    }
+    to {
+      bottom: 30px;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeout {
+    from {
+      bottom: 30px;
+      opacity: 1;
+    }
+    to {
+      bottom: 0;
+      opacity: 0;
+    }
+  }
+  

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PharmaConnect Pharmacy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .hidden {
+      display: none;
+    }
+    .flex-center {
+      display: flex;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <!-- Sidebar -->
+  <div class="w-64 bg-blue-50 shadow-lg p-4 hidden md:block fixed h-full">
+    <h2 class="text-2xl font-bold text-blue-700 mb-8">PharmaConnect</h2>
+    <nav class="space-y-4">
+      <a href="/dashboard/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
+      <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">Book an Appointment</a>
+      <a href="/dashboard/userDashboard/pages/prescreption.html" class="block text-gray-700 hover:text-blue-500 font-medium">Prescriptions</a>
+      <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block text-gray-700 hover:text-blue-500 font-medium">All Doctors</a>
+      <a href="/dashboard/userDashboard/pages/pharmacy.html" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
+      <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="p-6 md:ml-64">
+    <h1 class="text-3xl font-semibold mb-6">Available Medicines</h1>
+
+    <!-- Search & Filter -->
+    <div class="mb-6">
+      <input type="text" id="searchInput" placeholder="Search medicines..." class="border p-2 rounded w-full md:w-1/2" />
+      <div class="flex flex-wrap gap-4 mt-2">
+        <select id="categoryFilter" class="border p-2 rounded">
+          <option value="">All Categories</option>
+          <option value="Antibiotics">Antibiotics</option>
+          <option value="Painkillers">Painkillers</option>
+        </select>
+        <select id="priceSort" class="border p-2 rounded">
+          <option value="">Sort by Price</option>
+          <option value="asc">Low to High</option>
+          <option value="desc">High to Low</option>
+        </select>
+        <label><input type="checkbox" id="stockFilter" class="mr-1" /> In-stock only</label>
+      </div>
+    </div>
+
+    <!-- Medicines List -->
+    <div id="medicineList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Medicine cards will be injected here -->
+    </div>
+
+    <!-- My Orders -->
+    <h2 class="text-2xl font-semibold mt-12 mb-4">My Orders</h2>
+    <div id="orderList" class="space-y-4">
+      <!-- Orders will be injected here -->
+    </div>
+
+    <!-- Cart & Checkout -->
+    <h2 class="text-2xl font-semibold mt-12 mb-4">Cart</h2>
+    <div class="border p-4 rounded shadow">
+      <ul id="cartItems"></ul>
+      <p id="totalPrice" class="font-bold mt-2">Total: ₹0</p>
+      <input type="text" placeholder="Apply Coupon Code" class="border p-2 rounded mt-2 w-full md:w-1/3" />
+      <div class="mt-4">
+        <input type="text" placeholder="Delivery Address" class="border p-2 rounded w-full mb-2" />
+        <input type="text" placeholder="Contact Number" class="border p-2 rounded w-full mb-4" />
+        <button class="bg-green-600 text-white px-4 py-2 rounded">Confirm and Pay</button>
+      </div>
+    </div>
+
+    <!-- Notifications -->
+    <h2 class="text-2xl font-semibold mt-12 mb-4">Notifications</h2>
+    <ul class="list-disc pl-6">
+      <li>Your medicine has been shipped!</li>
+      <li>Don't forget to reorder monthly medicines.</li>
+    </ul>
+
+    <!-- FAQs / Help -->
+    <h2 class="text-2xl font-semibold mt-12 mb-4">FAQs / Help</h2>
+    <div class="space-y-2">
+      <p><strong>Can I return medicines?</strong> Only sealed and unused medicines can be returned within 7 days.</p>
+      <p><strong>Delivery timeframes?</strong> Delivery takes 2-4 business days.</p>
+      <button class="bg-blue-500 text-white px-4 py-2 rounded">Contact Support</button>
+    </div>
+  </div>
+
+  <!-- Removed Medicine Modal -->
+
+  <script>
+    const medicines = [
+      {
+        name: "Paracetamol 500mg",
+        description: "Pain reliever and fever reducer",
+        category: "Painkillers",
+        price: 20,
+        inStock: true,
+        sideEffects: "May cause nausea or allergic reactions.",
+        brand: "MediLife"
+      },
+      {
+        name: "Amoxicillin 250mg",
+        description: "Used to treat infections.",
+        category: "Antibiotics",
+        price: 50,
+        inStock: true,
+        sideEffects: "Possible diarrhea or rash.",
+        brand: "HealWell"
+      }
+    ];
+
+    let cart = [];
+
+    function renderMedicines() {
+      const list = document.getElementById("medicineList");
+      list.innerHTML = "";
+      medicines.forEach((med, index) => {
+        const card = document.createElement("div");
+        card.className = "border p-4 rounded shadow";
+        card.innerHTML = `
+          <h2 class="text-xl font-bold">${med.name}</h2>
+          <p class="text-gray-600">${med.description}</p>
+          <p class="mt-2">Category: ${med.category}</p>
+          <p class="font-semibold">Price: ₹${med.price} / Strip</p>
+          <div class="flex items-center gap-2 mt-2">
+            <input type="number" min="1" value="1" id="qty-${index}" class="border p-1 w-16 text-center rounded" />
+            <button onclick="addToCart(${index})" class="bg-blue-600 text-white px-3 py-1 rounded">Add to Cart</button>
+          </div>
+        `;
+        list.appendChild(card);
+      });
+    }
+
+    function addToCart(index) {
+      const qty = document.getElementById(`qty-${index}`).value;
+      cart.push({ ...medicines[index], quantity: parseInt(qty) });
+      updateCart();
+    }
+
+    function updateCart() {
+      const list = document.getElementById("cartItems");
+      const total = document.getElementById("totalPrice");
+      list.innerHTML = "";
+      let sum = 0;
+      cart.forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = `${item.name} x ${item.quantity} - ₹${item.price * item.quantity}`;
+        list.appendChild(li);
+        sum += item.price * item.quantity;
+      });
+      total.textContent = `Total: ₹${sum}`;
+    }
+
+    renderMedicines();
+  </script>
+</body>
+</html>
