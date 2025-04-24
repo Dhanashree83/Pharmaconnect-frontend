@@ -33,7 +33,7 @@
 
                     <div class="input-box">
                         <label for="name">Date of birth</label>
-                        <input type="email" placeholder=" Enter your DOB" required>
+                        <input type="date" placeholder=" Enter your DOB" required>
                     </div>
         
                     <div class="input-box">
@@ -53,12 +53,12 @@
 
                     <div class="input-box">
                         <label for="">Postal Code:</label>
-                        <input type="text" placeholder="Area of intrest">
+                        <input type="number" placeholder="">
                     </div>
         
                     <div class="input-box">
                         <label for="">State:</label>
-                        <input type="text" placeholder="Hobbies">
+                        <input type="text" placeholder=" ">
                     </div>
                     
         
@@ -75,14 +75,15 @@
                         <label for="">Email:</label>
                         <input type="email" placeholder="Enter your email">
                     </div>
+     
                     <div class="input-box">
                         <label for="">Phone Number:</label>
-                        <input type="text" placeholder="Enter your Number">
+                        <input type="number" placeholder="Enter your Number">
                     </div>
         
                     <div class="input-box">
                         <label for="">Consultation Fees:</label>
-                        <input type="text" placeholder="Enter Fees">
+                        <input type="number" placeholder="Enter Fees">
                     </div>
 
                     <div class="input-box">
@@ -100,7 +101,7 @@
                             
                             <div class="input-box">
                                 <label for="">Medical College:</label>
-                                <input type="email" placeholder="Enter your College">
+                                <input type="text" placeholder="Enter your College">
                             </div>
                 
                             <div class="input-box">
@@ -115,7 +116,7 @@
                 
                             <div class="input-box">
                                 <label for="">Year of Passing:</label>
-                                <input type="text" placeholder="Year of Passing">
+                                <input type="number" placeholder="Year of Passing">
                             </div>
             
                             <div class="input-box">
@@ -144,24 +145,30 @@
         
                     <div class="input-box">
                         <label for="">Year of experience:</label>
-                        <input type="text" placeholder=" Enter here ">
+                        <input type="number" placeholder=" Enter here ">
                     </div>
         
                     <div class="input-box">
                         <label for="">Duration:</label>
-                        <input type="text" placeholder=" ">
+                        <input type="number" placeholder=" ">
                     </div>
         
                     <div class="input-box">
                         <label for="">Responsiblity:</label>
                         <input type="text" placeholder=" ">
                     </div> 
+<!-- Add this near your form submit button -->
+<div id="otp-section" style="display:none; margin-top: 20px;">
+    <label for="otp">Enter OTP sent to your email:</label>
+    <input type="text" id="otp" placeholder="Enter OTP">
+    <button type="button" id="verifyOtpBtn">Verify OTP</button>
+</div>
 
                 
             </div>
             <div class="buttons">
                 <button class="nextBtn">
-                    <span class="btnText">Submit</span>
+                    <span class="Text">Submit</span>
                     <i class="uil uil-navigator"></i>
                 </button>
 
@@ -170,6 +177,9 @@
         </div>
      </form>
    </div>
+
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/doctorServiceApi.js"></script>
 
 </body>
 </html>
