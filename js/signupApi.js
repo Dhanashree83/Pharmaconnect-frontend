@@ -94,14 +94,28 @@ $(document).ready(function () {
             contentType: "application/json",
             data: JSON.stringify(loginData),
             success: function (res) {
-                if (res && res.userId && res.token) {
-                    // Store userId and token in localStorage
+                if (res && res.userId && res.token && res.role) {
+                    // Store userId, token, and role in localStorage
                     localStorage.setItem("userId", res.userId);
                     localStorage.setItem("token", res.token);
-                    localStorage.setItem("role", res.role); // Optional
+                    localStorage.setItem("role", res.role);
 
                     alert("✅ Login successful!");
-                    window.location.href = "/dashboard/userDashboard/user-main.html"; // Redirect after login
+
+                    // Role-based redirect
+                    const roleRedirectMap = {
+                        ADMIN: "/dashboard/adminDashboard/admin-main.html",
+                        PATIENT: "/dashboard/userDashboard/user-main.html",
+                        DOCTOR: "/dashboard/doctorDashboard/doctor-main.html"
+                    };
+
+                    const redirectUrl = roleRedirectMap[res.role];
+
+                    if (redirectUrl) {
+                        window.location.href = redirectUrl;
+                    } else {
+                        alert("❌ Unknown role. Cannot redirect.");
+                    }
                 } else {
                     alert("❌ Login failed. Please check your credentials.");
                 }
