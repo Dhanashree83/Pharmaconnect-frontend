@@ -17,7 +17,7 @@ $(document).ready(function () {
                 url: `http://localhost:8082/api/patient/verify?email=${encodeURIComponent(registeredEmail)}&otp=${otp}`,
                 method: "POST",
                 success: function (res) {
-                    if (res === "verfied") {
+                    if (res === "verified") {
                         alert("✅ OTP verified successfully!");
                         window.location.href = "/pages/user-login.html"; // Redirect after verification
                     } else if (res === "invalid otp") {
