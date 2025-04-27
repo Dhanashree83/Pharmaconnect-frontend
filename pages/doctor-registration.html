@@ -187,25 +187,25 @@
       </div>
     </form>
   </div>
+<!-- OTP Verification Section (Hidden initially) -->
+<div id="otpSection" style="display: none;" class="container-otp">
+  <div style="max-width: 400px; margin: 50px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+    
+    <h2 style="margin-bottom: 10px; color: #4B0082;">OTP Verification</h2>
+    <p style="margin-bottom: 20px; color: #555;">Please enter the OTP sent to your email to complete registration.</p>
 
-  <!-- OTP Verification Section (Hidden initially) -->
-  <div id="otpSection" style="display: none; margin-top: 20px;" class="container">
-    <header>OTP Verification</header>
-    <p>Please enter the OTP sent to your email to complete registration.</p>
-
-    <div class="input-box">
-      <label>Enter OTP</label>
-      <input type="text" id="otpInput" placeholder="Enter 6-digit OTP">
+    <div style="margin-bottom: 20px;">
+      <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px;">
     </div>
 
-    <div class="buttons" style="margin-top: 10px;">
-      <button type="button" class="nextBtn" id="verifyOtpBtn">
-        <span class="Text">Verify OTP</span>
-      </button>
-    </div>
+    <button type="button" id="verifyOtpBtn" style="width: 100%; padding: 12px; background: #4B0082; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: background 0.3s;">
+      Verify OTP
+    </button>
+
   </div>
+</div>
 
   <script src="/js/doctorServiceApi.js"></script>
-  <script src="/js/doctor.registration.js"></script>
+
 </body>
 </html>
