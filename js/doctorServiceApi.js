@@ -115,7 +115,7 @@ $(document).ready(function () {
       success: function (response) {
         if (response === 'verified') {
           alert('OTP Verified! Your registration is complete.');
-          window.location.href = '/login.html'; // Redirect to login or next step
+          window.location.href = "/pages/user-login.html";
         } else if (response === 'invalid otp') {
           alert('Invalid OTP. Please try again.');
         } else if (response === 'already verified') {
