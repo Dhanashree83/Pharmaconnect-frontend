@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Medicine List</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <h2>Medicine List</h2>
+  <table id="medicineTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Dosage</th>
+        <th>Manufacturer</th>
+        <th>Price</th>
+        <th>Doctor ID</th>
+        <th>Approved</th>
+        <th>Available</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Data will be injected here -->
+    </tbody>
+  </table>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+  fetch("http://localhost:8082/api/medicine/all") // Replace with your actual API endpoint
+    .then(response => response.json())
+    .then(data => {
+      if (!data || !Array.isArray(data.content)) {
+        console.error("Invalid data format", data);
+        return;
+      }
+
+      const tableBody = document.querySelector("#medicineTable tbody");
+      tableBody.innerHTML = ""; // Clear existing rows
+
+      data.content.forEach(medicine => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+          <td>${medicine.name}</td>
+          <td>${medicine.description}</td>
+          <td>${medicine.dosage}</td>
+          <td>${medicine.manufacturer}</td>
+          <td>${medicine.price}</td>
+          <td>${medicine.doctorId || "N/A"}</td>
+          <td>${medicine.approvedByDoctor ? "Yes" : "No"}</td>
+          <td>${medicine.availableWithDoctor ? "Yes" : "No"}</td>
+        `;
+
+        tableBody.appendChild(row);
+      });
+    })
+    .catch(error => {
+      console.error("Error fetching medicine data:", error);
+    });
+});
+
+  </script>
+</body>
+</html>

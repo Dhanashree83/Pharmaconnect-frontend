@@ -165,73 +165,73 @@
       
 
       <script>
-        document.addEventListener('DOMContentLoaded', function () {
-          fetchMedicines();
-        });
-      
-        async function fetchMedicines() {
-          const loader = document.getElementById('loader');
-          const medicationList = document.querySelector('.medication-list');
-          try {
-            // Show loader
-            loader.classList.remove('hidden');
-            
-            // 1. Call the API
-            const response = await fetch('http://localhost:8082/api/medicine/available'); // <-- Your real API
-            const medicines = await response.json();
-            
-            // 2. Clear previous medicines
-            medicationList.innerHTML = '';
-      
-            // 3. Loop and create cards
-            medicines.forEach(med => {
-              const card = document.createElement('div');
-              card.className = 'medication-card';
-              card.innerHTML = `
-                <div class="medication-header">
-                  <div>
-                    <div class="med-name">${med.name}</div>
-                    <span class="med-category">${med.category}</span>
-                  </div>
-                  <div class="med-price">$${med.price.toFixed(2)}</div>
-                </div>
-                <div class="med-details">
-                  ${med.description}
-                </div>
-                <div class="med-stock">
-                  <div class="stock-info ${getStockClass(med.stock)}">
-                    ${getStockText(med.stock)}
-                  </div>
-                  <div class="stock-info">SKU: ${med.sku}</div>
-                </div>
-                <div class="action-buttons">
-                  <button class="btn btn-primary" ${med.stock <= 0 ? 'disabled' : ''}>Prescribe</button>
-                  <button class="btn btn-outline">Details</button>
-                </div>
-              `;
-              medicationList.appendChild(card);
-            });
-      
-          } catch (error) {
-            console.error('Failed to fetch medicines', error);
-          } finally {
-            // Hide loader
-            loader.classList.add('hidden');
-          }
-        }
-      
-        function getStockClass(stock) {
-          if (stock <= 0) return 'out-of-stock';
-          if (stock < 10) return 'low-stock';
-          return 'in-stock';
-        }
-      
-        function getStockText(stock) {
-          if (stock <= 0) return 'Out of Stock';
-          if (stock < 10) return `Low Stock: ${stock}`;
-          return `In Stock: ${stock}`;
-        }
-      </script>
-      
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    fetchMedicines();
+  });
+
+  async function fetchMedicines() {
+    const loader = document.getElementById('loader');
+    const medicationList = document.querySelector('.medication-list');
+
+    try {
+      loader.classList.remove('hidden');
+
+      // Use correct paginated API endpoint
+      const response = await fetch('http://localhost:8082/api/medicine/getAll'); 
+      const data = await response.json();
+      const medicines = data.content;
+
+      medicationList.innerHTML = ''; // Clear previous cards
+
+      medicines.forEach(med => {
+        const card = document.createElement('div');
+        card.className = 'medication-card';
+        card.innerHTML = `
+          <div class="medication-header">
+            <div>
+              <div class="med-name">${med.name}</div>
+              <span class="med-category">${med.category || 'General'}</span>
+            </div>
+            <div class="med-price">$${(med.price || 0).toFixed(2)}</div>
+          </div>
+          <div class="med-details">
+            ${med.description || 'No description available.'}
+          </div>
+          <div class="med-stock">
+            <div class="stock-info ${getStockClass(med.stock)}">
+              ${getStockText(med.stock)}
+            </div>
+            <div class="stock-info">SKU: ${med.sku || 'N/A'}</div>
+          </div>
+          <div class="action-buttons">
+            <button class="btn btn-primary" ${med.stock <= 0 ? 'disabled' : ''}>Prescribe</button>
+            <button class="btn btn-outline">Details</button>
+          </div>
+        `;
+        medicationList.appendChild(card);
+      });
+
+    } catch (error) {
+      console.error('Failed to fetch medicines', error);
+      medicationList.innerHTML = `<p class="text-red-500">Failed to load medicines. Please try again later.</p>`;
+    } finally {
+      loader.classList.add('hidden');
+    }
+  }
+
+  function getStockClass(stock) {
+    if (stock <= 0) return 'out-of-stock';
+    if (stock < 10) return 'low-stock';
+    return 'in-stock';
+  }
+
+  function getStockText(stock) {
+    if (stock <= 0) return 'Out of Stock';
+    if (stock < 10) return `Low Stock: ${stock}`;
+    return `In Stock: ${stock}`;
+  }
+</script>
+
 </body>
 </html>
