@@ -7,7 +7,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="/dashboard/adminDashboard/styles/pharmacy.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-
 </head>
 <body class="bg-gray-100 min-h-screen">
 
@@ -55,41 +54,54 @@
       </div>
 
       <!-- Medicine Cards -->
-      <div id="medicationList"></div>
+      <div id="medicationList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
 
       <!-- Pagination -->
-      <div class="pagination" id="pagination"></div>
+      <div class="pagination flex justify-center mt-6" id="pagination"></div>
     </div>
   </div>
 
-  <script>
-
-   
-  const BASE_URL = "http://localhost:8082";
+<script src="/js/config.js"></script>
+<script>
   const medicationList = document.getElementById('medicationList');
   const loader = document.getElementById('loader');
   const searchInput = document.getElementById('searchInput');
   const categoryFilter = document.getElementById('categoryFilter');
   const paginationContainer = document.getElementById('pagination');
 
-  let allMedicines = [];
-  let filteredMedicines = [];
   let currentPage = 1;
   const pageSize = 6;
+  let totalPages = 1;
 
   document.addEventListener('DOMContentLoaded', () => {
-    fetchAllMedicines();
-    searchInput.addEventListener('input', filterAndPaginate);
-    categoryFilter.addEventListener('change', filterAndPaginate);
+    fetchMedicines(currentPage);
+    searchInput.addEventListener('input', () => fetchMedicines(1));
+    categoryFilter.addEventListener('change', () => fetchMedicines(1));
   });
 
-  async function fetchAllMedicines() {
+  async function fetchMedicines(page) {
     loader.classList.remove('hidden');
     try {
-      const response = await fetch(`${BASE_URL}/api/medicine/all`);
+      const searchText = searchInput.value.toLowerCase();
+      const categoryText = categoryFilter.value;
+
+      const response = await fetch(`${BASE_URL}/api/medicine/all?page=${page}&size=${pageSize}`);
       const result = await response.json();
-      allMedicines = result.content || [];
-      filterAndPaginate();
+
+      let medicines = result.content || [];
+      totalPages = result.totalPages || 1;
+
+      // Filter locally after API (optional, or implement filtering on backend)
+      medicines = medicines.filter(med => {
+        return (
+          med.name.toLowerCase().includes(searchText) &&
+          (categoryText === '' || med.category === categoryText)
+        );
+      });
+
+      currentPage = page;
+      renderPage(medicines);
+      renderPagination();
     } catch (err) {
       console.error(err);
       medicationList.innerHTML = `<p class="text-red-600">Failed to load medicines.</p>`;
@@ -98,53 +110,32 @@
     }
   }
 
-  function filterAndPaginate() {
-    const searchText = searchInput.value.toLowerCase();
-    const categoryText = categoryFilter.value;
-
-    filteredMedicines = allMedicines.filter(med => {
-      return (
-        med.name.toLowerCase().includes(searchText) &&
-        (categoryText === '' || med.category === categoryText)
-      );
-    });
-
-    currentPage = 1; // Reset to page 1 on new filter
-    renderPage();
-    renderPagination();
-  }
-
-  function renderPage() {
+  function renderPage(medicines) {
     medicationList.innerHTML = '';
-    const start = (currentPage - 1) * pageSize;
-    const end = start + pageSize;
-    const currentItems = filteredMedicines.slice(start, end);
 
-    if (currentItems.length === 0) {
+    if (medicines.length === 0) {
       medicationList.innerHTML = `<p class="text-gray-600">No medicines found.</p>`;
       return;
     }
 
-    currentItems.forEach(med => {
+    medicines.forEach(med => {
       const div = document.createElement('div');
-      div.className = 'medication-card';
+      div.className = 'bg-white rounded shadow p-4';
       div.innerHTML = `
-    <div class="medication-header">
-  <div>
-    <div class="med-name">${med.name}</div>
-    <span class="med-category">${med.category || 'General'}</span>
-  </div>
-  <div class="med-price">$${(med.price || 0).toFixed(2)}</div>
-</div>
-<div class="med-details">${med.description || 'No description available.'}</div>
-<div class="med-dosage text-sm text-gray-600 mt-1">Dosage: ${med.dosage || 'Not specified'}</div>
-<div class="med-stock mt-1">
-  <div class="stock-info">Id: ${med.medicineId || 'N/A'}</div>
-</div>
-<div class="action-buttons mt-2">
-  <button class="bg-blue-500 text-white px-3 py-1 rounded mr-2" ${med.stock <= 0 ? 'disabled' : ''}>Prescribe</button>
-  <button class="border px-3 py-1 rounded">Details</button>
-</div>
+        <div class="flex justify-between items-center mb-2">
+          <div>
+            <h2 class="text-lg font-semibold">${med.name}</h2>
+            <span class="text-sm text-blue-600">${med.category || 'General'}</span>
+          </div>
+          <div class="text-blue-700 font-bold"> (₹)${(med.price || 0).toFixed(2)}</div>
+        </div>
+        <p class="text-gray-700 mb-2">${med.description || 'No description available.'}</p>
+        <p class="text-sm text-gray-600 mb-1">Dosage: ${med.dosage || 'Not specified'}</p>
+        <p class="text-sm text-gray-600 mb-2">ID: ${med.medicineId || 'N/A'}</p>
+        <div class="flex gap-2">
+          <button class="bg-blue-500 text-white px-3 py-1 rounded" ${med.stock <= 0 ? 'disabled' : ''}>Prescribe</button>
+          <button class="border px-3 py-1 rounded">Details</button>
+        </div>
       `;
       medicationList.appendChild(div);
     });
@@ -152,36 +143,19 @@
 
   function renderPagination() {
     paginationContainer.innerHTML = '';
-    const totalPages = Math.ceil(filteredMedicines.length / pageSize);
 
     for (let i = 1; i <= totalPages; i++) {
       const btn = document.createElement('button');
       btn.textContent = i;
       btn.className = `mx-1 px-3 py-1 border rounded ${i === currentPage ? 'bg-blue-500 text-white' : 'bg-white text-blue-600'}`;
       btn.addEventListener('click', () => {
-        currentPage = i;
-        renderPage();
-        renderPagination();
+        if (i !== currentPage) {
+          fetchMedicines(i);
+        }
       });
       paginationContainer.appendChild(btn);
     }
   }
-
-  function getStockClass(stock) {
-    if (stock === undefined) return '';
-    if (stock <= 0) return 'out-of-stock';
-    if (stock < 10) return 'low-stock';
-    return 'in-stock';
-  }
-
-  function getStockText(stock) {
-    if (stock === undefined) return 'Stock Info N/A';
-    if (stock <= 0) return 'Out of Stock';
-    if (stock < 10) return `Low Stock: ${stock}`;
-    return `In Stock: ${stock}`;
-  }
-
-
-  </script>
+</script>
 </body>
 </html>
