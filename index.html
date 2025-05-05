@@ -12,17 +12,22 @@
     <header>
         <nav>
             <h1>PharmaConnect</h1>
+            <div class="hamburger" onclick="toggleMenu()">&#9776;</div> <!-- Hamburger icon -->
             <div class="navbar">
                 <ul>
-                    <li><a href="index.html">Home</a>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="/pages/about.html">About</a></li>
                     <li><a href="/pages/pharmcay.html">Pharmacy</a></li>
                     <li><a href="/pages/contact.html">Contact</a></li>
                     <li><a href="/pages/alldoctor.html">All Doctors</a></li>
                 </ul>
             </div>
-           <a href="/pages/user-login.html"> <button>Create Account</button></a>
+            <a href="/pages/user-login.html"><button>Create Account</button></a>
         </nav>
+    </header>
+    
+ 
+
     </header>
     <section class="hero">
         <div class="hero-container">
@@ -154,7 +159,33 @@
     <!-- Font Awesome for icons -->
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
     <script src="/js/script.js"></script>
-    
+    <script>
+      // Toggle navbar visibility on hamburger click
+    function toggleMenu() {
+        document.querySelector('.navbar').classList.toggle('active');
+    }
+
+    // Variables for scroll behavior
+    let lastScrollTop = 0;
+    const navbar = document.querySelector('.navbar');
+
+    window.addEventListener('scroll', function() {
+        let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (currentScroll > lastScrollTop) {
+            // Scrolling down
+            navbar.classList.remove('navbar-visible');
+            navbar.classList.add('navbar-hidden');
+        } else {
+            // Scrolling up
+            navbar.classList.remove('navbar-hidden');
+            navbar.classList.add('navbar-visible');
+        }
+
+        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Prevent negative scrolling
+    });
+      </script>
+      
     
     </body>
 </html>
