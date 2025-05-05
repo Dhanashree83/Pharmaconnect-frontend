@@ -65,3 +65,63 @@ new Chart(doctorPatientCtx, {
 });
 
 
+
+// 
+document.addEventListener("DOMContentLoaded", function () {
+  const userId = localStorage.getItem("userId");
+
+  if (!userId) {
+    alert("User ID not found. Please login.");
+    window.location.href = "/login.html"; // Adjust to your login page path
+    return;
+  }
+
+  fetch(`${BASE_URL}/api/admin/info/${userId}`)
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to fetch admin data");
+      return res.json();
+    })
+    .then(data => {
+      const fullName = `${capitalize(data.firstName)} ${capitalize(data.lastName)}`;
+      document.getElementById("adminName").textContent = fullName;
+    })
+    .catch(err => {
+      console.error("Error:", err);
+    });
+
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+});
+
+
+// <!-- Chart.js Example Placeholder -->
+
+// const ctx1 = document.getElementById('appointmentsChart').getContext('2d');
+// const appointmentsChart = new Chart(ctx1, {
+//   type: 'line',
+//   data: {
+//     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+//     datasets: [{
+//       label: 'Appointments',
+//       data: [12, 19, 3, 5, 2],
+//       borderColor: 'rgba(59, 130, 246, 1)',
+//       backgroundColor: 'rgba(59, 130, 246, 0.2)',
+//       fill: true,
+//     }]
+//   }
+// });
+
+// const ctx2 = document.getElementById('doctorPatientsChart').getContext('2d');
+// const doctorPatientsChart = new Chart(ctx2, {
+//   type: 'bar',
+//   data: {
+//     labels: ['Dr. A', 'Dr. B', 'Dr. C', 'Dr. D'],
+//     datasets: [{
+//       label: 'Patients',
+//       data: [5, 10, 8, 6],
+//       backgroundColor: 'rgba(255, 159, 64, 0.6)',
+//     }]
+//   }
+// });
+
