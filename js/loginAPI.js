@@ -1,30 +1,54 @@
-$(document).ready(function(){
-    $('#loginForm').submit(function(e){
+// loginApi.js
+$(document).ready(function () {
+    const signInForm = $(".sign-in-form");
+
+    signInForm.on("submit", function (e) {
         e.preventDefault();
 
-        const email = $('#email').val();
-        const password = $('#password').val();
+        const email = $("#email").val().trim();
+        const password = $("#password").val().trim();
+
+        if (!email || !password) {
+            return alert("Please enter both email and password.");
+        }
+
+        const loginData = {
+            email: email,
+            password: password
+        };
 
         $.ajax({
-            url: 'http://localhost:8082/auth/login',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify({ email, password }),
-            success: function(response) {
-                $('#message').text("Login successful!").css("color", "green");
-                console.log("Token:", response.token);
-                console.log("User ID:", response.userId);
+            url: `${BASE_URL}/auth/login`,
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(loginData),
+            success: function (res) {
+                if (res && res.userId && res.token && res.role) {
+                    localStorage.setItem("userId", res.userId);
+                    localStorage.setItem("token", res.token);
+                    localStorage.setItem("role", res.role);
 
-                // Optionally store the token
-                localStorage.setItem("token", response.token);
-                localStorage.setItem("userId", response.userId);
+                    alert("✅ Login successful!");
 
-                // Redirect or show something
-                // window.location.href = "/dashboard.html";
+                    const roleRedirectMap = {
+                        ADMIN: "/dashboard/adminDashboard/admin-main.html",
+                        PATIENT: "/dashboard/userDashboard/user-main.html",
+                        DOCTOR: "/dashboard/doctorDashboard/doctor-main.html"
+                    };
+
+                    const redirectUrl = roleRedirectMap[res.role];
+
+                    if (redirectUrl) {
+                        window.location.href = redirectUrl;
+                    } else {
+                        alert("❌ Unknown role. Cannot redirect.");
+                    }
+                } else {
+                    alert("❌ Login failed. Please check your credentials.");
+                }
             },
-            error: function(xhr) {
-                $('#message').text("Login failed: " + xhr.responseText).css("color", "red");
-                console.error("Error:", xhr);
+            error: function () {
+                alert("❌ Login request failed. Please try again later.");
             }
         });
     });

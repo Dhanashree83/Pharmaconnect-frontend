@@ -113,7 +113,7 @@
   
     </div>
   
-
+<script src="/js/config.js"></script>
   <!-- JavaScript Logic -->
   <script>
     let currentPage = 1;
@@ -136,7 +136,7 @@
 
     async function loadPatientData(page = 1, size = 10) {
       try {
-        const response = await fetch(`http://localhost:8082/api/patient/list?page=${page}&size=${size}`);
+        const response = await fetch(`${BASE_URL}/api/patient/list?page=${page}&size=${size}`);
         const data = await response.json();
         renderPatients(data.content);
         totalPages = data.totalPages;

@@ -101,44 +101,8 @@
       </div>
     </div>
   </div>
-
-  <script>
-    const form = document.getElementById("appointmentForm");
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      const data = {
-        firstName: form.firstName.value.trim(),
-        lastName: form.lastName.value.trim(),
-        phoneNumber: form.phoneNumber.value.trim(),
-        email: form.email.value.trim(),
-        firstTimeVisit: form.firstTimeVisit.value === "true",
-        appointmentDate: form.appointmentDate.value,
-        doctorId: form.doctor.value
-      };
-
-      console.log("Submitting Appointment:", data);
-
-      // Future integration: send this to backend API
-      /*
-      fetch("/api/appointments", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data)
-      })
-      .then(response => response.json())
-      .then(result => {
-        alert("Appointment confirmed successfully!");
-        form.reset();
-      })
-      .catch(error => {
-        console.error("Error submitting appointment:", error);
-        alert("Something went wrong. Please try again.");
-      });
-      */
-    });
-  </script>
+<script src="/js/config.js"></script>
+<script src="/dashboard/userDashboard/js/bookAppointment.js"></script>
 
 </body>
 </html>

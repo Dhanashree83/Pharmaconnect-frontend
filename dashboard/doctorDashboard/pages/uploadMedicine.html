@@ -72,6 +72,8 @@
       
       <div id="toast" class="toast"></div>
 
+      <script src="/js/config.js"></script>
+
         <script>
  
           const form = document.getElementById("medicineForm");
@@ -98,7 +100,7 @@
 
     try {
       // Replace with your actual API endpoint
-      const response = await fetch("http://localhost:8082/api/medicine/add", {
+      const response = await fetch(`${BASE_URL}/api/medicine/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
