@@ -1,97 +1,146 @@
-entTo = "";
-let formDataBackup = {};
+$(document).ready(function () {
 
-$('.nextBtn').on('click', function (e) {
+  $('#doctorRegistrationForm').on('submit', function (e) {
     e.preventDefault();
 
-    const email = $('input[type="email"]').first().val();
+    const form = $(this);
+    const data = {};
 
-    if (!email) {
-        alert("Please enter an email.");
-        return;
+    // Serialize simple fields
+    form.serializeArray().forEach(field => {
+      data[field.name] = field.value;
+    });
+
+    // Dummy file IDs for now
+    data.fileResourceIds = ["file123", "file456"];
+
+    // Availability Slots
+    data.availabilitySlots = [{
+      startDate: form.find('input[name="startDate"]').val() || null,
+      endDate: form.find('input[name="endDate"]').val() || null,
+      availableDays: (form.find('input[name="availableDays"]').val() || "")
+                      .split(',')
+                      .map(d => d.trim().toUpperCase())
+                      .filter(Boolean),
+      startTime: form.find('input[name="startTime"]').val() || null,
+      endTime: form.find('input[name="endTime"]').val() || null,
+      holidays: (form.find('input[name="holidays"]').val() || "")
+                    .split(',')
+                    .map(h => h.trim())
+                    .filter(Boolean)
+    }];
+
+    // Qualifications
+    data.qualifications = [];
+    $('.education-group').each(function () {
+      const schoolName = $(this).find('input[name="schoolName"]').val();
+      if (schoolName) {
+        data.qualifications.push({
+          schoolName,
+          degree: $(this).find('input[name="degree"]').val(),
+          passingYear: parseInt($(this).find('input[name="passingYear"]').val()) || null,
+          location: $(this).find('input[name="qualificationLocation"]').val()
+        });
+      }
+    });
+
+    // Work Experience
+    data.workExperience = [];
+    $('.experience-group').each(function () {
+      const organisationName = $(this).find('input[name="organisationName"]').val();
+      if (organisationName) {
+        data.workExperience.push({
+          organisationName,
+          hospitalName: $(this).find('input[name="hospitalName"]').val(),
+          position: $(this).find('input[name="position"]').val(),
+          responsibilities: ($(this).find('input[name="responsibilities"]').val() || "")
+                              .split(',')
+                              .map(r => r.trim())
+                              .filter(Boolean),
+          yearsOfExperience: parseFloat($(this).find('input[name="yearOfExperience"]').val()) || 0
+        });
+      }
+    });
+
+    // Handle specific field conversions
+    if (data.postalCode) data.postalCode = parseInt(data.postalCode) || null;
+    if (data.mobile) data.mobile = parseInt(data.mobile) || null;
+    if (data.consultationFee) data.consultationFee = data.consultationFee.toString();
+
+    // Static fields
+    data.isApproved = false;
+    if (!data.adminId) data.adminId = 'admin123';
+
+    console.log("Submitting Doctor Data:", data);
+
+    // POST request to register doctor
+    $.ajax({
+      url: `${BASE_URL}/api/doctor/register`,
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(data),
+      success: function (response) {
+        if (response === 'created') {
+          alert('Doctor registered successfully! Please enter OTP sent to your email.');
+          $('#otpSection').show();
+          $('#doctorRegistrationForm').hide();
+          sessionStorage.setItem('doctorEmail', data.email);
+        } else if (response === 'already exists') {
+          alert('This email is already registered.');
+        } else {
+          alert('Unexpected response: ' + response);
+        }
+      },
+      error: function (xhr) {
+        console.error(xhr);
+        alert('Registration failed: ' + xhr.responseText);
+      }
+    });
+  });
+
+  // OTP verification
+  $('#verifyOtpBtn').on('click', function () {
+    const email = sessionStorage.getItem('doctorEmail');
+    const otp = $('#otpInput').val();
+
+    if (!otp || otp.length !== 6) {
+      alert('Please enter a valid 6-digit OTP.');
+      return;
     }
 
-    // Gather all form data
-    const formData = {
-        fullName: $('input[placeholder="Enter your Name"]').val(),
-        address: $('textarea').eq(0).val(),
-        dob: $('input[placeholder=" Enter your DOB"]').val(),
-        nationality: $('input[placeholder="Nationality"]').val(),
-        street: $('textarea').eq(1).val(),
-        city: $('input[placeholder="Refrence"]').val(),
-        postalCode: $('input[placeholder="Area of intrest"]').val(),
-        state: $('input[placeholder="Hobbies"]').val(),
-        email: email,
-        phone: $('input[placeholder="Enter your Number"]').val(),
-        consultationFees: $('input[placeholder="Enter Fees"]').val(),
-        availableHours: $('input[placeholder="Enter here"]').eq(0).val(),
-
-        college: $('input[placeholder="Enter your College"]').val(),
-        degree: $('input[placeholder="Enter Degree"]').val(),
-        certificates: $('input[placeholder="Enter here"]').eq(1).val(),
-        passingYear: $('input[placeholder="Year of Passing"]').val(),
-        educationLocation: $('input[placeholder=" "]').eq(0).val(),
-
-        previousWorkplace: $('input[placeholder=" enter here "]').val(),
-        hospitalName: $('input[placeholder=" Enter here"]').eq(1).val(),
-        position: $('input[placeholder=" Enter your Poistion"]').val(),
-        experience: $('input[placeholder=" Enter here "]').eq(1).val(),
-        duration: $('input[placeholder=" "]').eq(1).val(),
-        responsibility: $('input[placeholder=" "]').eq(2).val()
-    };
-
-    formDataBackup = formData;
-    emailSentTo = email;
-
-    // Step 1: Send OTP
     $.ajax({
-        url: 'http://localhost:8082/api/doctor/send-otp',
-        method: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ email }),
-        success: function () {
-            alert('OTP sent to your email. Please verify to complete registration.');
-            $('#otp-section').show();
-        },
-        error: function () {
-            alert('Failed to send OTP.');
+      url: `${BASE_URL}/api/doctor/verify`,
+      method: 'POST',
+      data: { email: email, otp: otp },
+      success: function (response) {
+        if (response === 'verified') {
+          alert('OTP Verified! Your registration is complete.');
+          window.location.href = "/pages/user-login.html";
+        } else if (response === 'invalid otp') {
+          alert('Invalid OTP. Please try again.');
+        } else if (response === 'already verified') {
+          alert('This account is already verified.');
+        } else {
+          alert('Unexpected response: ' + response);
         }
+      },
+      error: function (xhr) {
+        alert('OTP verification failed: ' + xhr.responseText);
+      }
     });
+
+  });
+
 });
 
-// Step 2: Verify OTP and register
-$('#verifyOtpBtn').on('click', function () {
-    const otp = $('#otp').val();
+// When switching to OTP verification
+function showOtpSection() {
+  $(".container").hide();
+  $("#otpSection").show();
+}
 
-    if (!otp) {
-        alert("Enter the OTP to verify.");
-        return;
-    }
-
-    $.ajax({
-        url: 'http://localhost:8082/api/doctor/verify-otp',
-        method: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify({ email: emailSentTo, otp }),
-        success: function () {
-            // Step 3: Final Registration
-            $.ajax({
-                url: '/register-doctor',
-                method: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(formDataBackup),
-                success: function () {
-                    alert('Doctor registered successfully!');
-                    location.reload(); // or redirect
-                },
-                error: function () {
-                    alert('Error during registration.');
-                }
-            });
-        },
-        error: function () {
-            alert("Invalid OTP. Please try again.");
-        }
-    });
+// Example call: when form is submitted and OTP is sent successfully
+$("#doctorRegistrationForm").on('submit', function(e) {
+  e.preventDefault();
+  showOtpSection();
 });
-

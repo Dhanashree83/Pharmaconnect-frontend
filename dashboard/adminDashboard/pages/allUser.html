@@ -31,8 +31,8 @@
     <div class="flex-1 p-6">
       <!-- Tabs -->
       <div class="button-group flex gap-4 mb-6">
-        <button onclick="showTab('patient')" class="tab-btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">Patient</button>
-        <button onclick="showTab('doctor')" class="tab-btn bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg">Doctor</button>
+        <button onclick="showTab('patient'); fetchPatients(1);" class="tab-btn bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">Patient</button>
+        <button onclick="showTab('doctor'); fetchDoctors(1);" class="tab-btn bg-gray-300 hover:bg-gray-400 text-gray-800 px-6 py-2 rounded-lg">Doctor</button>
       </div>
 
       <!-- Patients Tab -->
@@ -49,9 +49,7 @@
                 <th class="px-6 py-3 text-left font-semibold">Status</th>
               </tr>
             </thead>
-            <tbody id="patient-table" class="divide-y divide-gray-200">
-              <!-- Data goes here -->
-            </tbody>
+            <tbody id="patient-table" class="divide-y divide-gray-200"></tbody>
           </table>
         </div>
         <div id="patient-pagination" class="flex justify-center mt-4 space-x-2"></div>
@@ -72,9 +70,7 @@
                 <th class="px-6 py-3 text-left font-semibold">Approved</th>
               </tr>
             </thead>
-            <tbody id="doctor-table" class="divide-y divide-gray-200">
-              <!-- Data goes here -->
-            </tbody>
+            <tbody id="doctor-table" class="divide-y divide-gray-200"></tbody>
           </table>
         </div>
         <div id="doctor-pagination" class="flex justify-center mt-4 space-x-2"></div>
@@ -82,6 +78,8 @@
     </div>
   </div>
 
+  <!-- Scripts -->
+  <script src="/js/config.js"></script>
   <script src="/dashboard/adminDashboard/js/allUser.js"></script>
 </body>
 </html>

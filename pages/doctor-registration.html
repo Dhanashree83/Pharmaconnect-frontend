@@ -1,185 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration_form</title>
-    <link rel="stylesheet" href="/css/doctor.registration.css">
+  <meta charset="UTF-8">
+  <title>Doctor Registration</title>
+  <link rel="stylesheet" href="/css/doctor.registration.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">PharmaConnect</div>
-        <a href="/pages/doctor.login.html"><button class="admin-login-btn">Admin Login</button></a>
-    </nav>
 
-   <div class="container">
-    <header>Resgitration form</header>
-    <p>Resgister as a doctor</p>
-     <form action="#">
-        <div class="form-first">
-            <div class="details">
-                <span class="title">Personal Information</span>
+  <div class="container">
+    <header>Registration Form</header>
+    <p>Register as a doctor</p>
 
-                <div class="fields">
-                    <div class="input-box">
-                        <label for="name">Full Name</label>
-                        <input type="text" placeholder="Enter your Name" required>
-                    </div>
+    <!-- Doctor Registration Form -->
+    <form id="doctorRegistrationForm">
+      <div class="form-first">
 
-                    <div class="input-box">
-                        <label for="">Address</label>
-                       <textarea name="" id=""></textarea>
-                    </div>
-
-                    <div class="input-box">
-                        <label for="name">Date of birth</label>
-                        <input type="date" placeholder=" Enter your DOB" required>
-                    </div>
-        
-                    <div class="input-box">
-                        <label for="">Nationality:</label>
-                        <input type="text" placeholder="Nationality">
-                    </div>
-
-                    <div class="input-box">
-                        <label for="">Street:</label>
-                        <textarea name="" id=""></textarea>
-                    </div>
-        
-                    <div class="input-box">
-                        <label for="">City:</label>
-                        <input type="text" placeholder="Refrence">
-                    </div>
-
-                    <div class="input-box">
-                        <label for="">Postal Code:</label>
-                        <input type="number" placeholder="">
-                    </div>
-        
-                    <div class="input-box">
-                        <label for="">State:</label>
-                        <input type="text" placeholder=" ">
-                    </div>
-                    
-        
-                </div>
+        <!-- Personal Info -->
+        <div class="details">
+          <span class="title">Personal Information</span>
+          <div class="fields">
+            <div class="input-box">
+              <label>First Name</label>
+              <input type="text" name="firstName" required>
             </div>
+            <div class="input-box">
+              <label>Last Name</label>
+              <input type="text" name="lastName" required>
+            </div>
+            <div class="input-box">
+              <label>Password</label>
+              <input type="password" name="password" required>
+            </div>
+            <div class="input-box">
+              <label>Gender</label>
+              <select name="gender">
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+            <div class="input-box">
+              <label>Date of Birth</label>
+              <input type="date" name="dob">
+            </div>
+            <div class="input-box">
+              <label>Address</label>
+              <textarea name="address"></textarea>
+            </div>
+            <div class="input-box">
+              <label>Street</label>
+              <textarea name="street"></textarea>
+            </div>
+            <div class="input-box">
+              <label>City</label>
+              <input type="text" name="city">
+            </div>
+            <div class="input-box">
+              <label>State</label>
+              <input type="text" name="state">
+            </div>
+            <div class="input-box">
+              <label>Postal Code</label>
+              <input type="number" name="postalCode">
+            </div>
+          </div>
+        </div>
 
-            <div class="details-E">
-                <span class="title">Contact Information</span>
+        <!-- Contact Info -->
+        <div class="details-E">
+          <span class="title">Contact Information</span>
+          <div class="fields">
+            <div class="input-box">
+              <label>Email</label>
+              <input type="email" name="email" required>
+            </div>
+            <div class="input-box">
+              <label>Mobile</label>
+              <input type="number" name="mobile">
+            </div>
+            <div class="input-box">
+              <label>Phone Number</label>
+              <input type="text" name="phoneNumber">
+            </div>
+            <div class="input-box">
+              <label>Specialization</label>
+              <input type="text" name="specialization">
+            </div>
+            <div class="input-box">
+              <label>Consultation Fee</label>
+              <input type="number" name="consultationFee">
+            </div>
+            <div class="input-box">
+              <label>Admin ID</label>
+              <input type="text" name="adminId">
+            </div>
+          </div>
+        </div>
 
-                <div class="fields">
-                    
-                    
-                    <div class="input-box">
-                        <label for="">Email:</label>
-                        <input type="email" placeholder="Enter your email">
-                    </div>
-     
-                    <div class="input-box">
-                        <label for="">Phone Number:</label>
-                        <input type="number" placeholder="Enter your Number">
-                    </div>
-        
-                    <div class="input-box">
-                        <label for="">Consultation Fees:</label>
-                        <input type="number" placeholder="Enter Fees">
-                    </div>
+        <!-- Availability -->
+        <div class="details">
+          <span class="title">Availability Slot</span>
+          <div class="fields">
+            <div class="input-box">
+              <label>Start Date</label>
+              <input type="date" name="startDate">
+            </div>
+            <div class="input-box">
+              <label>End Date</label>
+              <input type="date" name="endDate">
+            </div>
+            <div class="input-box">
+              <label>Available Days</label>
+              <input type="text" name="availableDays" placeholder="e.g. MONDAY,WEDNESDAY,FRIDAY">
+            </div>
+            <div class="input-box">
+              <label>Start Time</label>
+              <input type="time" name="startTime">
+            </div>
+            <div class="input-box">
+              <label>End Time</label>
+              <input type="time" name="endTime">
+            </div>
+          </div>
+        </div>
 
-                    <div class="input-box">
-                        <label for="">Available Days/Hours:</label>
-                        <input type="text" placeholder="Enter here">
-                    </div>  
-                       
-                    </div>
+        <!-- Educational Background -->
+        <div class="details-E" id="education-section">
+          <span class="title">Educational Background</span>
+          <div class="fields education-group">
+            <div class="input-box">
+              <label>Medical College</label>
+              <input type="text" name="schoolName">
+            </div>
+            <div class="input-box">
+              <label>Degree</label>
+              <input type="text" name="degree">
+            </div>
+            <div class="input-box">
+              <label>Year of Passing</label>
+              <input type="number" name="passingYear">
+            </div>
+            <div class="input-box">
+              <label>Location</label>
+              <input type="text" name="qualificationLocation">
+            </div>
+          </div>
+          <button type="button" onclick="addEducation()" class="nextBtn" style="margin-top:10px;">Add More Education</button>
+        </div>
 
-                    <div class="details-E">
-                        <span class="title">Educational Background</span>
-        
-                        <div class="fields">
-                            
-                            
-                            <div class="input-box">
-                                <label for="">Medical College:</label>
-                                <input type="text" placeholder="Enter your College">
-                            </div>
-                
-                            <div class="input-box">
-                                <label for="">Degree Obtian:</label>
-                                <input type="text" placeholder="Enter Degree">
-                            </div>
-                
-                            <div class="input-box">
-                                <label for="">Additonal certificate:</label>
-                                <input type="text" placeholder="Enter here">
-                            </div>
-                
-                            <div class="input-box">
-                                <label for="">Year of Passing:</label>
-                                <input type="number" placeholder="Year of Passing">
-                            </div>
-            
-                            <div class="input-box">
-                                <label for="">Location:</label>
-                                <input type="text" placeholder=" ">
-                            </div>
-                            </div>
-                    <div class="details-C"></div>
-                    
-                    <span class="title">Work Experience</span>
-                    <div class="fields">
-                    <div class="input-box">
-                        <label for="">Previous workplace:</label>
-                        <input type="text" placeholder=" enter here ">
-                    </div>
-        
-                    <div class="input-box">
-                        <label for="">Hospital/Clinic Name:</label>
-                        <input type="text" placeholder=" Enter here">
-                    </div>
-        
-                    <div class="input-box">
-                        <label for="">Poistion:</label>
-                        <input type="text" placeholder=" Enter your Poistion">
-                    </div>
-        
-                    <div class="input-box">
-                        <label for="">Year of experience:</label>
-                        <input type="number" placeholder=" Enter here ">
-                    </div>
-        
-                    <div class="input-box">
-                        <label for="">Duration:</label>
-                        <input type="number" placeholder=" ">
-                    </div>
-        
-                    <div class="input-box">
-                        <label for="">Responsiblity:</label>
-                        <input type="text" placeholder=" ">
-                    </div> 
-<!-- Add this near your form submit button -->
-<div id="otp-section" style="display:none; margin-top: 20px;">
-    <label for="otp">Enter OTP sent to your email:</label>
-    <input type="text" id="otp" placeholder="Enter OTP">
-    <button type="button" id="verifyOtpBtn">Verify OTP</button>
+        <!-- Work Experience -->
+        <div class="details-C" id="experience-section">
+          <span class="title">Work Experience</span>
+          <div class="fields experience-group">
+            <div class="input-box">
+              <label>Organization Name</label>
+              <input type="text" name="organisationName">
+            </div>
+            <div class="input-box">
+              <label>Hospital Name</label>
+              <input type="text" name="hospitalName">
+            </div>
+            <div class="input-box">
+              <label>Position</label>
+              <input type="text" name="position">
+            </div>
+            <div class="input-box">
+              <label>Responsibilities</label>
+              <input type="text" name="responsibilities" placeholder="Comma-separated">
+            </div>
+            <div class="input-box">
+              <label>Years of Experience</label>
+              <input type="number" step="0.1" name="yearOfExperience">
+            </div>
+          </div>
+          <button type="button" onclick="addExperience()" class="nextBtn" style="margin-top:10px;">Add More Experience</button>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="buttons">
+          <button type="submit" class="nextBtn">
+            <span class="Text">Submit</span>
+          </button>
+        </div>
+
+      </div>
+    </form>
+  </div>
+<!-- OTP Verification Section (Hidden initially) -->
+<div id="otpSection" style="display: none;" class="container-otp">
+  <div style="max-width: 400px; margin: 50px auto; padding: 30px; background: white; border-radius: 12px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); text-align: center;">
+    
+    <h2 style="margin-bottom: 10px; color: #4B0082;">OTP Verification</h2>
+    <p style="margin-bottom: 20px; color: #555;">Please enter the OTP sent to your email to complete registration.</p>
+
+    <div style="margin-bottom: 20px;">
+      <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" style="width: 100%; padding: 10px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px;">
+    </div>
+
+    <button type="button" id="verifyOtpBtn" style="width: 100%; padding: 12px; background: #4B0082; color: white; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; transition: background 0.3s;">
+      Verify OTP
+    </button>
+
+  </div>
 </div>
 
-                
-            </div>
-            <div class="buttons">
-                <button class="nextBtn">
-                    <span class="Text">Submit</span>
-                    <i class="uil uil-navigator"></i>
-                </button>
-
-                  
-            </div>
-        </div>
-     </form>
-   </div>
-
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/doctorServiceApi.js"></script>
+  <script src="/js/doctorServiceApi.js"></script>
 
 </body>
 </html>

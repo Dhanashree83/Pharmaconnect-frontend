@@ -71,7 +71,7 @@
 
       
       <div id="toast" class="toast"></div>
-
+<script src="/js/config.js"></script>
         <script>
           // document.getElementById('medicineForm').addEventListener('submit', async function (e) {
           //   e.preventDefault();
@@ -88,7 +88,7 @@
           //   alert(result.message);
           // });
 
-          const form = document.getElementById("medicineForm");
+  const form = document.getElementById("medicineForm");
   const toast = document.getElementById("toast");
 
   form.addEventListener("submit", async (e) => {
@@ -112,7 +112,7 @@
 
     try {
       // Replace with your actual API endpoint
-      const response = await fetch("http://localhost:8082/api/medicine/add", {
+      const response = await fetch(`${BASE_URL}/api/medicine/add`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -140,7 +140,7 @@
       toast.className = "toast";
     }, 3000);
   }
-        </script>
+ </script>
   
           
 
