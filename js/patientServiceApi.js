@@ -1,6 +1,6 @@
+// patientServiceApi.js
 $(document).ready(function () {
     const signUpForm = $(".sign-up-form");
-    const signInForm = $(".sign-in-form");
     const otpField = $(".otp-field");
     let registeredEmail = null;
 
@@ -14,7 +14,7 @@ $(document).ready(function () {
             if (!otp) return alert("Please enter the OTP.");
 
             $.ajax({
-                url: `http://localhost:8082/api/patient/verify?email=${encodeURIComponent(registeredEmail)}&otp=${otp}`,
+                url: `${BASE_URL}/api/patient/verify?email=${encodeURIComponent(registeredEmail)}&otp=${otp}`,
                 method: "POST",
                 success: function (res) {
                     if (res === "verified") {
@@ -51,7 +51,7 @@ $(document).ready(function () {
             registeredEmail = userData.email;
 
             $.ajax({
-                url: "http://localhost:8082/api/patient/register",
+                url: `${BASE_URL}/api/patient/register`,
                 method: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(userData),
@@ -70,59 +70,5 @@ $(document).ready(function () {
                 }
             });
         }
-    });
-
-    // --- SIGN IN / LOGIN FLOW ---
-    signInForm.on("submit", function (e) {
-        e.preventDefault();
-
-        const email = $("#email").val().trim();
-        const password = $("#password").val().trim();
-
-        if (!email || !password) {
-            return alert("Please enter both email and password.");
-        }
-
-        const loginData = {
-            email: email,
-            password: password
-        };
-
-        $.ajax({
-            url: "http://localhost:8082/auth/login",
-            method: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(loginData),
-            success: function (res) {
-                if (res && res.userId && res.token && res.role) {
-                    // Store userId, token, and role in localStorage
-                    localStorage.setItem("userId", res.userId);
-                    localStorage.setItem("token", res.token);
-                    localStorage.setItem("role", res.role);
-
-                    alert("✅ Login successful!");
-
-                    // Role-based redirect
-                    const roleRedirectMap = {
-                        ADMIN: "/dashboard/adminDashboard/admin-main.html",
-                        PATIENT: "/dashboard/userDashboard/user-main.html",
-                        DOCTOR: "/dashboard/doctorDashboard/doctor-main.html"
-                    };
-
-                    const redirectUrl = roleRedirectMap[res.role];
-
-                    if (redirectUrl) {
-                        window.location.href = redirectUrl;
-                    } else {
-                        alert("❌ Unknown role. Cannot redirect.");
-                    }
-                } else {
-                    alert("❌ Login failed. Please check your credentials.");
-                }
-            },
-            error: function () {
-                alert("❌ Login request failed. Please try again later.");
-            }
-        });
     });
 });

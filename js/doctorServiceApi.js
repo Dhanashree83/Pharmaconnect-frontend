@@ -34,7 +34,7 @@ $(document).ready(function () {
     data.qualifications = [];
     $('.education-group').each(function () {
       const schoolName = $(this).find('input[name="schoolName"]').val();
-      if (schoolName) { // Only if education is filled
+      if (schoolName) {
         data.qualifications.push({
           schoolName,
           degree: $(this).find('input[name="degree"]').val(),
@@ -48,7 +48,7 @@ $(document).ready(function () {
     data.workExperience = [];
     $('.experience-group').each(function () {
       const organisationName = $(this).find('input[name="organisationName"]').val();
-      if (organisationName) { // Only if experience is filled
+      if (organisationName) {
         data.workExperience.push({
           organisationName,
           hospitalName: $(this).find('input[name="hospitalName"]').val(),
@@ -69,13 +69,13 @@ $(document).ready(function () {
 
     // Static fields
     data.isApproved = false;
-    if (!data.adminId) data.adminId = 'admin123'; // fallback if empty
+    if (!data.adminId) data.adminId = 'admin123';
 
-    console.log("Submitting Doctor Data:", data); // <--- See the final data you are sending
+    console.log("Submitting Doctor Data:", data);
 
     // POST request to register doctor
     $.ajax({
-      url: 'http://localhost:8082/api/doctor/register',
+      url: `${BASE_URL}/api/doctor/register`,
       method: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(data),
@@ -109,9 +109,9 @@ $(document).ready(function () {
     }
 
     $.ajax({
-      url: 'http://localhost:8082/api/doctor/verify',
+      url: `${BASE_URL}/api/doctor/verify`,
       method: 'POST',
-      data: { email: email, otp: otp }, // jQuery will encode it automatically
+      data: { email: email, otp: otp },
       success: function (response) {
         if (response === 'verified') {
           alert('OTP Verified! Your registration is complete.');
@@ -127,22 +127,20 @@ $(document).ready(function () {
       error: function (xhr) {
         alert('OTP verification failed: ' + xhr.responseText);
       }
-  });
-  
+    });
+
   });
 
 });
 
 // When switching to OTP verification
 function showOtpSection() {
-  $(".container").hide(); // Hides the registration form
-  $("#otpSection").show(); // Shows the OTP section
+  $(".container").hide();
+  $("#otpSection").show();
 }
 
 // Example call: when form is submitted and OTP is sent successfully
 $("#doctorRegistrationForm").on('submit', function(e) {
   e.preventDefault();
-  
-  // After sending the OTP (via your API) successfully:
   showOtpSection();
 });
