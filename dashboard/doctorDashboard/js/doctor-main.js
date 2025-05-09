@@ -44,3 +44,36 @@ const appointmentChart = new Chart(ctx, {
     }
   }
 });
+
+
+
+//this is for dynamically getting id
+document.addEventListener("DOMContentLoaded", async () => {
+  const doctorId = localStorage.getItem("userId"); // e.g., DR06180EB0
+  const nameSpan = document.getElementById("doctorName");
+
+  if (!doctorId) {
+    nameSpan.textContent = "Doctor";
+    return;
+  }
+
+  try {
+    const response = await fetch(`${BASE_URL}/api/doctor/info/${doctorId}`);
+    if (!response.ok) throw new Error("Failed to fetch doctor data");
+
+    const data = await response.json();
+    const fullName = `${data.firstName || ""} ${data.lastName || ""}`.trim();
+    nameSpan.textContent = fullName || "Doctor";
+
+  } catch (err) {
+    console.error("Error fetching doctor info:", err);
+    nameSpan.textContent = "Doctor";
+  }
+});
+
+//link logout
+document.getElementById('logoutLink').addEventListener('click', function (e) {
+  e.preventDefault();
+  window.location.href = '/index.html';
+});
+

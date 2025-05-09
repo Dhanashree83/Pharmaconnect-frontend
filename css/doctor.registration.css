@@ -1,189 +1,112 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Times New Roman', Times, serif;
 }
-body{
-    min-height: 100vh;
-    /* display: flex; */
-    align-items: center;
-    justify-content: center;
-    /* background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
-    linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
-    linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);  */
-    /* background: linear-gradient(#eeaeca,#94bbe9); */
-    background-color: #685cd4;
 
+body {
+    min-height: 100vh;
+    background-color: #685cd4;
 }
 
-
 .navbar {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-
-  align-items: center;
-  padding: 15px 50px;
-  background-image: linear-gradient(rgb(160, 166, 228),rgb(120, 130, 239) 100%);
-  color: white;
-  box-shadow: 0 4px 6px rgba(194, 33, 33, 0.1);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-image: linear-gradient(rgb(160, 166, 228), rgb(120, 130, 239) 100%);
+    color: white;
+    box-shadow: 0 4px 6px rgba(194, 33, 33, 0.1);
 }
 
 .logo {
-  font-size: 24px;
-  font-weight: bold;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
 }
 
-.admin-login-btn {
-  background-color: white;
-  color: #007bff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.admin-login-btn:hover {
-  background-color: #0056b3;
-  color: white;
-}
-
-.container{
+.container {
     position: relative;
     max-width: 800px;
-    height: 500px;
-    overflow: scroll;
-    align-items: center;
-    width: 100%;
-    border-radius: 6px;
-    justify-content: center;
-    padding: 30px;
-    margin: 0 15px;
-    background-color: transparent;
-    box-shadow: 5px 20px 45px rgb(240, 235, 235);
-    backdrop-filter: blur(10px);
+    width: 90%;
+    margin: 20px auto;
+    padding: 20px;
     background-color: #fff;
-    margin-top: 20px;
-    margin-left: 250px;
-   
-
+    border-radius: 6px;
+    box-shadow: 5px 20px 45px rgb(240, 235, 235);
+    overflow: auto;
 }
-/* .container::after{
-    content: "";
-    position: absolute;
-    bottom: -2px;
-    max-width: 800px;
-    width: 100%;
-    /* top: 100%;
-    left: 100%; */
-    /* background-color: aquamarine;
-    left: 0;
-} */ 
-.container header{
-    font-size: 30px;
+
+.container header {
+    font-size: 24px;
     font-weight: 600;
     color: black;
-    position: relative;
-    justify-content: center;
-    margin-left: 35%;
+    text-align: center;
+    margin-bottom: 10px;
 }
-.container header::before{
+
+.container header::before {
     content: "";
     position: absolute;
     bottom: -2px;
     height: 3px;
     width: 47px;
     background-color: rgb(167, 90, 188);
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
-.container p{
-    display: flex;
-    justify-content: center;
-    margin: 10px;
-    font-size: 20px;
+
+.container p {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 18px;
     font-weight: 500;
 }
-.container form{
+
+.container form {
     position: relative;
     margin-top: 16px;
     min-height: 490px;
     background-color: transparent;
-    
 }
-.container form .form-first, .form-second{
-    /* position: absolute; */
-    background-color: transparent;
-}
-/* .container form .details{
-    margin-top: 10px;
 
-}
-.container form .details-E{
-    margin-top: 10px;
-} */
-/* .container form .form-second{
-    opacity: 0;
-    pointer-events: none;
-}
-form.secActive .form-second{
-    opacity: 1;
-    pointer-events: auto;
-}
-form.secActive .form-first{
-    opacity: 0;
-    pointer-events: none;
-} */
-.container form .title{
+.container form .title {
     display: block;
     margin-bottom: 8px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
-    margin: 6px 0;
     color: #333;
-    align-items: center;
-    justify-content: center;
-    margin-left: 35%;
+    text-align: center;
+    margin: 15px 0;
 }
-.container form  .fields{
+
+.container form .fields {
     display: flex;
-    align-items: center;
-    /* justify-content: space-between; */
-    /* justify-content: space-evenly; */
     flex-wrap: wrap;
-    gap: 10px;
-    margin-left: 35px;
-
-
+    gap: 15px;
+    margin-left: 0;
 }
-/* .details {
-    border: 5px solid black;
-    background-color: #fd9ec7c8;
-    box-shadow: 5px 20px 45px rgb(240, 235, 235);
-    backdrop-filter: blur(10px);
-}
-.details-E{
-    background-color: #b58499e2;
-    box-shadow: 5px 20px 45px rgb(240, 235, 235);
-    backdrop-filter: blur(10px);
-} */
 
-form  .fields .input-box{
+form .fields .input-box {
     display: flex;
-    width: calc(100%/3-15px);
+    width: 100%;
     flex-direction: column;
     margin: 4px 0;
-    
 }
 
-.input-box label{
-    font-size: 16px;
+.input-box label {
+    font-size: 14px;
     font-weight: 500;
     color: #2e2e2e;
 }
-.input-box input, textarea{
-    border:  1px solid #aaa;
+
+.input-box input,
+.input-box textarea,
+.input-box select {
+    border: 1px solid #aaa;
     border-radius: 5px;
     font-size: 14px;
     font-weight: 400;
@@ -192,22 +115,17 @@ form  .fields .input-box{
     height: 42px;
     margin: 8px 0;
     padding: 0 15px;
+    width: 100%;
 }
-/* .input-box {
-    border:  1px solid #aaa;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: 400;
-    color: #333;
-    outline: none;
-    height: 42px;
-    margin: 8px 0;
-    padding: 0 15px;
-} */
- /* .input-box input:is(:focus, :valid){
-    box-shadow: 0 3px 6px rgba(0,0,0,0.13);
- } */
- .container form button ,.backBtn{
+
+.input-box textarea {
+    height: 80px;
+    padding: 10px 15px;
+    resize: vertical;
+}
+
+.container form button,
+.backBtn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -217,38 +135,160 @@ form  .fields .input-box{
     border: none;
     outline: none;
     border-radius: 10px;
-    font-size: 20px;
-    margin: 25px 0;
+    font-size: 16px;
+    margin: 25px auto;
     transition: all 0.3s linear;
     background-color: rgb(56, 29, 230);
     color: #fff;
     cursor: pointer;
-    margin-left: 35%;
-    
- }
- .container form button ,
- .container form .backBtn{
-    font-size: 16px;
-    font-weight: 400;
+}
 
- }
- form button:hover{
+.add-more-btn {
+    background-color: #4B0082;
+    margin: 10px auto;
+    padding: 10px 15px;
+    font-size: 14px;
+}
+
+form button:hover {
     background-color: #333;
- }
- form button i{
+}
+
+form button i {
     margin: 0 6px;
- }
-  form .buttons{
+}
+
+form .buttons {
     display: flex;
     align-items: center;
- }
- form .buttons button , .backBtn{
-    margin-right: 14;
- }
- /* .form-first {
-    display: none;
-} */
+}
 
-/* .form-first.active {
-    display: block;
-} */
+form .buttons button,
+.backBtn {
+    margin-right: 0;
+}
+
+/* OTP Verification Styles */
+.container-otp {
+    width: 100%;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.otp-box {
+    max-width: 400px;
+    width: 90%;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.otp-box h2 {
+    margin-bottom: 10px;
+    color: #4B0082;
+    font-size: 20px;
+}
+
+.otp-box p {
+    margin-bottom: 20px;
+    color: #555;
+    font-size: 14px;
+}
+
+.otp-input-container {
+    margin-bottom: 20px;
+}
+
+.otp-input-container input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+#verifyOtpBtn {
+    width: 100%;
+    padding: 12px;
+    background: #4B0082;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+/* Media Queries */
+@media (min-width: 480px) {
+    .container form .fields {
+        margin-left: 10px;
+    }
+    
+    form .fields .input-box {
+        width: calc(50% - 10px);
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar {
+        padding: 15px 50px;
+    }
+    
+    .logo {
+        font-size: 24px;
+    }
+    
+    .container {
+        padding: 30px;
+        margin-top: 30px;
+    }
+    
+    .container header {
+        font-size: 30px;
+    }
+    
+    .container p {
+        font-size: 20px;
+    }
+    
+    form .fields .input-box {
+        width: calc(100%/3 - 15px);
+    }
+    
+    .container form .title {
+        font-size: 20px;
+    }
+    
+    .input-box label {
+        font-size: 16px;
+    }
+    
+    .input-box input,
+    .input-box textarea,
+    .input-box select {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .container form .fields {
+        margin-left: 35px;
+    }
+}

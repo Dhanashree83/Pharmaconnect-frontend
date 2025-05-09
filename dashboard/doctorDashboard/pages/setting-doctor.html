@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Profile Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="/dashboard/doctorDashboard/styles/setting-doctor.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-brand">PharmaConnect</div>
+    </nav>
+    
+    <div class="main-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <a href="/dashboard/doctorDashboard/doctor-main.html"><i class="bi bi-calendar-check"></i>Dashboard</a>
+            <a href="#"><i class="bi bi-calendar-check"></i>Appointments</a>
+            <a href="/dashboard/doctorDashboard/pages/allPatient.html"><i class="bi bi-person"></i>All Patient</a>
+            <a href="/dashboard/doctorDashboard/pages/uploadMedicine.html"><i class="bi bi-person-badge"></i>Upload Medicine</a>
+            <a href="/dashboard/doctorDashboard/pages/pharmacy.html"><i class="bi bi-capsule"></i>Pharmacy</a>
+            <a href="/dashboard/doctorDashboard/pages/hospital.html"><i class="bi bi-hospital"></i>Hospital</a>
+        </div>
+        
+        <!-- Main Content Area -->
+        <div class="content-area">
+            <div class="container">
+                <div class="header">
+                    <h1>DOCTOR PROFILE MANAGEMENT</h1>
+                    <div class="user-icon">JS</div>
+                </div>
+                
+                <div class="profile-card">
+                    <h2 class="section-title">DOCTOR DETAILS</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" class="form-control" value="John">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" class="form-control" value="Smith">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="title">Title</label>
+                                <input type="text" id="title" class="form-control" value="Dr.">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label>Title Type</label>
+                                <div class="radio-group">
+                                    <div class="radio-option">
+                                        <input type="radio" id="md" name="titleType" checked>
+                                        <label for="md">MD</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="do" name="titleType">
+                                        <label for="do">DO</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="dds" name="titleType">
+                                        <label for="dds">DDS</label>
+                                    </div>
+                                    <div class="radio-option">
+                                        <input type="radio" id="other" name="titleType">
+                                        <label for="other">Other</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="specialty">Specialty</label>
+                        <select id="specialty" class="form-control">
+                            <option value="cardiology" selected>Cardiology</option>
+                            <option value="dentistry">Dentistry</option>
+                            <option value="dermatology">Dermatology</option>
+                            <option value="neurology">Neurology</option>
+                            <option value="orthopedics">Orthopedics</option>
+                            <option value="pediatrics">Pediatrics</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" class="form-control" value="dr.smith@clinic.com">
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" class="form-control" value="(555) 123-4567">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="license">License #</label>
+                        <input type="text" id="license" class="form-control" value="MED12345678">
+                    </div>
+                </div>
+                
+                <div class="profile-card">
+                    <h2 class="section-title">WORK SCHEDULE</h2>
+                    <p>Set Default Weekly Availability</p>
+                    
+                    <div class="availability-day">
+                        <input type="checkbox" id="monday" class="day-checkbox" checked>
+                        <label for="monday">Monday</label>
+                        <div class="time-inputs">
+                            <input type="time" class="time-input" value="09:00">
+                            <span>to</span>
+                            <input type="time" class="time-input" value="17:00">
+                        </div>
+                        <button class="add-break-btn">Add Break</button>
+                    </div>
+                    
+                    <div class="break-item">
+                        <div class="item-checkbox">
+                            <input type="checkbox" checked>
+                        </div>
+                        <div class="item-details">Lunch Break: 12:00 PM - 1:00 PM</div>
+                        <div class="remove-break">✕ Remove</div>
+                    </div>
+                    
+                    <div class="availability-day">
+                        <input type="checkbox" id="tuesday" class="day-checkbox" checked>
+                        <label for="tuesday">Tuesday</label>
+                        <div class="time-inputs">
+                            <input type="time" class="time-input" value="09:00">
+                            <span>to</span>
+                            <input type="time" class="time-input" value="17:00">
+                        </div>
+                        <button class="add-break-btn">Add Break</button>
+                    </div>
+                    
+                    <div class="availability-day">
+                        <input type="checkbox" id="wednesday" class="day-checkbox" checked>
+                        <label for="wednesday">Wednesday</label>
+                        <div class="time-inputs">
+                            <input type="time" class="time-input" value="09:00">
+                            <span>to</span>
+                            <input type="time" class="time-input" value="17:00">
+                        </div>
+                        <button class="add-break-btn">Add Break</button>
+                    </div>
+                    
+                    <div class="availability-day">
+                        <input type="checkbox" id="thursday" class="day-checkbox">
+                        <label for="thursday">Thursday</label>
+                        <div class="time-inputs">
+                            <input type="time" class="time-input" value="09:00" disabled>
+                            <span>to</span>
+                            <input type="time" class="time-input" value="17:00" disabled>
+                        </div>
+                        <span style="margin-left: 20px; color: var(--secondary-color);">Not Available</span>
+                    </div>
+                    
+                    <div class="availability-day">
+                        <input type="checkbox" id="friday" class="day-checkbox" checked>
+                        <label for="friday">Friday</label>
+                        <div class="time-inputs">
+                            <input type="time" class="time-input" value="10:00">
+                            <span>to</span>
+                            <input type="time" class="time-input" value="15:00">
+                        </div>
+                        <button class="add-break-btn">Add Break</button>
+                    </div>
+                    
+                    <div class="break-item">
+                        <div class="item-checkbox">
+                            <input type="checkbox" checked>
+                        </div>
+                        <div class="item-details">Afternoon Break: 3:00 PM - 3:15 PM</div>
+                        <div class="remove-break">✕ Remove</div>
+                    </div>
+                    
+                    <div class="availability-day">
+                        <input type="checkbox" id="saturday" class="day-checkbox">
+                        <label for="saturday">Saturday</label>
+                        <div class="time-inputs">
+                            <input type="time" class="time-input" value="09:00" disabled>
+                            <span>to</span>
+                            <input type="time" class="time-input" value="17:00" disabled>
+                        </div>
+                        <span style="margin-left: 20px; color: var(--secondary-color);">Not Available</span>
+                    </div>
+                    
+                    <div class="availability-day">
+                        <input type="checkbox" id="sunday" class="day-checkbox">
+                        <label for="sunday">Sunday</label>
+                        <div class="time-inputs">
+                            <input type="time" class="time-input" value="09:00" disabled>
+                            <span>to</span>
+                            <input type="time" class="time-input" value="17:00" disabled>
+                        </div>
+                        <span style="margin-left: 20px; color: var(--secondary-color);">Not Available</span>
+                    </div>
+                </div>
+                
+                <div class="profile-card">
+                    <h2 class="section-title">APPOINTMENT CONFIGURATION</h2>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="apptDuration">Default Appointment Duration</label>
+                                <select id="apptDuration" class="form-control">
+                                    <option value="15">15 minutes</option>
+                                    <option value="30" selected>30 minutes</option>
+                                    <option value="45">45 minutes</option>
+                                    <option value="60">60 minutes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="bufferTime">Buffer Time Between Appointments</label>
+                                <select id="bufferTime" class="form-control">
+                                    <option value="5">5 minutes</option>
+                                    <option value="10" selected>10 minutes</option>
+                                    <option value="15">15 minutes</option>
+                                    <option value="20">20 minutes</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="maxAppointments">Max Daily Appointments</label>
+                        <input type="number" id="maxAppointments" class="form-control" value="15">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Accept Same-Day Appointments</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="sameDayYes" name="sameDay" checked>
+                                <label for="sameDayYes">Yes</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="sameDayNo" name="sameDay">
+                                <label for="sameDayNo">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="profile-card">
+                    <h2 class="section-title">PROFESSIONAL INFORMATION</h2>
+                    
+                    <div class="form-group">
+                        <label for="biography">Biography</label>
+                        <textarea id="biography" class="form-control">Dr. John Smith is a board-certified cardiologist with over 15 years of experience in treating cardiovascular diseases. He completed his residency at Massachusetts General Hospital and has published numerous papers on innovative cardiac treatments.</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Education</label>
+                        
+                        <div class="education-item">
+                            <div class="item-checkbox">
+                                <input type="checkbox" checked>
+                            </div>
+                            <div class="item-details">MD, Harvard Medical School (2005)</div>
+                            <div class="item-actions">
+                                <button class="edit-btn">Edit</button>
+                                <button class="remove-btn">Remove</button>
+                            </div>
+                        </div>
+                        
+                        <button class="add-new-btn">Add New Education Entry</button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Certifications</label>
+                        
+                        <div class="certification-item">
+                            <div class="item-checkbox">
+                                <input type="checkbox" checked>
+                            </div>
+                            <div class="item-details">American Board of Cardiology (2010)</div>
+                            <div class="item-actions">
+                                <button class="edit-btn">Edit</button>
+                                <button class="remove-btn">Remove</button>
+                            </div>
+                        </div>
+                        
+                        <button class="add-new-btn">Add New Certification</button>
+                    </div>
+                </div>
+                
+                <div class="footer-actions">
+                    <button class="btn btn-back">← Back to Doctors List</button>
+                    <div>
+                        <button class="btn btn-reset">Reset</button>
+                        <button class="btn btn-save">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
