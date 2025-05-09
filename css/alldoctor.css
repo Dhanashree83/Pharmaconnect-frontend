@@ -10,101 +10,187 @@ body {
     padding: 0;
     box-sizing: border-box;
 }
-/*  Header section styling of the project  */
+/* Header section styling */
 header {
-    background: #0077b6;
-    padding: 10px 0;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+  background: #0077b6;
+  padding: 15px 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: auto;
-    padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-nav h1 {
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
+.logo {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.navbar {
+  display: flex;
+  transition: all 0.4s ease;
 }
 
 .navbar ul {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  list-style: none;
+  align-items: center;
 }
 
 .navbar ul li {
-    display: inline;
+  margin: 0 10px;
 }
 
 .navbar ul li a {
-    text-decoration: none;
-    color: white;
-    font-size: 16px;
-    padding: 10px 15px;
-    transition: 0.3s;
-    border-radius: 5px;
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.navbar ul li a i {
+  margin-right: 8px;
 }
 
 .navbar ul li a:hover {
-    background: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-.btn {
-    background: #fca311;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
+.nav-button button {
+  background: white;
+  color: #0077b6;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
 }
 
-.btn:hover {
-    background: #ffb703;
+.nav-button button i {
+  margin-right: 8px;
 }
-button{
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: #4a90e2;
-    background-color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+
+.nav-button button:hover {
+  background: #f0f0f0;
 }
- .container {
+
+.hamburger {
+  display: none;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 10px;
+}
+
+.hamburger i {
+  color: white;
+  font-size: 24px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .hamburger {
+      display: block;
+      z-index: 1001;
+  }
+  
+  .navbar {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 80%;
+      height: 100vh;
+      background: #0077b6;
+      flex-direction: column;
+      justify-content: center;
+      padding: 20px;
+      transition: all 0.5s ease;
+      z-index: 1000;
+  }
+  
+  .navbar.active {
+      left: 0;
+  }
+  
+  .navbar ul {
+      flex-direction: column;
+      width: 100%;
+  }
+  
+  .navbar ul li {
+      margin: 15px 0;
+      width: 100%;
+  }
+  
+  .navbar ul li a {
+      padding: 15px;
+      width: 100%;
+  }
+  
+  .nav-button {
+      display: none;
+  }
+}
+  .container {
             display: flex;
             flex: 1;
             padding: 20px;
-            margin: 40px;
+            margin: 20px auto;
+            max-width: 1200px;
+            flex-wrap: wrap;
         }
+
         .sidebar {
             width: 250px;
             padding: 20px;
             background-color: white;
             box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            margin-bottom: 20px;
         }
+
         .sidebar h3 {
             margin-top: 0;
+            margin-bottom: 15px;
+            color: #333;
         }
+
         .filter-item {
             cursor: pointer;
             display: block;
             margin: 10px 0;
-            padding: 8px;
+            padding: 10px;
             background-color: #007bff;
             color: white;
             text-align: center;
             border-radius: 5px;
+            transition: all 0.3s ease;
         }
+
+        .filter-item:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
         .content {
             flex: 1;
             display: grid;
@@ -112,22 +198,89 @@ button{
             gap: 20px;
             padding-left: 20px;
         }
+
         .doctor-card {
             background-color: white;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             text-align: center;
+            transition: transform 0.3s ease;
         }
+
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
         .doctor-card h4 {
             margin: 10px 0;
             color: #007bff;
+            font-size: 1.2rem;
         }
+
         .doctor-card p {
-            margin: 5px 0;
+            margin: 8px 0;
             color: #555;
+            font-size: 0.9rem;
         }
-     
+
+        /* Media Queries */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 15px;
+                margin: 15px auto;
+            }
+            
+            .content {
+                padding-left: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                margin: 10px;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .content {
+                padding-left: 0;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+                margin: 10px;
+            }
+            
+            .content {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .doctor-card {
+                padding: 15px;
+            }
+            
+            .filter-item {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Active filter style */
+        .filter-item.active {
+            background-color: #0056b3;
+            font-weight: bold;
+        }
+       
 /* =====================footer======================== */
 
 .footer {

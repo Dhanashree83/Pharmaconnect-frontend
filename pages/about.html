@@ -10,62 +10,68 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <h1>PharmaConnect</h1>
-            <div class="navbar">
-                <ul>
-                    <li><a href="/index.html">Home</a>
-                    <li><a href="/pages/about.html">About</a></li>
-                    <li><a href="/pages/pharmcay.html">Pharmacy</a></li>
-                    <li><a href="/pages/contact.html">Contact</a></li>
-                    <li><a href="/pages/alldoctor.html">All Doctors</a></li>
-                </ul>
-            </div>
-           <a href="/pages/user-login.html"> <button>Create Account</button></a>
-        </nav>
-        </header>
-    <section class="about">
-        <div class="about-content">
-            <h2>About Us</h2>
-            <p>Welcome to <em>PharmaConnect</em>, your one-stop solution for seamless doctor appointment scheduling. We are committed to making healthcare more accessible and convenient for everyone. Our platform connects patients with top-rated doctors, ensuring a hassle-free booking experience from the comfort of your home.</p>
-            <button><a href="/book-appointment.html">book an appointment</a></button>
-        </div>
-        <div class="image-content">
-            <div class="bg-square dark"></div>
-            <div class="bg-square light"></div>
-             <img src="/images/about-img.png" alt="no img">
-        </div>
+  <!-- Header section of the project -->
+  <header>
+    <nav>
+        <a href="index.html" class="logo">PharmaConnect</a>
+        <button class="hamburger" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="navbar" id="navbar">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/pages/about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="/pages/pharmcay.html"><i class="fas fa-prescription-bottle-alt"></i> Pharmacy</a></li>
+                <li><a href="/pages/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="/pages/alldoctor.html"><i class="fas fa-user-md"></i> All Doctors</a></li>
+                <a href="/pages/user-login.html" ><button ><i class="fas fa-user-plus"></i> Sing In</button></a>
+            </ul>
 
-    </section>
+        </div>
+       
+    </nav>
+</header>
+
+<section class="about">
+    <div class="about-content">
+        <h2>About Us</h2>
+        <p>Welcome to <em>PharmaConnect</em>, your one-stop solution for seamless doctor appointment scheduling. We are committed to making healthcare more accessible and convenient for everyone. Our platform connects patients with top-rated doctors, ensuring a hassle-free booking experience from the comfort of your home.</p>
+        <button><a href="/book-appointment.html">book an appointment</a></button>
+    </div>
+    <div class="image-content">
+        <div class="bg-square dark"></div>
+        <div class="bg-square light"></div>
+         <img src="/images/about-img.png" alt="Healthcare professionals discussing">
+    </div>
+</section>
+
 <!-- Key Features Section -->
 <section id="features" class="features">
     <div class="container">
-      <h2>Why Choose PharmaConnect</h2>
-      <div class="feature-cards">
-        <div class="card">
-          <i class="fas fa-calendar-check"></i>
-          <h3>Easy Appointment Booking</h3>
-          <p>Book appointments with top doctors in just a few clicks.</p>
+        <h2>Why Choose PharmaConnect</h2>
+        <div class="feature-cards">
+            <div class="card">
+                <i class="fas fa-calendar-check"></i>
+                <h3>Easy Appointment Booking</h3>
+                <p>Book appointments with top doctors in just a few clicks.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-pills"></i>
+                <h3>Integrated Pharmacy</h3>
+                <p>Order medicines online and get them delivered to your doorstep.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-clock"></i>
+                <h3>Real-Time Availability</h3>
+                <p>Check doctor availability and pharmacy stock in real-time.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Secure Payments</h3>
+                <p>Safe and secure payment options for appointments and medicines.</p>
+            </div>
         </div>
-        <div class="card">
-          <i class="fas fa-pills"></i>
-          <h3>Integrated Pharmacy</h3>
-          <p>Order medicines online and get them delivered to your doorstep.</p>
-        </div>
-        <div class="card">
-          <i class="fas fa-clock"></i>
-          <h3>Real-Time Availability</h3>
-          <p>Check doctor availability and pharmacy stock in real-time.</p>
-        </div>
-        <div class="card">
-          <i class="fas fa-shield-alt"></i>
-          <h3>Secure Payments</h3>
-          <p>Safe and secure payment options for appointments and medicines.</p>
-        </div>
-      </div>
     </div>
-  </section>
 </section>
 <footer class="footer">
     <div class="container">
@@ -114,6 +120,53 @@
 <!-- Font Awesome for icons -->
 <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.getElementById('hamburger');
+    const navbar = document.getElementById('navbar');
+    
+    // Check if elements exist
+    if (!hamburger || !navbar) {
+        console.error('Could not find hamburger or navbar elements!');
+        return;
+    }
+    
+    // Toggle menu function
+    function toggleMenu() {
+        navbar.classList.toggle('active');
+        const icon = hamburger.querySelector('i');
+        
+        // Toggle between bars and times icon
+        if (navbar.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    }
+    
+    // Event listeners
+    hamburger.addEventListener('click', toggleMenu);
+    
+    // Close menu when clicking on links (mobile)
+    const navLinks = document.querySelectorAll('.navbar ul li a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                toggleMenu();
+            }
+        });
+    });
+    
+    // Close menu when resizing to desktop
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && navbar.classList.contains('active')) {
+            toggleMenu();
+        }
+    });
+});
 
+</script>
 </body>
 </html>
