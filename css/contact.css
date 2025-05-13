@@ -44,6 +44,11 @@ nav h1 {
     align-items: center;
     gap: 20px;
 }
+.logo{
+    color: white;
+    font-size: 25px;
+    text-decoration: none;
+}
 
 .navbar ul li {
     display: inline;

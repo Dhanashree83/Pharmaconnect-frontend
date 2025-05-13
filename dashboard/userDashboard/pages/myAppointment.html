@@ -5,9 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Appointments</title>
   <script src="https://cdn.tailwindcss.com"></script>
- <link rel="stylesheet" href="/userDashboard/styles/myAppoitment.css">
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 50;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background-color: #fff;
+      padding: 24px;
+      border-radius: 0.5rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+    .close {
+      float: right;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<body>
+<body class="bg-gray-100">
 
 <div class="flex min-h-screen">
   <!-- Sidebar -->
@@ -29,7 +53,7 @@
       <div class="overflow-x-auto">
         <table class="min-w-full border border-gray-200 rounded-md">
           <thead>
-            <tr class="bg-blue-900 text-white text-left">
+            <tr class="bg-blue-900 text-white text-left text-sm">
               <th class="py-3 px-4">Date</th>
               <th class="py-3 px-4">Time</th>
               <th class="py-3 px-4">Doctor</th>
@@ -38,24 +62,94 @@
               <th class="py-3 px-4">Action</th>
             </tr>
           </thead>
-          <tbody id="appointmentTableBody" class="text-sm">
-            <!-- Populated by JS -->
+          <tbody id="appointmentTableBody" class="text-gray-700 text-sm">
+            <!-- Data loads here -->
           </tbody>
         </table>
+        <p id="noAppointmentsMsg" class="text-center text-gray-600 mt-4 hidden">No appointments found.</p>
       </div>
     </div>
   </main>
 </div>
 
 <!-- Modal -->
-<div class="modal" id="viewModal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h3 class="text-lg font-semibold text-blue-700 mb-2">Appointment Details</h3>
-    <p id="modalContent" class="text-gray-700 text-sm leading-relaxed"></p>
+<div id="viewModal" class="modal fixed inset-0 hidden items-center justify-center">
+  <div class="modal-content relative">
+    <span class="close absolute top-2 right-4 text-gray-700 hover:text-red-500" onclick="closeModal()">&times;</span>
+    <h3 class="text-lg font-semibold text-blue-700 mb-3">Appointment Details</h3>
+    <div id="modalContent" class="text-gray-700 text-sm space-y-1"></div>
   </div>
 </div>
 
-<script src="/userDashboard/js/myAppointment.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const appointmentTableBody = document.getElementById("appointmentTableBody");
+    const noAppointmentsMsg = document.getElementById("noAppointmentsMsg");
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+      noAppointmentsMsg.textContent = "User ID not found. Please log in again.";
+      noAppointmentsMsg.classList.remove("hidden");
+      return;
+    }
+
+    fetch(`http://localhost:8082/appointment/patient?patientId=${userId}&page=0&size=10`)
+      .then(res => {
+        if (!res.ok) throw new Error("Network response was not ok");
+        return res.json();
+      })
+      .then(data => {
+        if (!data || data.empty || data.content.length === 0) {
+          noAppointmentsMsg.classList.remove("hidden");
+          return;
+        }
+
+        data.content.forEach(appt => {
+          const tr = document.createElement("tr");
+          tr.className = "border-t hover:bg-blue-50";
+
+          tr.innerHTML = `
+            <td class="py-2 px-4">${appt.date || 'N/A'}</td>
+            <td class="py-2 px-4">${appt.time || 'N/A'}</td>
+            <td class="py-2 px-4">${appt.doctorName || 'N/A'}</td>
+            <td class="py-2 px-4">${appt.department || 'N/A'}</td>
+            <td class="py-2 px-4">${appt.status || 'Pending'}</td>
+            <td class="py-2 px-4">
+              <button onclick='viewDetails(${JSON.stringify(appt)})' class="text-blue-600 hover:underline text-sm">View</button>
+            </td>
+          `;
+          appointmentTableBody.appendChild(tr);
+        });
+      })
+      .catch(err => {
+        console.error("Error fetching appointments:", err);
+        noAppointmentsMsg.textContent = "Failed to load appointments. Please try again.";
+        noAppointmentsMsg.classList.remove("hidden");
+      });
+  });
+
+  function viewDetails(appt) {
+    const modal = document.getElementById("viewModal");
+    const modalContent = document.getElementById("modalContent");
+
+    modalContent.innerHTML = `
+      <p><strong>Date:</strong> ${appt.date || 'N/A'}</p>
+      <p><strong>Time:</strong> ${appt.time || 'N/A'}</p>
+      <p><strong>Doctor:</strong> ${appt.doctorName || 'N/A'}</p>
+      <p><strong>Department:</strong> ${appt.department || 'N/A'}</p>
+      <p><strong>Status:</strong> ${appt.status || 'Pending'}</p>
+      <p><strong>Notes:</strong> ${appt.notes || 'No additional notes'}</p>
+    `;
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+  }
+
+  function closeModal() {
+    const modal = document.getElementById("viewModal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  }
+</script>
+
 </body>
 </html>

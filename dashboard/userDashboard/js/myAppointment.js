@@ -1,73 +1,63 @@
-const appointments = [
-    {
-      date: "2025-04-25",
-      time: "10:30 AM",
-      doctor: "Dr. Aarti Sharma",
-      department: "Cardiology",
-      status: "Confirmed"
-    },
-    {
-      date: "2025-05-01",
-      time: "02:00 PM",
-      doctor: "Dr. Mohan Das",
-      department: "Neurology",
-      status: "Pending"
-    },
-    {
-      date: "2025-05-08",
-      time: "11:15 AM",
-      doctor: "Dr. Rhea Kapoor",
-      department: "Dermatology",
-      status: "Completed"
-    }
-  ];
+document.addEventListener("DOMContentLoaded", () => {
+  const appointmentTableBody = document.getElementById("appointmentTableBody");
+  const noAppointmentsMsg = document.getElementById("noAppointmentsMsg");
 
-  const tableBody = document.getElementById("appointmentTableBody");
+  const patientId = localStorage.getItem("patientId"); // must be set at login/signup
 
-  function renderTable(data) {
-    tableBody.innerHTML = "";
-    data.forEach((appt, index) => {
-      const row = document.createElement("tr");
-      const statusClass = appt.status.toLowerCase();
+  if (!patientId) {
+    noAppointmentsMsg.textContent = "Patient ID not found. Please log in again.";
+    noAppointmentsMsg.classList.remove("hidden");
+    return;
+  }
 
-      row.innerHTML = `
-        <td class="py-2 px-4">${appt.date}</td>
-        <td class="py-2 px-4">${appt.time}</td>
-        <td class="py-2 px-4">${appt.doctor}</td>
-        <td class="py-2 px-4">${appt.department}</td>
-        <td class="py-2 px-4"><span class="status ${statusClass}">${appt.status}</span></td>
-        <td class="py-2 px-4">
-          <button class="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600" onclick="viewAppointment(${index})">View</button>
-          ${appt.status !== 'Completed' ? `<button class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600 ml-2" onclick="cancelAppointment(${index})">Cancel</button>` : ''}
-        </td>
-      `;
-      tableBody.appendChild(row);
+  fetch(`http://localhost:8082/appointment/patient?patientId=${userId}&page=0&size=10`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (!data || data.empty || data.content.length === 0) {
+        noAppointmentsMsg.classList.remove("hidden");
+        return;
+      }
+
+      data.content.forEach((appointment) => {
+        const tr = document.createElement("tr");
+
+        tr.innerHTML = `
+          <td class="py-2 px-4">${appointment.date || 'N/A'}</td>
+          <td class="py-2 px-4">${appointment.time || 'N/A'}</td>
+          <td class="py-2 px-4">${appointment.doctorName || 'N/A'}</td>
+          <td class="py-2 px-4">${appointment.department || 'N/A'}</td>
+          <td class="py-2 px-4">${appointment.status || 'Pending'}</td>
+          <td class="py-2 px-4">
+            <button onclick='viewDetails(${JSON.stringify(appointment)})' class="text-blue-600 hover:underline text-sm">View</button>
+          </td>
+        `;
+
+        appointmentTableBody.appendChild(tr);
+      });
+    })
+    .catch((err) => {
+      console.error("Error fetching appointments:", err);
+      noAppointmentsMsg.textContent = "Error loading appointments. Try again later.";
+      noAppointmentsMsg.classList.remove("hidden");
     });
-  }
+});
 
-  function viewAppointment(index) {
-    const appt = appointments[index];
-    const content = `
-      <strong>Date:</strong> ${appt.date}<br>
-      <strong>Time:</strong> ${appt.time}<br>
-      <strong>Doctor:</strong> ${appt.doctor}<br>
-      <strong>Department:</strong> ${appt.department}<br>
-      <strong>Status:</strong> ${appt.status}
-    `;
-    document.getElementById("modalContent").innerHTML = content;
-    document.getElementById("viewModal").style.display = "flex";
-  }
+function viewDetails(appointment) {
+  const modal = document.getElementById("viewModal");
+  const content = document.getElementById("modalContent");
 
-  function closeModal() {
-    document.getElementById("viewModal").style.display = "none";
-  }
+  content.innerHTML = `
+    <strong>Date:</strong> ${appointment.date || 'N/A'}<br>
+    <strong>Time:</strong> ${appointment.time || 'N/A'}<br>
+    <strong>Doctor:</strong> ${appointment.doctorName || 'N/A'}<br>
+    <strong>Department:</strong> ${appointment.department || 'N/A'}<br>
+    <strong>Status:</strong> ${appointment.status || 'Pending'}<br>
+    <strong>Notes:</strong> ${appointment.notes || 'No additional notes.'}
+  `;
 
-  function cancelAppointment(index) {
-    if (confirm("Are you sure you want to cancel this appointment?")) {
-      appointments[index].status = "Cancelled";
-      alert("Appointment Cancelled.");
-      renderTable(appointments);
-    }
-  }
+  modal.classList.remove("hidden");
+}
 
-  renderTable(appointments);
+function closeModal() {
+  document.getElementById("viewModal").classList.add("hidden");
+}

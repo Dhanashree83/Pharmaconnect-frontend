@@ -94,6 +94,36 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// Mobile menu toggle functionality
+    document.getElementById('mobileMenuButton').addEventListener('click', function() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('mobileSidebarOverlay');
+      
+      if (sidebar.classList.contains('hidden')) {
+        sidebar.classList.remove('hidden');
+        sidebar.classList.add('fixed', 'z-30', 'top-0', 'left-0', 'h-full');
+        overlay.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('hidden');
+        sidebar.classList.remove('fixed', 'z-30', 'top-0', 'left-0', 'h-full');
+        overlay.classList.add('hidden');
+      }
+    });
+
+    // Close mobile sidebar when clicking on overlay
+    document.getElementById('mobileSidebarOverlay').addEventListener('click', function() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('mobileSidebarOverlay');
+      
+      sidebar.classList.add('hidden');
+      sidebar.classList.remove('fixed', 'z-30', 'top-0', 'left-0', 'h-full');
+      overlay.classList.add('hidden');
+    });
+
+
+
+
+
 
 // logout link js
   document.getElementById('logoutLink').addEventListener('click', function (e) {
