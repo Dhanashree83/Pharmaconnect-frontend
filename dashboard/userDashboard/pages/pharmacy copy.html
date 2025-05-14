@@ -30,12 +30,15 @@
 
   <div class="dashboard-container flex">
     <!-- Sidebar -->
-    <div class="sidebar hidden md:block w-60 bg-white shadow h-screen p-4">
-      <a href="/dashboard/userDashboard/user-main.html" class="block mb-2 text-blue-600 font-semibold">Dashboard</a>
-      <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block mb-2">Book Appointments</a>
-      <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block mb-2">All Doctors</a>
-      <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="block mb-2">Pharmacy</a>
-      <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block">My Appointments</a>
+     <div class="sidebar">
+      <h2>PharmaConnect</h2>
+       <nav class="space-y-4">
+        <a href="/dashboard/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
+        <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">Book an Appointments</a>
+        <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block text-gray-700 hover:text-blue-500 font-medium">All Doctors</a>
+        <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
+        <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
+      </nav>
     </div>
 
     <!-- Main Content -->
@@ -81,7 +84,7 @@
     const cartButton = document.getElementById('cartButton');
 
     let currentPage = 1;
-    const pageSize = 6;
+    const pageSize = 8;
     let totalPages = 1;
     let cart = [];
 

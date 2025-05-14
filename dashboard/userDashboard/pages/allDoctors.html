@@ -24,13 +24,13 @@
   <!-- Sidebar -->
   <aside class="w-64 bg-white shadow-lg h-screen p-4 hidden md:block fixed top-0 left-0">
     <h2 class="text-2xl font-bold text-blue-700 mb-8">PharmaConnect</h2>
-    <nav class="space-y-4">
-      <a href="/dashboard/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
-      <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">Book an Appointment</a>
-      <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block text-blue-600 font-bold">All Doctors</a>
-      <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
-      <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
-    </nav>
+      <nav class="space-y-4">
+        <a href="/dashboard/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
+        <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">Book an Appointments</a>
+        <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block text-gray-700 hover:text-blue-500 font-medium">All Doctors</a>
+        <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
+        <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
+      </nav>
   </aside>
 
   <!-- Main Content -->
@@ -52,8 +52,9 @@
   </main>
 
   <!-- Script -->
+     <script src="/js/config.js"></script>
   <script>
-    const apiUrl = "http://localhost:8082/api/doctor/all";
+    const apiUrl = `${BASE_URL}/api/doctor/all`;
     let allDoctors = [];
 
     // Fetch all doctors

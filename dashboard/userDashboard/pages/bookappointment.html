@@ -28,9 +28,9 @@
     <!-- Sidebar -->
     <div class="w-64 bg-blue-50 shadow-lg p-4 hidden md:block h-screen">
       <h2 class="text-2xl font-bold text-blue-700 mb-8">PharmaConnect</h2>
-      <nav class="space-y-4">
+        <nav class="space-y-4">
         <a href="/dashboard/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
-        <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">Book an Appointment</a>
+        <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">Book an Appointments</a>
         <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block text-gray-700 hover:text-blue-500 font-medium">All Doctors</a>
         <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
         <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
@@ -89,9 +89,9 @@
             <label for="doctor" class="block text-sm font-medium text-gray-700">Select Doctor</label>
             <select id="doctor" name="doctorId" class="input" required>
               <option value="">Choose a Doctor</option>
-              <option value="DRE3A69C5A">Dr. John Smith - Cardiologist</option>
+              <!-- <option value="DRE3A69C5A">Dr. John Smith - Cardiologist</option>
               <option value="DRE3A69C5B">Dr. Emily Davis - Dermatologist</option>
-              <option value="DRE3A69C5C">Dr. Mark Wilson - Orthopedic</option>
+              <option value="DRE3A69C5C">Dr. Mark Wilson - Orthopedic</option> -->
             </select>
           </div>
 
@@ -153,7 +153,7 @@
         contentType: "application/json",
         data: JSON.stringify(payload),
         success: function () {
-          alert("Your appointment has been booked successfully!");
+          // alert("Your appointment has been booked successfully!");
           window.location.href = "/dashboard/userDashboard/user-main.html";
         },
         error: function (xhr) {

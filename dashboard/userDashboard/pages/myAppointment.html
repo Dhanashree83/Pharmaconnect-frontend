@@ -37,14 +37,15 @@
   <!-- Sidebar -->
   <aside class="w-64 bg-blue-50 shadow-md p-6 hidden md:block">
     <h2 class="text-2xl font-bold text-blue-700 mb-8">PharmaConnect</h2>
-    <nav class="space-y-4">
-      <a href="/dashboard/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
-      <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">Book Appointments</a>
-      <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block text-gray-700 hover:text-blue-500 font-medium">All Doctors</a>
-      <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
-      <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block text-blue-600 font-semibold">My Appointments</a>
-    </nav>
+      <nav class="space-y-4">
+        <a href="/dashboard/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
+        <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">Book an Appointments</a>
+        <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block text-gray-700 hover:text-blue-500 font-medium">All Doctors</a>
+        <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
+        <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
+      </nav>
   </aside>
+  <script src="/js/config.js"></script>
 
   <!-- Main Content -->
   <main class="flex-1 p-6">
@@ -57,16 +58,17 @@
               <th class="py-3 px-4">Date</th>
               <th class="py-3 px-4">Time</th>
               <th class="py-3 px-4">Doctor</th>
-              <th class="py-3 px-4">Department</th>
+              <th class="py-3 px-4">Email</th>
               <th class="py-3 px-4">Status</th>
               <th class="py-3 px-4">Action</th>
             </tr>
           </thead>
-          <tbody id="appointmentTableBody" class="text-gray-700 text-sm">
-            <!-- Data loads here -->
-          </tbody>
+          <tbody id="appointmentTableBody" class="text-gray-700 text-sm"></tbody>
         </table>
         <p id="noAppointmentsMsg" class="text-center text-gray-600 mt-4 hidden">No appointments found.</p>
+
+        <!-- Pagination -->
+        <div id="pagination" class="flex justify-center mt-4 gap-2 text-sm"></div>
       </div>
     </div>
   </main>
@@ -82,63 +84,94 @@
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const appointmentTableBody = document.getElementById("appointmentTableBody");
-    const noAppointmentsMsg = document.getElementById("noAppointmentsMsg");
-    const userId = localStorage.getItem("userId");
+  let currentPage = 0;
+  const pageSize = 10;
 
+  document.addEventListener("DOMContentLoaded", () => {
+    const userId = localStorage.getItem("userId");
     if (!userId) {
-      noAppointmentsMsg.textContent = "User ID not found. Please log in again.";
-      noAppointmentsMsg.classList.remove("hidden");
+      document.getElementById("noAppointmentsMsg").textContent = "User ID not found. Please log in again.";
+      document.getElementById("noAppointmentsMsg").classList.remove("hidden");
       return;
     }
+    fetchAppointments(userId, currentPage);
+  });
 
-    fetch(`http://localhost:8082/appointment/patient?patientId=${userId}&page=0&size=10`)
-      .then(res => {
-        if (!res.ok) throw new Error("Network response was not ok");
-        return res.json();
-      })
+  function fetchAppointments(patientId, page) {
+    const url = `${BASE_URL}/appointment/patient?patientId=${patientId}&page=${page}&size=${pageSize}`;
+    fetch(url)
+      .then(res => res.json())
       .then(data => {
+        const tbody = document.getElementById("appointmentTableBody");
+        tbody.innerHTML = "";
+        document.getElementById("pagination").innerHTML = "";
         if (!data || data.empty || data.content.length === 0) {
-          noAppointmentsMsg.classList.remove("hidden");
+          document.getElementById("noAppointmentsMsg").classList.remove("hidden");
           return;
         }
 
-        data.content.forEach(appt => {
-          const tr = document.createElement("tr");
-          tr.className = "border-t hover:bg-blue-50";
+        document.getElementById("noAppointmentsMsg").classList.add("hidden");
 
-          tr.innerHTML = `
-            <td class="py-2 px-4">${appt.date || 'N/A'}</td>
-            <td class="py-2 px-4">${appt.time || 'N/A'}</td>
+        data.content.forEach(appt => {
+          const dateObj = new Date(appt.appointmentDate);
+          const dateStr = dateObj.toLocaleDateString();
+          const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+          const row = document.createElement("tr");
+          row.className = "border-t hover:bg-blue-50";
+
+          row.innerHTML = `
+            <td class="py-2 px-4">${dateStr}</td>
+            <td class="py-2 px-4">${timeStr}</td>
             <td class="py-2 px-4">${appt.doctorName || 'N/A'}</td>
-            <td class="py-2 px-4">${appt.department || 'N/A'}</td>
+            <td class="py-2 px-4">${appt.doctorEmail || 'N/A'}</td>
             <td class="py-2 px-4">${appt.status || 'Pending'}</td>
             <td class="py-2 px-4">
               <button onclick='viewDetails(${JSON.stringify(appt)})' class="text-blue-600 hover:underline text-sm">View</button>
             </td>
           `;
-          appointmentTableBody.appendChild(tr);
+          tbody.appendChild(row);
         });
+
+        renderPagination(data.totalPages, data.number);
       })
       .catch(err => {
         console.error("Error fetching appointments:", err);
-        noAppointmentsMsg.textContent = "Failed to load appointments. Please try again.";
-        noAppointmentsMsg.classList.remove("hidden");
+        document.getElementById("noAppointmentsMsg").textContent = "Failed to load appointments. Please try again.";
+        document.getElementById("noAppointmentsMsg").classList.remove("hidden");
       });
-  });
+  }
+
+  function renderPagination(totalPages, current) {
+    const pagination = document.getElementById("pagination");
+    for (let i = 0; i < totalPages; i++) {
+      const btn = document.createElement("button");
+      btn.textContent = i + 1;
+      btn.className = `px-3 py-1 rounded ${i === current ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-blue-100'}`;
+      btn.onclick = () => {
+        currentPage = i;
+        const userId = localStorage.getItem("userId");
+        fetchAppointments(userId, currentPage);
+      };
+      pagination.appendChild(btn);
+    }
+  }
 
   function viewDetails(appt) {
+    const dateObj = new Date(appt.appointmentDate);
+    const dateStr = dateObj.toLocaleDateString();
+    const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
     const modal = document.getElementById("viewModal");
     const modalContent = document.getElementById("modalContent");
 
     modalContent.innerHTML = `
-      <p><strong>Date:</strong> ${appt.date || 'N/A'}</p>
-      <p><strong>Time:</strong> ${appt.time || 'N/A'}</p>
+      <p><strong>Date:</strong> ${dateStr}</p>
+      <p><strong>Time:</strong> ${timeStr}</p>
       <p><strong>Doctor:</strong> ${appt.doctorName || 'N/A'}</p>
-      <p><strong>Department:</strong> ${appt.department || 'N/A'}</p>
+      <p><strong>Doctor Email:</strong> ${appt.doctorEmail || 'N/A'}</p>
+      <p><strong>Doctor Phone:</strong> ${appt.doctorPhoneNumber || 'N/A'}</p>
       <p><strong>Status:</strong> ${appt.status || 'Pending'}</p>
-      <p><strong>Notes:</strong> ${appt.notes || 'No additional notes'}</p>
     `;
     modal.classList.remove("hidden");
     modal.classList.add("flex");

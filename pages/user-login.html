@@ -177,8 +177,8 @@
     }
 
  const endpoint = userType === 'patient'
-  ? `http://localhost:8082/api/patient/forgot-password?email=${encodeURIComponent(email)}`
-  : `http://localhost:8082/api/doctor/forgot-password?email=${encodeURIComponent(email)}`;
+  ? `${BASE_URL}/api/patient/forgot-password?email=${encodeURIComponent(email)}`
+  : `${BASE_URL}/api/doctor/forgot-password?email=${encodeURIComponent(email)}`;
 
 
     fetch(endpoint, {
@@ -217,8 +217,8 @@
     }
 
     const endpoint = isPatient
-      ? 'http://localhost:8082/api/patient/reset-password'
-      : 'http://localhost:8082/api/doctor/reset-password';
+      ? `${BASE_URL}/api/patient/reset-password`
+      : `${BASE_URL}/api/doctor/reset-password`;
 
     fetch(endpoint, {
       method: 'POST',
