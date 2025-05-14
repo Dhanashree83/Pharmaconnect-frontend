@@ -27,6 +27,8 @@
       <a href="/dashboard/doctorDashboard/pages/hospital.html" class="flex items-center mb-4 text-blue-800 font-semibold hover:bg-blue-200 p-2 rounded"><i class="bi bi-hospital mr-2"></i>Hospital</a>
     </aside>
 
+      <script src="/js/config.js"></script>
+
     <!-- Main Content -->
     <main class="flex-1 p-6">
       <h2 class="text-2xl font-semibold text-blue-700 mb-4">Booked Appointments</h2>
@@ -63,7 +65,7 @@
         return;
       }
 
-      const apiUrl = `http://localhost:8082/appointment/doctor?doctorId=${userId}&page=1&size=10`;
+      const apiUrl = `${BASE_URL}/appointment/doctor?doctorId=${userId}&page=1&size=10`;
 
       try {
         const res = await fetch(apiUrl);
@@ -104,7 +106,7 @@
     };
 
     const handleAction = async (appointmentId, action, btn) => {
-      const url = `http://localhost:8082/appointment/${action}/${appointmentId}`;
+      const url = `${BASE_URL}/appointment/${action}/${appointmentId}`;
       const row = btn.closest('tr');
       const statusCell = row.querySelector('.status');
 

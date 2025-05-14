@@ -45,6 +45,7 @@
         <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
       </nav>
   </aside>
+  <script src="/js/config.js"></script>
 
   <!-- Main Content -->
   <main class="flex-1 p-6">
@@ -97,7 +98,7 @@
   });
 
   function fetchAppointments(patientId, page) {
-    const url = `http://localhost:8082/appointment/patient?patientId=${patientId}&page=${page}&size=${pageSize}`;
+    const url = `${BASE_URL}/appointment/patient?patientId=${patientId}&page=${page}&size=${pageSize}`;
     fetch(url)
       .then(res => res.json())
       .then(data => {

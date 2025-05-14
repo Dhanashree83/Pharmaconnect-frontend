@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  fetch(`http://localhost:8082/appointment/patient?patientId=${userId}&page=0&size=10`)
+  fetch(`${BASE_URL}/appointment/patient?patientId=${userId}&page=0&size=10`)
     .then((res) => res.json())
     .then((data) => {
       if (!data || data.empty || data.content.length === 0) {

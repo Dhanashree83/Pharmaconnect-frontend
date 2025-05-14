@@ -52,8 +52,9 @@
   </main>
 
   <!-- Script -->
+     <script src="/js/config.js"></script>
   <script>
-    const apiUrl = "http://localhost:8082/api/doctor/all";
+    const apiUrl = `${BASE_URL}/api/doctor/all`;
     let allDoctors = [];
 
     // Fetch all doctors
