@@ -1,297 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Dashboard - Pharmacy</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Doctor Dashboard - Pharmacy</title>
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Bootstrap Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 
-  <!-- Chart.js (optional if you want graphs) -->
+  <link rel="stylesheet" href="/dashboard/userDashboard/styles/pharmacy copy.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-  <style>
-    /* Custom Styles */
-    :root {
-      --primary: #2a7fba;
-      --secondary: #f8f9fa;
-      --accent: #e74c3c;
-      --text: #333;
-      --light-text: #6c757d;
-      --border: #dee2e6;
-    }
-
-    body {
-      background-color: #f5f7fa;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: var(--text);
-    }
-
-    .dashboard-container {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    .sidebar {
-      width: 250px;
-      background: #e6f0ff;
-      padding: 20px;
-    }
-
-    .sidebar a {
-      display: block;
-      padding: 10px;
-      margin: 8px 0;
-      color: #004aad;
-      font-weight: 500;
-      border-radius: 8px;
-      text-decoration: none;
-    }
-
-    .sidebar a:hover {
-      background-color: #cde0fd;
-    }
-
-    .main-content {
-      flex: 1;
-      padding: 20px;
-    }
-
-    .pharmacy-container {
-      background: white;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    .search-filter-bar {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .search-box {
-      flex: 1;
-      position: relative;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 10px 15px 10px 40px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-    }
-
-    .search-icon {
-      position: absolute;
-      top: 50%;
-      left: 15px;
-      transform: translateY(-50%);
-      color: var(--light-text);
-    }
-
-    .filter-dropdown select {
-      width: 200px;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid var(--border);
-    }
-
-    .medication-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .medication-card {
-      border: 1px solid var(--border);
-      padding: 20px;
-      border-radius: 10px;
-      transition: 0.3s;
-    }
-
-    .medication-card:hover {
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-      transform: translateY(-3px);
-    }
-
-    .pagination {
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
-      gap: 8px;
-    }
-
-    .page-item {
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: white;
-      cursor: pointer;
-    }
-
-    .page-item.active {
-      background: var(--primary);
-      color: white;
-    }
-  </style>
 </head>
 
-<body>
+<body class="bg-gray-50">
 
   <!-- Navbar -->
   <nav class="flex justify-between items-center bg-blue-600 text-white px-6 py-4">
     <div class="text-xl font-bold">PharmaConnect</div>
+    <div class="relative">
+     <a href="/dashboard/userDashboard/pages/cart.html"> <button id="cartButton" class="relative">
+        <i class="bi bi-cart text-2xl"></i>
+        <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs px-1">0</span>
+      </button></a>
+    </div>
   </nav>
 
-  <div class="dashboard-container">
+  <div class="dashboard-container flex">
     <!-- Sidebar -->
-    <div class="sidebar hidden md:block">
-      <h2 class="text-2xl font-bold text-blue-700 mb-6">PharmaConnect</h2>
-      <a href="/dashboard/userDashboard/user-main.html">Dashboard</a>
-      <a href="/dashboard/userDashboard/pages/bookappointment.html">Book Appointments</a>
-      <a href="/dashboard/userDashboard/pages/prescreption.html">Prescriptions</a>
-      <a href="/dashboard/userDashboard/pages/allDoctors.html">All Doctors</a>
-      <a href="/dashboard/userDashboard/pages/pharmacy copy.html">Pharmacy</a>
-      <a href="/dashboard/userDashboard/pages/myAppointment.html">My Appointments</a>
+    <div class="sidebar hidden md:block w-60 bg-white shadow h-screen p-4">
+      <a href="/dashboard/userDashboard/user-main.html" class="block mb-2 text-blue-600 font-semibold">Dashboard</a>
+      <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block mb-2">Book Appointments</a>
+      <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block mb-2">All Doctors</a>
+      <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="block mb-2">Pharmacy</a>
+      <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block">My Appointments</a>
     </div>
 
     <!-- Main Content -->
-    <div class="main-content">
-      <div class="page-header flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold text-blue-700">Pharmacy Management</h1>
-        <button class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add New Medication</button>
+    <div class="flex-1 p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold">Pharmacy Management</h1>
       </div>
 
-      <div class="pharmacy-container">
-        
-        <!-- Search and Filter -->
-        <div class="search-filter-bar">
-          <div class="search-box">
-            <span class="search-icon">🔍</span>
-            <input type="text" placeholder="Search medications..." class="border">
-          </div>
-          <div class="filter-dropdown">
-            <select>
-              <option>All Categories</option>
-              <option>Antibiotics</option>
-              <option>Analgesics</option>
-              <option>Antihistamines</option>
-              <option>Antidepressants</option>
-              <option>Vitamins</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Medication Cards -->
-        <div class="medication-list">
-          <!-- Medication 1 -->
-          <div class="medication-card">
-            <div class="flex justify-between mb-2">
-              <div>
-                <div class="font-bold text-lg">Amoxicillin</div>
-                <div class="text-sm text-blue-600">Antibiotic</div>
-              </div>
-              <div class="font-bold text-blue-700">$12.99</div>
-            </div>
-            <p class="text-gray-600 text-sm mb-4">
-              500mg capsules for bacterial infections like chest infections and dental abscesses.
-            </p>
-            <div class="flex justify-between text-sm mb-4">
-              <span class="text-green-600">In Stock: 124</span>
-              <span>SKU: AMX-500-100</span>
-            </div>
-            <div class="flex gap-2">
-              <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Prescribe</button>
-              <button class="border border-blue-600 text-blue-600 px-3 py-1 rounded hover:bg-blue-50">Details</button>
-            </div>
-          </div>
-
-          <!-- Medication 2 -->
-          <div class="medication-card">
-            <div class="flex justify-between mb-2">
-              <div>
-                <div class="font-bold text-lg">Ibuprofen</div>
-                <div class="text-sm text-blue-600">Analgesic</div>
-              </div>
-              <div class="font-bold text-blue-700">$5.49</div>
-            </div>
-            <p class="text-gray-600 text-sm mb-4">
-              200mg tablets for pain relief, inflammation, and high temperature.
-            </p>
-            <div class="flex justify-between text-sm mb-4">
-              <span class="text-yellow-500">Low Stock: 8</span>
-              <span>SKU: IBP-200-50</span>
-            </div>
-            <div class="flex gap-2">
-              <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Prescribe</button>
-              <button class="border border-blue-600 text-blue-600 px-3 py-1 rounded hover:bg-blue-50">Details</button>
-            </div>
-          </div>
-
-          <!-- Medication 3 -->
-          <div class="medication-card">
-            <div class="flex justify-between mb-2">
-              <div>
-                <div class="font-bold text-lg">Loratadine</div>
-                <div class="text-sm text-blue-600">Antihistamine</div>
-              </div>
-              <div class="font-bold text-blue-700">$8.75</div>
-            </div>
-            <p class="text-gray-600 text-sm mb-4">
-              10mg tablets for allergies like hay fever, hives, and insect bites.
-            </p>
-            <div class="flex justify-between text-sm mb-4">
-              <span class="text-red-500">Out of Stock</span>
-              <span>SKU: LOR-10-30</span>
-            </div>
-            <div class="flex gap-2">
-              <button class="bg-gray-400 text-white px-3 py-1 rounded cursor-not-allowed" disabled>Prescribe</button>
-              <button class="border border-blue-600 text-blue-600 px-3 py-1 rounded hover:bg-blue-50">Details</button>
-            </div>
-          </div>
-
-          <!-- Medication 4 -->
-          <div class="medication-card">
-            <div class="flex justify-between mb-2">
-              <div>
-                <div class="font-bold text-lg">Vitamin D3</div>
-                <div class="text-sm text-blue-600">Vitamin</div>
-              </div>
-              <div class="font-bold text-blue-700">$9.99</div>
-            </div>
-            <p class="text-gray-600 text-sm mb-4">
-              1000 IU softgels to regulate calcium and phosphate levels.
-            </p>
-            <div class="flex justify-between text-sm mb-4">
-              <span class="text-green-600">In Stock: 42</span>
-              <span>SKU: VIT-D3-100</span>
-            </div>
-            <div class="flex gap-2">
-              <button class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Prescribe</button>
-              <button class="border border-blue-600 text-blue-600 px-3 py-1 rounded hover:bg-blue-50">Details</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Pagination -->
-        <div class="pagination">
-          <div class="page-item">«</div>
-          <div class="page-item active">1</div>
-          <div class="page-item">2</div>
-          <div class="page-item">3</div>
-          <div class="page-item">...</div>
-          <div class="page-item">8</div>
-          <div class="page-item">»</div>
-        </div>
-
+      <!-- Search & Filter -->
+      <div class="flex items-center mb-4 gap-4">
+        <input id="searchInput" type="text" placeholder="Search medications..." class="border px-3 py-2 rounded w-full max-w-md" />
+        <select id="categoryFilter" class="border px-3 py-2 rounded">
+          <option value="">All Categories</option>
+          <option>Antibiotics</option>
+          <option>Analgesics</option>
+          <option>Antihistamines</option>
+          <option>Antidepressants</option>
+          <option>Vitamins</option>
+        </select>
       </div>
+
+      <!-- Loader -->
+      <div id="loader" class="text-center hidden">
+        <span class="text-gray-500">Loading medicines...</span>
+      </div>
+
+      <!-- Medicine Cards -->
+      <div id="medicationList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+      <!-- Pagination -->
+      <div class="pagination flex justify-center mt-6" id="pagination"></div>
     </div>
   </div>
 
+  <script src="/js/config.js"></script>
+  <script>
+    const medicationList = document.getElementById('medicationList');
+    const loader = document.getElementById('loader');
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const paginationContainer = document.getElementById('pagination');
+    const cartCount = document.getElementById('cartCount');
+    const cartButton = document.getElementById('cartButton');
+
+    let currentPage = 1;
+    const pageSize = 6;
+    let totalPages = 1;
+    let cart = [];
+
+    function updateCartCount() {
+      cartCount.textContent = cart.length;
+    }
+
+    function addToCart(medicine) {
+      const alreadyInCart = cart.find(item => item.medicineId === medicine.medicineId);
+      if (!alreadyInCart) {
+        cart.push(medicine);
+        updateCartCount();
+        alert(`${medicine.name} added to cart!`);
+      } else {
+        alert(`${medicine.name} is already in the cart.`);
+      }
+    }
+
+    cartButton.addEventListener('click', () => {
+      if (cart.length === 0) {
+        alert("Your cart is empty.");
+      } else {
+        const cartItems = cart.map(m => `${m.name} (₹${m.price})`).join('\n');
+        alert("Items in Cart:\n" + cartItems);
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchMedicines(currentPage);
+      searchInput.addEventListener('input', () => fetchMedicines(1));
+      categoryFilter.addEventListener('change', () => fetchMedicines(1));
+    });
+
+    async function fetchMedicines(page) {
+      loader.classList.remove('hidden');
+      try {
+        const searchText = searchInput.value.toLowerCase();
+        const categoryText = categoryFilter.value;
+
+        const response = await fetch(`${BASE_URL}/api/medicine/all?page=${page}&size=${pageSize}`);
+        const result = await response.json();
+
+        let medicines = result.content || [];
+        totalPages = result.totalPages || 1;
+
+        medicines = medicines.filter(med => {
+          return (
+            med.name.toLowerCase().includes(searchText) &&
+            (categoryText === '' || med.category === categoryText)
+          );
+        });
+
+        currentPage = page;
+        renderPage(medicines);
+        renderPagination();
+      } catch (err) {
+        console.error(err);
+        medicationList.innerHTML = `<p class="text-red-600">Failed to load medicines.</p>`;
+      } finally {
+        loader.classList.add('hidden');
+      }
+    }
+
+    function renderPage(medicines) {
+      medicationList.innerHTML = '';
+
+      if (medicines.length === 0) {
+        medicationList.innerHTML = `<p class="text-gray-600">No medicines found.</p>`;
+        return;
+      }
+
+      medicines.forEach(med => {
+        const div = document.createElement('div');
+        div.className = 'bg-white rounded shadow p-4';
+        div.innerHTML = `
+          <div class="flex justify-between items-center mb-2">
+            <div>
+              <h2 class="text-lg font-semibold">${med.name}</h2>
+              <span class="text-sm text-blue-600">${med.category || 'General'}</span>
+            </div>
+            <div class="text-blue-700 font-bold">₹${(med.price || 0).toFixed(2)}</div>
+          </div>
+          <p class="text-gray-700 mb-2">${med.description || 'No description available.'}</p>
+          <p class="text-sm text-gray-600 mb-1">Dosage: ${med.dosage || 'Not specified'}</p>
+          <p class="text-sm text-gray-600 mb-2">ID: ${med.medicineId || 'N/A'}</p>
+          <div class="flex gap-2">
+            <button class="bg-green-500 text-white px-3 py-1 rounded add-to-cart" ${med.stock <= 0 ? 'disabled' : ''}>Add to Cart</button>
+            <button class="border px-3 py-1 rounded">Details</button>
+          </div>
+        `;
+        medicationList.appendChild(div);
+
+        const addCartButton = div.querySelector('.add-to-cart');
+        addCartButton.addEventListener('click', () => addToCart(med));
+      });
+    }
+
+    function renderPagination() {
+      paginationContainer.innerHTML = '';
+
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        btn.className = `mx-1 px-3 py-1 border rounded ${i === currentPage ? 'bg-blue-500 text-white' : 'bg-white text-blue-600'}`;
+        btn.addEventListener('click', () => {
+          if (i !== currentPage) {
+            fetchMedicines(i);
+          }
+        });
+        paginationContainer.appendChild(btn);
+      }
+    }
+
+    function addToCart(medicine) {
+  let cart = JSON.parse(localStorage.getItem('pharmaCart')) || [];
+  const exists = cart.find(item => item.medicineId === medicine.medicineId);
+  if (!exists) {
+    cart.push(medicine);
+    localStorage.setItem('pharmaCart', JSON.stringify(cart));
+    updateCartCount();
+    alert(`${medicine.name} added to cart!`);
+  } else {
+    alert(`${medicine.name} is already in the cart.`);
+  }
+}
+function updateCartCount() {
+  const cart = JSON.parse(localStorage.getItem('pharmaCart')) || [];
+  cartCount.textContent = cart.length;
+}
+
+
+  </script>
 </body>
 </html>
