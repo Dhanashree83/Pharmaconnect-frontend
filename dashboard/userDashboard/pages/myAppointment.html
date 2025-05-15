@@ -29,6 +29,15 @@
       font-weight: bold;
       cursor: pointer;
     }
+    .status-pending {
+      color: #d97706; /* amber-600 */
+    }
+    .status-cancelled {
+      color: #dc2626; /* red-600 */
+    }
+    .status-confirmed {
+      color: #059669; /* green-600 */
+    }
   </style>
 </head>
 <body class="bg-gray-100">
@@ -56,10 +65,11 @@
         <table class="min-w-full border border-gray-200 rounded-md">
           <thead>
             <tr class="bg-blue-900 text-white text-left text-sm">
-              <th class="py-3 px-4">Date</th>
-              <th class="py-3 px-4">Time</th>
+              <th class="py-3 px-4">Appointment ID</th>
               <th class="py-3 px-4">Doctor</th>
-              <th class="py-3 px-4">Email</th>
+              <th class="py-3 px-4">Patient</th>
+              <th class="py-3 px-4">Doctor Contact</th>
+              <th class="py-3 px-4">Appointment Time</th>
               <th class="py-3 px-4">Status</th>
               <th class="py-3 px-4">Action</th>
             </tr>
@@ -84,9 +94,25 @@
   </div>
 </div>
 
+<!-- Confirmation Modal -->
+<div id="confirmModal" class="modal fixed inset-0 hidden items-center justify-center">
+  <div class="modal-content relative">
+    <span class="close absolute top-2 right-4 text-gray-700 hover:text-red-500" onclick="closeConfirmModal()">&times;</span>
+    <h3 class="text-lg font-semibold text-blue-700 mb-3">Confirm Cancellation</h3>
+    <div id="confirmModalContent" class="text-gray-700 text-sm mb-4">
+      Are you sure you want to cancel this appointment?
+    </div>
+    <div class="flex justify-end gap-3">
+      <button onclick="closeConfirmModal()" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400">No</button>
+      <button id="confirmCancelBtn" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Yes, Cancel</button>
+    </div>
+  </div>
+</div>
+
 <script>
   let currentPage = 0;
   const pageSize = 10;
+  let currentAppointmentId = null;
 
   document.addEventListener("DOMContentLoaded", () => {
     const userId = localStorage.getItem("userId");
@@ -117,18 +143,30 @@
           const dateObj = new Date(appt.appointmentDate);
           const dateStr = dateObj.toLocaleDateString();
           const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          const patientName = `${appt.firstName} ${appt.lastName}`;
+          const doctorContact = `${appt.doctorEmail}<br>${appt.doctorPhoneNumber}`;
+          
+          // Determine status class based on status
+          let statusClass = '';
+          if (appt.status === 'PENDING') statusClass = 'status-pending';
+          else if (appt.status === 'CANCELLED') statusClass = 'status-cancelled';
+          else if (appt.status === 'CONFIRMED') statusClass = 'status-confirmed';
 
           const row = document.createElement("tr");
           row.className = "border-t hover:bg-blue-50";
 
           row.innerHTML = `
-            <td class="py-2 px-4">${dateStr}</td>
-            <td class="py-2 px-4">${timeStr}</td>
+            <td class="py-2 px-4">${appt.appointmentId}</td>
             <td class="py-2 px-4">${appt.doctorName || 'N/A'}</td>
-            <td class="py-2 px-4">${appt.doctorEmail || 'N/A'}</td>
-            <td class="py-2 px-4">${appt.status || 'Pending'}</td>
-            <td class="py-2 px-4">
+            <td class="py-2 px-4">${patientName}</td>
+            <td class="py-2 px-4">${doctorContact}</td>
+            <td class="py-2 px-4">${dateStr} ${timeStr}</td>
+            <td class="py-2 px-4 ${statusClass}">${appt.status || 'Pending'}</td>
+            <td class="py-2 px-4 flex gap-2">
               <button onclick='viewDetails(${JSON.stringify(appt)})' class="text-blue-600 hover:underline text-sm">View</button>
+              ${appt.status === 'PENDING' ? 
+                `<button onclick='showCancelConfirmation("${appt.appointmentId}")' class="text-red-600 hover:underline text-sm">Cancel</button>` : 
+                ''}
             </td>
           `;
           tbody.appendChild(row);
@@ -167,13 +205,25 @@
     const modalContent = document.getElementById("modalContent");
 
     modalContent.innerHTML = `
+      <p><strong>Appointment ID:</strong> ${appt.appointmentId}</p>
       <p><strong>Date:</strong> ${dateStr}</p>
       <p><strong>Time:</strong> ${timeStr}</p>
+      <p><strong>Patient:</strong> ${appt.firstName} ${appt.lastName}</p>
+      <p><strong>Patient Email:</strong> ${appt.email}</p>
+      <p><strong>Patient Phone:</strong> ${appt.phoneNumber}</p>
       <p><strong>Doctor:</strong> ${appt.doctorName || 'N/A'}</p>
       <p><strong>Doctor Email:</strong> ${appt.doctorEmail || 'N/A'}</p>
       <p><strong>Doctor Phone:</strong> ${appt.doctorPhoneNumber || 'N/A'}</p>
       <p><strong>Status:</strong> ${appt.status || 'Pending'}</p>
+      <p><strong>First Time Visit:</strong> ${appt.firstTimeVisit ? 'Yes' : 'No'}</p>
     `;
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+  }
+
+  function showCancelConfirmation(appointmentId) {
+    currentAppointmentId = appointmentId;
+    const modal = document.getElementById("confirmModal");
     modal.classList.remove("hidden");
     modal.classList.add("flex");
   }
@@ -182,6 +232,47 @@
     const modal = document.getElementById("viewModal");
     modal.classList.add("hidden");
     modal.classList.remove("flex");
+  }
+
+  function closeConfirmModal() {
+    const modal = document.getElementById("confirmModal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+  }
+
+  // Set up the confirm cancel button
+  document.getElementById("confirmCancelBtn").addEventListener("click", () => {
+    if (currentAppointmentId) {
+      cancelAppointment(currentAppointmentId);
+    }
+  });
+
+  function cancelAppointment(appointmentId) {
+    const url = `${BASE_URL}/appointment/cancel/${appointmentId}`;
+    
+    fetch(url, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to cancel appointment');
+      }
+      return response.json();
+    })
+    .then(data => {
+      closeConfirmModal();
+      // Refresh the appointments list
+      const userId = localStorage.getItem("userId");
+      fetchAppointments(userId, currentPage);
+    })
+    .catch(error => {
+      console.error("Error cancelling appointment:", error);
+      alert("Failed to cancel appointment. Please try again.");
+      closeConfirmModal();
+    });
   }
 </script>
 
