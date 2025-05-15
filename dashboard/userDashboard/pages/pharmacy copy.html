@@ -21,23 +21,26 @@
   <nav class="flex justify-between items-center bg-blue-600 text-white px-6 py-4">
     <div class="text-xl font-bold">PharmaConnect</div>
     <div class="relative">
-     <a href="/dashboard/userDashboard/pages/cart.html"> <button id="cartButton" class="relative">
-        <i class="bi bi-cart text-2xl"></i>
-        <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs px-1">0</span>
-      </button></a>
+      <a href="/dashboard/userDashboard/pages/cart.html">
+        <button id="cartButton" class="relative">
+          <i class="bi bi-cart text-2xl"></i>
+          <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs px-1">0</span>
+        </button>
+      </a>
     </div>
   </nav>
 
   <div class="dashboard-container flex">
     <!-- Sidebar -->
-     <div class="sidebar">
+    <div class="sidebar">
       <h2>PharmaConnect</h2>
-       <nav class="space-y-4">
+      <nav class="space-y-4">
         <a href="/dashboard/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
         <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">Book an Appointments</a>
         <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block text-gray-700 hover:text-blue-500 font-medium">All Doctors</a>
         <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
         <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
+        <a href="/dashboard/userDashboard/pages/myOrders.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Orders</a>
       </nav>
     </div>
 
@@ -86,16 +89,25 @@
     let currentPage = 1;
     const pageSize = 8;
     let totalPages = 1;
-    let cart = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartCount(); // initialize cart count from localStorage
+      fetchMedicines(currentPage);
+      searchInput.addEventListener('input', () => fetchMedicines(1));
+      categoryFilter.addEventListener('change', () => fetchMedicines(1));
+    });
 
     function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('pharmaCart')) || [];
       cartCount.textContent = cart.length;
     }
 
     function addToCart(medicine) {
-      const alreadyInCart = cart.find(item => item.medicineId === medicine.medicineId);
-      if (!alreadyInCart) {
+      let cart = JSON.parse(localStorage.getItem('pharmaCart')) || [];
+      const exists = cart.find(item => item.medicineId === medicine.medicineId);
+      if (!exists) {
         cart.push(medicine);
+        localStorage.setItem('pharmaCart', JSON.stringify(cart));
         updateCartCount();
         alert(`${medicine.name} added to cart!`);
       } else {
@@ -104,18 +116,13 @@
     }
 
     cartButton.addEventListener('click', () => {
+      const cart = JSON.parse(localStorage.getItem('pharmaCart')) || [];
       if (cart.length === 0) {
         alert("Your cart is empty.");
       } else {
         const cartItems = cart.map(m => `${m.name} (₹${m.price})`).join('\n');
         alert("Items in Cart:\n" + cartItems);
       }
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-      fetchMedicines(currentPage);
-      searchInput.addEventListener('input', () => fetchMedicines(1));
-      categoryFilter.addEventListener('change', () => fetchMedicines(1));
     });
 
     async function fetchMedicines(page) {
@@ -197,25 +204,6 @@
         paginationContainer.appendChild(btn);
       }
     }
-
-    function addToCart(medicine) {
-  let cart = JSON.parse(localStorage.getItem('pharmaCart')) || [];
-  const exists = cart.find(item => item.medicineId === medicine.medicineId);
-  if (!exists) {
-    cart.push(medicine);
-    localStorage.setItem('pharmaCart', JSON.stringify(cart));
-    updateCartCount();
-    alert(`${medicine.name} added to cart!`);
-  } else {
-    alert(`${medicine.name} is already in the cart.`);
-  }
-}
-function updateCartCount() {
-  const cart = JSON.parse(localStorage.getItem('pharmaCart')) || [];
-  cartCount.textContent = cart.length;
-}
-
-
   </script>
 </body>
 </html>
