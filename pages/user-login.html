@@ -141,7 +141,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="/js/config.js"></script>
   <script src="/js/patientServiceApi.js"></script>
-  <script src="/js/loginAPI.js"></script>
+  <script src="/js/loginApi.js"></script>
   <script>
 
   // Show Forgot Password Modal
@@ -247,6 +247,20 @@
       });
   });
 </script>
+<script>
+  const signUpBtn = document.getElementById("sign-up-btn");
+  const signInBtn = document.getElementById("sign-in-btn");
+  const container = document.querySelector(".container");
+
+  signUpBtn.addEventListener("click", () => {
+    container.classList.add("sign-up-mode");
+  });
+
+  signInBtn.addEventListener("click", () => {
+    container.classList.remove("sign-up-mode");
+  });
+</script>
+
 
 </body>
 </html>
