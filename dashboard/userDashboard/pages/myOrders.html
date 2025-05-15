@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Medicine Orders</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+<div class="flex min-h-screen">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-blue-50 shadow-md p-6 hidden md:block">
+    <h2 class="text-2xl font-bold text-blue-700 mb-8">PharmaConnect</h2>
+    <nav class="space-y-4">
+      <a href="/dashboard/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
+      <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">Book an Appointments</a>
+      <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block text-gray-700 hover:text-blue-500 font-medium">All Doctors</a>
+      <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
+      <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
+      <a href="/dashboard/userDashboard/pages/myOrders.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Orders</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6">
+    <div class="bg-white rounded-xl shadow-lg p-6">
+      <h2 class="text-2xl font-bold text-blue-800 text-center mb-6">My Medicine Orders</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full border border-gray-200 rounded-md">
+          <thead>
+            <tr class="bg-blue-900 text-white text-left text-sm">
+              <th class="py-3 px-4">Order ID</th>
+              <th class="py-3 px-4">Medicine Name</th>
+              <th class="py-3 px-4">Order Date</th>
+              <th class="py-3 px-4">Status</th>
+              <th class="py-3 px-4">Price</th>
+              <th class="py-3 px-4">Action</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody" class="text-gray-700 text-sm"></tbody>
+        </table>
+        <p id="noOrdersMsg" class="text-center text-gray-600 mt-4 hidden">No medicine orders found.</p>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="/js/config.js"></script>
+<script>
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const userId = localStorage.getItem("userId");
+    if (!userId) {
+      document.getElementById("noOrdersMsg").textContent = "User ID not found. Please log in again.";
+      document.getElementById("noOrdersMsg").classList.remove("hidden");
+      return;
+    }
+
+    fetch(`${BASE_URL}/api/medicine/user/${userId}/orders`)
+      .then(res => res.json())
+      .then(orders => {
+        const tbody = document.getElementById("ordersTableBody");
+        tbody.innerHTML = "";
+
+        if (!orders || orders.length === 0) {
+          document.getElementById("noOrdersMsg").classList.remove("hidden");
+          return;
+        }
+
+        document.getElementById("noOrdersMsg").classList.add("hidden");
+
+        orders.forEach(order => {
+          const date = new Date(order.orderDate).toLocaleString();
+          const medicineName = order.medicineName || "N/A";
+
+          const tr = document.createElement("tr");
+          tr.className = "border-t hover:bg-blue-50";
+          tr.innerHTML = `
+            <td class="py-2 px-4">${order.orderId}</td>
+            <td class="py-2 px-4">${medicineName}</td>
+            <td class="py-2 px-4">${date}</td>
+            <td class="py-2 px-4">${order.status}</td>
+            <td class="py-2 px-4">₹${order.totalPrice.toFixed(2)}</td>
+            <td class="py-2 px-4">
+              ${order.status === 'PENDING' ? `<button onclick="cancelOrder('${order.orderId}')" class="text-red-600 hover:underline text-sm">Cancel</button>` : `<span class="text-gray-500">—</span>`}
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(err => {
+        console.error("Error loading orders:", err);
+        document.getElementById("noOrdersMsg").textContent = "Failed to load orders. Please try again.";
+        document.getElementById("noOrdersMsg").classList.remove("hidden");
+      });
+  });
+
+  function cancelOrder(orderId) {
+    if (!confirm("Are you sure you want to cancel this order?")) return;
+
+    fetch(`${BASE_URL}/api/medicine/order/${orderId}/status?status=CANCELLED`, {
+      method: 'PUT'
+    })
+    .then(res => {
+      if (!res.ok) throw new Error("Failed to cancel order");
+      return res.json();
+    })
+    .then(() => {
+      alert("Order cancelled successfully.");
+      location.reload();
+    })
+    .catch(err => {
+      console.error("Error canceling order:", err);
+      alert("Failed to cancel order. Please try again.");
+    });
+  }
+</script>
+
+</body>
+</html>
