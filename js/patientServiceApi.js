@@ -18,19 +18,19 @@ $(document).ready(function () {
                 method: "POST",
                 success: function (res) {
                     if (res === "verified") {
-                        alert("✅ OTP verified successfully!");
+                        // alert("✅ OTP verified successfully!");
                         window.location.href = "/pages/user-login.html"; // Redirect after verification
                     } else if (res === "invalid otp") {
-                        alert("❌ Invalid OTP. Please try again.");
+                        // alert("❌ Invalid OTP. Please try again.");
                     } else if (res === "already verified") {
-                        alert("ℹ️ Already verified. Please login.");
+                        // alert("ℹ️ Already verified. Please login.");
                         window.location.href = "/pages/user-login.html"; // Redirect for already verified
                     } else {
-                        alert("⚠️ Unexpected response. Try again.");
+                        // alert("⚠️ Unexpected response. Try again.");
                     }
                 },
                 error: function () {
-                    alert("❌ Something went wrong during OTP verification.");
+                    // alert("❌ Something went wrong during OTP verification.");
                 }
             });
 
@@ -45,7 +45,7 @@ $(document).ready(function () {
             };
 
             if (!userData.firstName || !userData.lastName || !userData.mobile || !userData.email || !userData.password) {
-                return alert("Please fill in all required fields.");
+                // return alert("Please fill in all required fields.");
             }
 
             registeredEmail = userData.email;
@@ -57,16 +57,16 @@ $(document).ready(function () {
                 data: JSON.stringify(userData),
                 success: function (res) {
                     if (res === "created") {
-                        alert("🎉 Registration successful! OTP sent to your email.");
+                        // alert("🎉 Registration successful! OTP sent to your email.");
                         otpField.show();
                     } else if (res === "already exists") {
-                        alert("⚠️ Email already registered. Try logging in.");
+                        // alert("⚠️ Email already registered. Try logging in.");
                     } else {
-                        alert("⚠️ Unexpected response from server.");
+                        // alert("⚠️ Unexpected response from server.");
                     }
                 },
                 error: function () {
-                    alert("❌ Registration failed. Please try again later.");
+                    // alert("❌ Registration failed. Please try again later.");
                 }
             });
         }

@@ -85,12 +85,12 @@
       const cart = JSON.parse(localStorage.getItem('pharmaCart')) || [];
 
       if (!userId) {
-        alert("User ID not found. Please log in again.");
+        // alert("User ID not found. Please log in again.");
         return;
       }
 
       if (cart.length === 0) {
-        alert("Cart is empty.");
+        // alert("Cart is empty.");
         return;
       }
 
@@ -108,12 +108,12 @@
           }
         }
 
-        alert("Order placed successfully!");
+        // alert("Order placed successfully!");
         localStorage.removeItem('pharmaCart');
         loadCart();
       } catch (err) {
         console.error(err);
-        alert("Failed to place order. Please try again.");
+        // alert("Failed to place order. Please try again.");
       } finally {
         placeOrderBtn.disabled = false;
         placeOrderBtn.textContent = 'Place Order';

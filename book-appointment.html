@@ -456,7 +456,7 @@
         })
         .catch(error => {
           console.error("Error fetching doctors:", error);
-          alert("Failed to load doctors. Please try again later.");
+          // alert("Failed to load doctors. Please try again later.");
         });
     });
 
@@ -482,12 +482,12 @@
         contentType: "application/json",
         data: JSON.stringify(payload),
         success: function () {
-          alert("Your appointment has been booked successfully!");
-          window.location.href = "index.html";
+          // alert("Your appointment has been booked successfully!");
+          window.location.href = "/index.html";
         },
         error: function (xhr) {
           console.error("Appointment error:", xhr.responseText);
-          alert("Failed to book appointment. Please check your data and try again.");
+          // alert("Failed to book appointment. Please check your data and try again.");
         },
       });
     });
