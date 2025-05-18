@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const userId = localStorage.getItem("userId");
 
   if (!userId) {
-    alert("User ID not found. Please login.");
+    // alert("User ID not found. Please login.");
     window.location.href = "/login.html"; // Adjust to your login page path
     return;
   }

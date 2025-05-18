@@ -20,11 +20,11 @@ $(document).ready(function () {
                     $(".total-patients").text(res.totalPatients); 
                     $(".total-appointments").text(res.totalAppointments); 
                 } else {
-                    alert("❌ Failed to fetch admin details.");
+                    // alert("❌ Failed to fetch admin details.");
                 }
             },
             error: function () {
-                alert("❌ Error while fetching admin details.");
+                // alert("❌ Error while fetching admin details.");
             }
         });
     } else {

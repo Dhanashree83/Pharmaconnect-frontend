@@ -126,12 +126,12 @@
       return res.json();
     })
     .then(() => {
-      alert("Order cancelled successfully.");
+      // alert("Order cancelled successfully.");
       location.reload();
     })
     .catch(err => {
       console.error("Error canceling order:", err);
-      alert("Failed to cancel order. Please try again.");
+      // alert("Failed to cancel order. Please try again.");
     });
   }
 </script>

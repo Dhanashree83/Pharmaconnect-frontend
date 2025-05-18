@@ -18,13 +18,13 @@ $(document).ready(function () {
       contentType: 'application/json',
       data: JSON.stringify(appointmentData),
       success: function (response) {
-        alert('✅ Appointment booked successfully!');
+        // alert('✅ Appointment booked successfully!');
         console.log(response);
         // Optionally reset form
         $('#appointmentForm')[0].reset();
       },
       error: function (xhr, status, error) {
-        alert('❌ Error booking appointment: ' + xhr.responseText);
+        // alert('❌ Error booking appointment: ' + xhr.responseText);
         console.error(error);
       }
     });

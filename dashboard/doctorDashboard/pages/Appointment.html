@@ -142,13 +142,13 @@
 
         if (res.ok && result.status) {
           statusCell.textContent = result.status;
-          alert(`Appointment ${appointmentId} ${action.toUpperCase()}ED successfully.`);
+          // alert(`Appointment ${appointmentId} ${action.toUpperCase()}ED successfully.`);
         } else {
-          alert(`Failed to ${action} appointment.`);
+          // alert(`Failed to ${action} appointment.`);
         }
       } catch (error) {
         console.error(`Error on ${action}:`, error);
-        alert(`Error during ${action} action.`);
+        // alert(`Error during ${action} action.`);
       }
     };
 

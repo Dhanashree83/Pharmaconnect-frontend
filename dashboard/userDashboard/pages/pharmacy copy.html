@@ -7,7 +7,7 @@
   <title>Doctor Dashboard - Pharmacy</title>
 
   <!-- Tailwind CSS -->
-  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Bootstrap Icons -->
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" /> -->
@@ -57,7 +57,13 @@
         <div class="text-xl font-bold">PharmaConnect</div>
         <div>
           <a href="/dashboard/userDashboard/pages/cart.html" class="relative">
-            <i class="bi bi-cart text-2xl"></i>
+            <a href="/dashboard/userDashboard/pages/cart.html" class="relative">
+  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 24 24" class="text-white">
+    <path d="M7 4h-2l-1 2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h9v-2h-8.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h5.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49a1 1 0 0 0-.88-1.47H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2h-12l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03L20.92 6H7.42l-.94-2z"/>
+  </svg>
+  <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 rounded-full text-xs px-1">0</span>
+</a>
+
             <span id="cartCount" class="absolute -top-2 -right-2 bg-red-500 rounded-full text-xs px-1">0</span>
           </a>
         </div>
@@ -128,9 +134,9 @@
         cart.push(medicine);
         localStorage.setItem('pharmaCart', JSON.stringify(cart));
         updateCartCount();
-        alert(`${medicine.name} added to cart!`);
+        // alert(`${medicine.name} added to cart!`);
       } else {
-        alert(`${medicine.name} is already in the cart.`);
+        // alert(`${medicine.name} is already in the cart.`);
       }
     }
 

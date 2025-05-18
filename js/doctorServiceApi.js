@@ -81,19 +81,19 @@ $(document).ready(function () {
         data: JSON.stringify(data),
         success: function (response) {
           if (response === 'created') {
-            alert('Doctor registered successfully! Please enter OTP sent to your email.');
+            // alert('Doctor registered successfully! Please enter OTP sent to your email.');
             $('#otpSection').show();
             $('#doctorRegistrationForm').hide();
             sessionStorage.setItem('doctorEmail', data.email);
           } else if (response === 'already exists') {
-            alert('This email is already registered.');
+            // alert('This email is already registered.');
           } else {
-            alert('Unexpected response: ' + response);
+            // alert('Unexpected response: ' + response);
           }
         },
         error: function (xhr) {
           console.error(xhr);
-          alert('Registration failed: ' + xhr.responseText);
+          // alert('Registration failed: ' + xhr.responseText);
         }
       });
     });
@@ -104,7 +104,7 @@ $(document).ready(function () {
       const otp = $('#otpInput').val();
   
       if (!otp || otp.length !== 6) {
-        alert('Please enter a valid 6-digit OTP.');
+        // alert('Please enter a valid 6-digit OTP.');
         return;
       }
   
@@ -114,18 +114,18 @@ $(document).ready(function () {
         data: { email: email, otp: otp },
         success: function (response) {
           if (response === 'verified') {
-            alert('OTP Verified! Your registration is complete.');
+            // alert('OTP Verified! Your registration is complete.');
             window.location.href = "/pages/user-login.html";
           } else if (response === 'invalid otp') {
-            alert('Invalid OTP. Please try again.');
+            // alert('Invalid OTP. Please try again.');
           } else if (response === 'already verified') {
-            alert('This account is already verified.');
+            // alert('This account is already verified.');
           } else {
-            alert('Unexpected response: ' + response);
+            // alert('Unexpected response: ' + response);
           }
         },
         error: function (xhr) {
-          alert('OTP verification failed: ' + xhr.responseText);
+          // alert('OTP verification failed: ' + xhr.responseText);
         }
       });
   
