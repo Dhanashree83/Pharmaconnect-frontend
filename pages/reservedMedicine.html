@@ -6,11 +6,38 @@
   <title>Pharmacy</title>
 <link rel="stylesheet" href="/css/reservedMedicine.css">
 <link rel="stylesheet" href="/css/footer.css">
+ <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 <body>
-    <a href="index.html" class="logo">
-                 <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" /> 
-            </a>
+ <header class="site-header">
+  <nav class="nav-container">
+    
+    <!-- Logo -->
+    <a href="/index.html" class="logo-link">
+      <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" class="logo-img">
+    </a>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links">
+      <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="/pages/about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="/pages/pharmcay.html"><i class="fas fa-prescription-bottle-alt"></i> Pharmacy</a></li>
+      <li><a href="/pages/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+      <li><a href="/pages/alldoctor.html"><i class="fas fa-user-md"></i> All Doctors</a></li>
+    </ul>
+
+    <!-- Sign In Button -->
+    <div>
+      <a href="/pages/user-login.html" class="sign-in-btn">
+        <i class="fas fa-user-plus"></i> Sign In
+      </a>
+    </div>
+
+  </nav>
+</header>
+
   <div class="container">
 
     <div class="info-section">
@@ -44,11 +71,11 @@
         <p><strong>Price:</strong> ₹60</p>
       </div>
 
-      <div class="medicine-card">
+      <!-- <div class="medicine-card">
         <h3>Atorvastatin</h3>
         <p><strong>Category:</strong> Cholesterol</p>
         <p><strong>Price:</strong> ₹120</p>
-      </div>
+      </div> -->
 
     </div>
 
