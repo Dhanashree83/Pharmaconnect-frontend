@@ -28,7 +28,7 @@ $(document).ready(function () {
                     localStorage.setItem("token", res.token);
                     localStorage.setItem("role", res.role);
 
-                    alert("✅ Login successful!");
+                    // alert("✅ Login successful!");
 
                     const roleRedirectMap = {
                         ADMIN: "/dashboard/adminDashboard/admin-main.html",
@@ -41,14 +41,14 @@ $(document).ready(function () {
                     if (redirectUrl) {
                         window.location.href = redirectUrl;
                     } else {
-                        alert("❌ Unknown role. Cannot redirect.");
+                        // alert("❌ Unknown role. Cannot redirect.");
                     }
                 } else {
-                    alert("❌ Login failed. Please check your credentials.");
+                    // alert("❌ Login failed. Please check your credentials.");
                 }
             },
             error: function () {
-                alert("❌ Login request failed. Please try again later.");
+                // alert("❌ Login request failed. Please try again later.");
             }
         });
     });
