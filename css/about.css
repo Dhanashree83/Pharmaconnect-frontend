@@ -98,15 +98,18 @@ button:hover {
 .about {
     padding: 60px 0;
     background-color: #ffffff;
+    margin-top: 0px;
 }
 
 .about .container {
     display: flex;
     align-items: center;
     gap: 50px;
+     margin-top: 0px;
 }
 
 .about-content {
+     margin-top: 0px;
     flex: 1;
 }
 
@@ -115,6 +118,7 @@ button:hover {
     color: #1a1a1a;
     margin-bottom: 20px;
     position: relative;
+     margin-top: 0px;
 }
 
 .about-content h1::after {
