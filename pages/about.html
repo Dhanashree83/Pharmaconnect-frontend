@@ -3,71 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ABout us page
-    </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>About Us - PharmaConnect</title>
     <link rel="stylesheet" href="/css/about.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 <body>
-    <header>
-        <nav>
-            <h1>PharmaConnect</h1>
-            <div class="navbar">
-                <ul>
-                    <li><a href="/index.html">Home</a>
-                    <li><a href="/pages/about.html">About</a></li>
-                    <li><a href="/pages/pharmcay.html">Pharmacy</a></li>
-                    <li><a href="/pages/contact.html">Contact</a></li>
-                    <li><a href="/pages/alldoctor.html">All Doctors</a></li>
-                </ul>
-            </div>
-           <a href="/pages/user-login.html"> <button>Create Account</button></a>
-        </nav>
-        </header>
+    <!-- Header section of the project -->
+    <header class="site-header">
+  <nav class="nav-container">
+    
+    <!-- Logo -->
+    <a href="/index.html" class="logo-link">
+      <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" class="logo-img">
+    </a>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links">
+      <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="/pages/about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="/pages/pharmcay.html"><i class="fas fa-prescription-bottle-alt"></i> Pharmacy</a></li>
+      <li><a href="/pages/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+      <li><a href="/pages/alldoctor.html"><i class="fas fa-user-md"></i> All Doctors</a></li>
+    </ul>
+
+    <!-- Sign In Button -->
+    <div>
+      <a href="/pages/user-login.html" class="sign-in-btn">
+        <i class="fas fa-user-plus"></i> Sign In
+      </a>
+    </div>
+
+  </nav>
+</header>
+
+  <main class="main-content">
+    <!-- About Us Section -->
     <section class="about">
+      <div class="container">
         <div class="about-content">
-            <h2>About Us</h2>
-            <p>Welcome to <em>PharmaConnect</em>, your one-stop solution for seamless doctor appointment scheduling. We are committed to making healthcare more accessible and convenient for everyone. Our platform connects patients with top-rated doctors, ensuring a hassle-free booking experience from the comfort of your home.</p>
-            <button><a href="/book-appointment.html">book an appointment</a></button>
+            <h1>About PharmaConnect</h1>
+            <p>Welcome to <strong>PharmaConnect</strong>, your trusted partner in healthcare solutions. We are committed to revolutionizing the way you access medical services by providing a seamless platform that connects patients with top-rated healthcare professionals and pharmacies.</p>
+            
+            <p>Founded in 2020, PharmaConnect has grown to become a leading digital healthcare platform, serving thousands of patients across the country. Our mission is to make healthcare more accessible, affordable, and convenient for everyone.</p>
+            
+            <div class="mission-vision">
+                <div class="mv-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Our Mission</h3>
+                    <p>To bridge the gap between patients and healthcare providers through innovative technology solutions.</p>
+                </div>
+                <div class="mv-card">
+                    <i class="fas fa-eye"></i>
+                    <h3>Our Vision</h3>
+                    <p>To create a world where quality healthcare is just a click away for everyone, everywhere.</p>
+                </div>
+            </div>
+            
+            <button class="cta-btn"><a href="/book-appointment.html">Book an Appointment</a></button>
         </div>
         <div class="image-content">
             <div class="bg-square dark"></div>
             <div class="bg-square light"></div>
-             <img src="/images/about-img.png" alt="no img">
-        </div>
-
-    </section>
-<!-- Key Features Section -->
-<section id="features" class="features">
-    <div class="container">
-      <h2>Why Choose PharmaConnect</h2>
-      <div class="feature-cards">
-        <div class="card">
-          <i class="fas fa-calendar-check"></i>
-          <h3>Easy Appointment Booking</h3>
-          <p>Book appointments with top doctors in just a few clicks.</p>
-        </div>
-        <div class="card">
-          <i class="fas fa-pills"></i>
-          <h3>Integrated Pharmacy</h3>
-          <p>Order medicines online and get them delivered to your doorstep.</p>
-        </div>
-        <div class="card">
-          <i class="fas fa-clock"></i>
-          <h3>Real-Time Availability</h3>
-          <p>Check doctor availability and pharmacy stock in real-time.</p>
-        </div>
-        <div class="card">
-          <i class="fas fa-shield-alt"></i>
-          <h3>Secure Payments</h3>
-          <p>Safe and secure payment options for appointments and medicines.</p>
+            <img src="/images/about-img.png" alt="Healthcare professionals discussing">
         </div>
       </div>
-    </div>
-  </section>
-</section>
-<footer class="footer">
+    </section>
+
+    <!-- Health Tips Tabs Section -->
+    <section class="health-tips">
+      <div class="container">
+          <h2>Health Tips & Suggestions</h2>
+          <div class="tabs">
+              <button class="tab-btn active" data-tab="general">General Health</button>
+              <button class="tab-btn" data-tab="nutrition">Nutrition</button>
+              <button class="tab-btn" data-tab="fitness">Fitness</button>
+              <button class="tab-btn" data-tab="mental">Mental Wellness</button>
+          </div>
+          
+          <div class="tab-content active" id="general">
+              <div class="tip-card">
+                  <i class="fas fa-hand-holding-water"></i>
+                  <h3>Stay Hydrated</h3>
+                  <p>Drink at least 8 glasses of water daily to maintain proper body function and flush out toxins.</p>
+              </div>
+              <div class="tip-card">
+                  <i class="fas fa-bed"></i>
+                  <h3>Quality Sleep</h3>
+                  <p>Aim for 7-9 hours of sleep each night to allow your body to repair and rejuvenate.</p>
+              </div>
+              <div class="tip-card">
+                  <i class="fas fa-syringe"></i>
+                  <h3>Vaccinations</h3>
+                  <p>Keep your vaccinations up to date to prevent serious illnesses and protect community health.</p>
+              </div>
+          </div>
+          
+          <div class="tab-content" id="nutrition">
+              <div class="tip-card">
+                  <i class="fas fa-apple-alt"></i>
+                  <h3>Balanced Diet</h3>
+                  <p>Include fruits, vegetables, whole grains, and lean proteins in your daily meals for optimal nutrition.</p>
+              </div>
+              <div class="tip-card">
+                  <i class="fas fa-utensils"></i>
+                  <h3>Portion Control</h3>
+                  <p>Be mindful of portion sizes to maintain a healthy weight and prevent overeating.</p>
+              </div>
+              <div class="tip-card">
+                  <i class="fas fa-ban"></i>
+                  <h3>Limit Processed Foods</h3>
+                  <p>Reduce intake of processed foods high in sugar, salt, and unhealthy fats.</p>
+              </div>
+          </div>
+          
+          <div class="tab-content" id="fitness">
+              <div class="tip-card">
+                  <i class="fas fa-walking"></i>
+                  <h3>Daily Activity</h3>
+                  <p>Aim for at least 30 minutes of moderate exercise most days of the week.</p>
+              </div>
+              <div class="tip-card">
+                  <i class="fas fa-dumbbell"></i>
+                  <h3>Strength Training</h3>
+                  <p>Incorporate strength training 2-3 times weekly to maintain muscle mass and bone density.</p>
+              </div>
+              <div class="tip-card">
+                  <i class="fas fa-heartbeat"></i>
+                  <h3>Cardiovascular Health</h3>
+                  <p>Include aerobic exercises like walking, swimming, or cycling to improve heart health.</p>
+              </div>
+          </div>
+          
+          <div class="tab-content" id="mental">
+              <div class="tip-card">
+                  <i class="fas fa-brain"></i>
+                  <h3>Mindfulness</h3>
+                  <p>Practice meditation or deep breathing exercises to reduce stress and improve focus.</p>
+              </div>
+              <div class="tip-card">
+                  <i class="fas fa-users"></i>
+                  <h3>Social Connections</h3>
+                  <p>Maintain strong social relationships for emotional support and mental well-being.</p>
+              </div>
+              <div class="tip-card">
+                  <i class="fas fa-book"></i>
+                  <h3>Continuous Learning</h3>
+                  <p>Engage in new activities or hobbies to keep your mind active and stimulated.</p>
+              </div>
+          </div>
+      </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section id="features" class="features">
+      <div class="container">
+          <h2>Why Choose PharmaConnect</h2>
+          <div class="feature-cards">
+              <div class="card">
+                  <i class="fas fa-calendar-check"></i>
+                  <h3>Easy Appointment Booking</h3>
+                  <p>Book appointments with top doctors in just a few clicks.</p>
+              </div>
+              <div class="card">
+                  <i class="fas fa-pills"></i>
+                  <h3>Integrated Pharmacy</h3>
+                  <p>Order medicines online and get them delivered to your doorstep.</p>
+              </div>
+              <div class="card">
+                  <i class="fas fa-clock"></i>
+                  <h3>Real-Time Availability</h3>
+                  <p>Check doctor availability and pharmacy stock in real-time.</p>
+              </div>
+              <div class="card">
+                  <i class="fas fa-shield-alt"></i>
+                  <h3>Secure Payments</h3>
+                  <p>Safe and secure payment options for appointments and medicines.</p>
+              </div>
+          </div>
+          <Br></Br>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
     <div class="container">
         <div class="footer-sections">
             <!-- About Section -->
@@ -81,18 +202,18 @@
             <div class="footer-links">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                    <li><a href="#"><i class="fas fa-user-md"></i> Find a Doctor</a></li>
-                    <li><a href="#"><i class="fas fa-calendar-alt"></i> Book Appointment</a></li>
-                    <li><a href="#"><i class="fas fa-heartbeat"></i> Health Tips</a></li>
-                    <li><a href="#"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
+                    <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="/pages/alldoctor.html"><i class="fas fa-user-md"></i> Find a Doctor</a></li>
+                    <li><a href="/book-appointment.html"><i class="fas fa-calendar-alt"></i> Book Appointment</a></li>
+                    <li><a href="/pages/about.html"><i class="fas fa-heartbeat"></i> Health Tips</a></li>
+                    <li><a href="/pages/contact.html"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
                 </ul>
             </div>
 
             <!-- Contact & Social Media Section -->
             <div class="footer-contact">
                 <h3>Contact Us</h3>
-                <p><i class="fas fa-envelope"></i> support@docbooking.com</p>
+                <p><i class="fas fa-envelope"></i> support@pharmaconnect.com</p>
                 <p><i class="fas fa-phone"></i> +1 234 567 890</p>
                 <p><i class="fas fa-map-marker-alt"></i> 123 Medical Street, Health City</p>
 
@@ -107,13 +228,60 @@
         </div>
 
         <hr>
-        <p class="footer-copy">&copy; 2025 Doctor Appointment Booking. All rights reserved.</p>
+        <p class="footer-copy">&copy; 2025 PharmaConnect. All rights reserved.</p>
     </div>
-</footer>
+  </footer>
 
-<!-- Font Awesome for icons -->
-<script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-
-
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navbar = document.getElementById('navbar');
+        
+        function toggleMenu() {
+            navbar.classList.toggle('active');
+            const icon = hamburger.querySelector('i');
+            
+            if (navbar.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+        
+        hamburger.addEventListener('click', toggleMenu);
+        
+        // Close menu when clicking on links (mobile)
+        const navLinks = document.querySelectorAll('.navbar ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    toggleMenu();
+                }
+            });
+        });
+        
+        // Tab functionality for health tips
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = btn.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    });
+  </script>
 </body>
 </html>

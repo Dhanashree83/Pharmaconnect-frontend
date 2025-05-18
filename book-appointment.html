@@ -4,22 +4,347 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Book Appointment - PharmaConnect</title>
-  <link rel="stylesheet" href="/css/book-appointment.css" />
+   <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-image: linear-gradient(#1e49d8, #2a3457, #7f8cba);
+      margin: 0;
+      padding-top: 70px;
+    }
+
+    header {
+      background: #0077b6;
+      padding: 10px 0;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .logo {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    nav button {
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      color: #4a90e2;
+      background-color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    /* Appointment Container */
+    .appointment-container {
+      background-color: rgb(218, 217, 228);
+      width: 90%;
+      max-width: 600px;
+      padding: 20px;
+      margin: 20px auto;
+      box-shadow: 0px 0px 10px gray;
+      border-radius: 10px;
+    }
+
+    .appointment-container h2 {
+      margin: 10px 0;
+      color: #333;
+    }
+
+    .appointment-container p {
+      margin-bottom: 20px;
+      color: #555;
+    }
+
+    form {
+      margin: 15px 0;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: #333;
+      text-align: left;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    input:focus, select:focus {
+      border-color: #007BFF;
+      outline: none;
+      box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .name-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .name-container input {
+      flex: 1;
+    }
+
+    .contact-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .contact-container div {
+      flex: 1;
+    }
+
+    .radio-group {
+      margin: 15px 0;
+      text-align: left;
+    }
+
+    .radio-group label {
+      display: inline;
+      font-weight: normal;
+    }
+
+    .radio-group div {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin: 5px 0;
+    }
+
+    .radio-group input {
+      width: auto;
+    }
+
+    button[type="submit"] {
+      background-color: #28a745;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      border-radius: 5px;
+      width: 100%;
+      margin-top: 10px;
+      transition: background-color 0.3s;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #218838;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #f8f9fa;
+      padding: 30px 0;
+      color: #333;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 90%;
+      margin: auto;
+    }
+
+    .footer-sections {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .footer-sections > div {
+      flex: 1 1 100%;
+    }
+
+    .footer h3 {
+      color: #007bff;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    .footer-about p {
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .footer-about em {
+      display: block;
+      text-align: left;
+      font-style: italic;
+      margin-top: 10px;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+    }
+
+    .footer-links ul li {
+      margin: 10px 0;
+    }
+
+    .footer-links ul li a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links ul li a:hover {
+      color: #0056b3;
+    }
+
+    .footer-contact p {
+      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #007bff;
+      justify-content: center;
+    }
+
+    /* Social Icons */
+    .social-icons {
+      margin-top: 15px;
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 35px;
+      height: 35px;
+      background-color: #000000;
+      color: #124ee6e3;
+      font-size: 18px;
+      border-radius: 50%;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      transform: scale(1.1);
+      background-color: #0056b3;
+    }
+
+    hr {
+      margin: 20px auto;
+      width: 80%;
+      border: 1px solid #0b43dc;
+    }
+
+    .footer-copy {
+      font-size: 0.9rem;
+      color: #1b1919;
+      margin-top: 10px;
+    }
+
+    /* Media Queries */
+    @media (min-width: 480px) {
+      .appointment-container {
+        padding: 30px;
+      }
+      
+      .footer-sections > div {
+        flex: 1 1 45%;
+      }
+      
+      .footer-contact p {
+        justify-content: flex-start;
+      }
+      
+      .social-icons {
+        justify-content: flex-start;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .appointment-container {
+        padding: 40px;
+      }
+      
+      .footer-sections {
+        text-align: left;
+      }
+      
+      .footer-sections > div {
+        flex: 1;
+      }
+      
+      .radio-group {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      
+      .radio-group label {
+        margin-right: 15px;
+      }
+      
+      .radio-group div {
+        margin: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .name-container {
+        flex-direction: column;
+        gap: 0;
+      }
+      
+      .contact-container {
+        flex-direction: column;
+        gap: 0;
+      }
+      
+      .footer-links ul li a {
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
     <nav>
-      <h1>PharmaConnect</h1>
-      <div class="navbar">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="/pages/about.html">About</a></li>
-          <li><a href="#pharmacy">Pharmacy</a></li>
-          <li><a href="/pages/contact.html">Contact</a></li>
-          <li><a href="#">All Doctors</a></li>
-        </ul>
-      </div>
-      <a href="/pages/user-login.html"><button>Create Account</button></a>
+      <a href="index.html" class="logo">
+                 <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" /> 
+            </a>
+      <a href="/pages/user-login.html"><button>Sign In</button></a>
     </nav>
   </header>
 
@@ -106,71 +431,66 @@
     </div>
   </footer>
 
-  <!-- Font Awesome -->
-  <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/js/config.js"></script>
-
   <script>
-
     document.addEventListener("DOMContentLoaded", function () {
-    fetch(`${BASE_URL}/api/doctor/all`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok: " + response.status);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log("Doctors fetched:", data);
-        const doctorSelect = document.getElementById("doctor");
-        data.forEach(doctor => {
-          const fullName = `${doctor.firstName} ${doctor.lastName}`;
-          const specialization = doctor.specialization || "General";
-          const option = document.createElement("option");
-          option.value = doctor.doctorId;
-          option.textContent = `${fullName} - ${specialization}`;
-          doctorSelect.appendChild(option);
+      fetch(`${BASE_URL}/api/doctor/all`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok: " + response.status);
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log("Doctors fetched:", data);
+          const doctorSelect = document.getElementById("doctor");
+          data.forEach(doctor => {
+            const fullName = `${doctor.firstName} ${doctor.lastName}`;
+            const specialization = doctor.specialization || "General";
+            const option = document.createElement("option");
+            option.value = doctor.doctorId;
+            option.textContent = `${fullName} - ${specialization}`;
+            doctorSelect.appendChild(option);
+          });
+        })
+        .catch(error => {
+          console.error("Error fetching doctors:", error);
+          alert("Failed to load doctors. Please try again later.");
         });
-      })
-      .catch(error => {
-        console.error("Error fetching doctors:", error);
-        alert("Failed to load doctors. Please try again later.");
+    });
+
+    // Handle form submission
+    $("#appointmentForm").submit(function (e) {
+      e.preventDefault();
+
+      const payload = {
+        firstName: $("#firstName").val(),
+        lastName: $("#lastName").val(),
+        phoneNumber: $("#phoneNumber").val(),
+        email: $("#email").val(),
+        firstTimeVisit: $("input[name='firstTimeVisit']:checked").val() === "true",
+        appointmentDate: new Date($("#appointmentDate").val()).toISOString(),
+        doctorId: $("#doctor").val(),
+      };
+
+      console.log("Appointment Payload:", payload);
+
+      $.ajax({
+        url: `${BASE_URL}/appointment/book`,
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(payload),
+        success: function () {
+          alert("Your appointment has been booked successfully!");
+          window.location.href = "index.html";
+        },
+        error: function (xhr) {
+          console.error("Appointment error:", xhr.responseText);
+          alert("Failed to book appointment. Please check your data and try again.");
+        },
       });
-  });
-
-      // Handle form submission
-      $("#appointmentForm").submit(function (e) {
-        e.preventDefault();
-
-        const payload = {
-          firstName: $("#firstName").val(),
-          lastName: $("#lastName").val(),
-          phoneNumber: $("#phoneNumber").val(),
-          email: $("#email").val(),
-          firstTimeVisit: $("input[name='firstTimeVisit']:checked").val() === "true",
-          appointmentDate: new Date($("#appointmentDate").val()).toISOString(),
-          doctorId: $("#doctor").val(),
-        };
-
-        console.log("Appointment Payload:", payload);
-
-        $.ajax({
-          url: `${BASE_URL}/appointment/book`,
-          method: "POST",
-          contentType: "application/json",
-          data: JSON.stringify(payload),
-          success: function () {
-            alert("Your appointment has been booked successfully!");
-            window.location.href = "index.html";
-          },
-          error: function (xhr) {
-            console.error("Appointment error:", xhr.responseText);
-            alert("Failed to book appointment. Please check your data and try again.");
-          },
-        });
-   });
-   
+    });
   </script>
 </body>
 </html>

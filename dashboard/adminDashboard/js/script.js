@@ -94,34 +94,40 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// Mobile menu toggle functionality
+    document.getElementById('mobileMenuButton').addEventListener('click', function() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('mobileSidebarOverlay');
+      
+      if (sidebar.classList.contains('hidden')) {
+        sidebar.classList.remove('hidden');
+        sidebar.classList.add('fixed', 'z-30', 'top-0', 'left-0', 'h-full');
+        overlay.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('hidden');
+        sidebar.classList.remove('fixed', 'z-30', 'top-0', 'left-0', 'h-full');
+        overlay.classList.add('hidden');
+      }
+    });
 
-// <!-- Chart.js Example Placeholder -->
+    // Close mobile sidebar when clicking on overlay
+    document.getElementById('mobileSidebarOverlay').addEventListener('click', function() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('mobileSidebarOverlay');
+      
+      sidebar.classList.add('hidden');
+      sidebar.classList.remove('fixed', 'z-30', 'top-0', 'left-0', 'h-full');
+      overlay.classList.add('hidden');
+    });
 
-// const ctx1 = document.getElementById('appointmentsChart').getContext('2d');
-// const appointmentsChart = new Chart(ctx1, {
-//   type: 'line',
-//   data: {
-//     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-//     datasets: [{
-//       label: 'Appointments',
-//       data: [12, 19, 3, 5, 2],
-//       borderColor: 'rgba(59, 130, 246, 1)',
-//       backgroundColor: 'rgba(59, 130, 246, 0.2)',
-//       fill: true,
-//     }]
-//   }
-// });
 
-// const ctx2 = document.getElementById('doctorPatientsChart').getContext('2d');
-// const doctorPatientsChart = new Chart(ctx2, {
-//   type: 'bar',
-//   data: {
-//     labels: ['Dr. A', 'Dr. B', 'Dr. C', 'Dr. D'],
-//     datasets: [{
-//       label: 'Patients',
-//       data: [5, 10, 8, 6],
-//       backgroundColor: 'rgba(255, 159, 64, 0.6)',
-//     }]
-//   }
-// });
+
+
+
+
+// logout link js
+  document.getElementById('logoutLink').addEventListener('click', function (e) {
+    e.preventDefault();
+    window.location.href = '/index.html';
+  });
 

@@ -5,25 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PharmaConnect</title>
     <link rel="stylesheet" href="/css/pharmcay.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+     <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 <body>
     <!-- Header section of the project -->
-    <header>
-        <nav>
-            <h1>PharmaConnect</h1>
-            <div class="navbar">
-                <ul>
-                    <li><a href="/index.html">Home</a>
-                    <li><a href="/pages/about.html">About</a></li>
-                    <li><a href="/pages/pharmcay.html">Pharmacy</a></li>
-                    <li><a href="/pages/contact.html">Contact</a></li>
-                    <li><a href="/pages/alldoctor.html">All Doctors</a></li>
-                </ul>
-            </div>
-           <a href="/pages/user-login.html"> <button>Create Account</button></a>
-        </nav>
-    </header>
+    <header class="site-header">
+  <nav class="nav-container">
+    
+    <!-- Logo -->
+    <a href="/index.html" class="logo-link">
+      <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" class="logo-img">
+    </a>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links">
+      <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="/pages/about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="/pages/pharmcay.html"><i class="fas fa-prescription-bottle-alt"></i> Pharmacy</a></li>
+      <li><a href="/pages/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+      <li><a href="/pages/alldoctor.html"><i class="fas fa-user-md"></i> All Doctors</a></li>
+    </ul>
+
+    <!-- Sign In Button -->
+    <div>
+      <a href="/pages/user-login.html" class="sign-in-btn">
+        <i class="fas fa-user-plus"></i> Sign In
+      </a>
+    </div>
+
+  </nav>
+</header>
 
     <section class="hero">
         <div class="hero-content">
@@ -63,12 +76,12 @@
             <p>Reliable healthcare support where local resources are limited.</p>
           </div>
       
-          <div class="benefit-card">
+          <!-- <div class="benefit-card">
             <img src="https://cdn-icons-png.flaticon.com/512/2622/2622676.png" alt="Hospitals">
             <h3>Hospitals & Clinics</h3>
             <p>Streamline digital healthcare and pharmacy services efficiently.</p>
           </div>
-      
+       -->
         </div>
       </section>
             
@@ -114,42 +127,38 @@
 
     
     <!-- --------------------Footer section of the page ------------- -->
-    <footer class="footer">
+ <footer class="footer">
         <div class="container-footer">
             <div class="footer-sections">
-                <!-- About Section -->
                 <div class="footer-about">
                     <h3>About Us</h3>
                     <p>Easily book doctor appointments and manage your healthcare with our seamless platform. Your well-being is just a click away!</p>
                     <em>"Your Health, Your Schedule—Book with Ease!"</em>
                 </div>
     
-                <!-- Quick Links Section -->
                 <div class="footer-links">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="#"><i class="fas fa-user-md"></i> Find a Doctor</a></li>
-                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Book Appointment</a></li>
-                        <li><a href="#"><i class="fas fa-heartbeat"></i> Health Tips</a></li>
-                        <li><a href="#"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
+                        <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="/pages/alldoctor.html"><i class="fas fa-user-md"></i> Find a Doctor</a></li>
+                        <li><a href="/book-appointment.html"><i class="fas fa-calendar-alt"></i> Book Appointment</a></li>
+                        <li><a href="/pages/about.html"><i class="fas fa-heartbeat"></i> Health Tips</a></li>
+                        <li><a href="/pages/contact.html"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
                     </ul>
                 </div>
     
-                <!-- Contact & Social Media Section -->
                 <div class="footer-contact">
                     <h3>Contact Us</h3>
-                    <p><i class="fas fa-envelope"></i> support@docbooking.com</p>
-                    <p><i class="fas fa-phone"></i> +1 234 567 890</p>
-                    <p><i class="fas fa-map-marker-alt"></i> 123 Medical Street, Health City</p>
+                    <p><i class="fas fa-envelope"></i> info.pharmaconnectt@gmail.com </p>
+                    <p><i class="fas fa-phone"></i> +91 9325954352 </p>
+                    <p><i class="fas fa-map-marker-alt"></i> Ashirwad Nagar, Hudkeshwar Road, Nagpur </p>
     
-                    <!-- Social Icons -->
-                    <div class="social-icons">
+                    <!-- <div class="social-icons">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
     

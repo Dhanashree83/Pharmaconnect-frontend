@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Cart - PharmaConnect</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+  <link rel="stylesheet" href="/dashboard/userDashboard/styles/pharmacy copy.css" />
+</head>
+<body class="bg-gray-50">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center bg-blue-600 text-white px-6 py-4">
+    <div class="text-xl font-bold">PharmaConnect</div>
+    <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="text-white hover:underline">Back to Pharmacy</a>
+  </nav>
+
+  <div class="p-6 max-w-5xl mx-auto">
+    <h1 class="text-2xl font-bold mb-4">My Cart</h1>
+    <div id="cartContainer" class="space-y-4"></div>
+
+    <div id="cartSummary" class="mt-6 border-t pt-4 flex justify-between items-center">
+      <div class="text-lg font-semibold">Total: ₹<span id="totalAmount">0.00</span></div>
+      <button id="placeOrderBtn" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">Place Order</button>
+    </div>
+  </div>
+
+  <script src="/js/config.js"></script>
+  <script>
+    const cartContainer = document.getElementById('cartContainer');
+    const totalAmountSpan = document.getElementById('totalAmount');
+    const placeOrderBtn = document.getElementById('placeOrderBtn');
+
+    const userId = localStorage.getItem('userId'); // Replace with actual auth logic
+
+    function loadCart() {
+      const cart = JSON.parse(localStorage.getItem('pharmaCart')) || [];
+      cartContainer.innerHTML = '';
+      let total = 0;
+
+      if (cart.length === 0) {
+        cartContainer.innerHTML = '<p class="text-gray-600">Your cart is empty.</p>';
+        placeOrderBtn.disabled = true;
+        totalAmountSpan.textContent = '0.00';
+        return;
+      }
+
+      cart.forEach((medicine, index) => {
+        total += medicine.price;
+
+        const item = document.createElement('div');
+        item.className = 'bg-white rounded shadow p-4 flex justify-between items-start';
+
+        item.innerHTML = `
+          <div>
+            <h2 class="text-lg font-bold">${medicine.name}</h2>
+            <p class="text-sm text-gray-600">${medicine.category || 'General'}</p>
+            <p class="text-gray-700 mt-1">₹${medicine.price.toFixed(2)}</p>
+            <p class="text-sm text-gray-500">Dosage: ${medicine.dosage || 'N/A'}</p>
+            <p class="text-xs text-gray-400">ID: ${medicine.medicineId}</p>
+          </div>
+          <button class="text-red-500 hover:underline" onclick="removeFromCart(${index})">Remove</button>
+        `;
+        cartContainer.appendChild(item);
+      });
+
+      totalAmountSpan.textContent = total.toFixed(2);
+      placeOrderBtn.disabled = false;
+    }
+
+    function removeFromCart(index) {
+      const cart = JSON.parse(localStorage.getItem('pharmaCart')) || [];
+      cart.splice(index, 1);
+      localStorage.setItem('pharmaCart', JSON.stringify(cart));
+      loadCart();
+    }
+
+    async function placeOrder() {
+      const cart = JSON.parse(localStorage.getItem('pharmaCart')) || [];
+
+      if (!userId) {
+        alert("User ID not found. Please log in again.");
+        return;
+      }
+
+      if (cart.length === 0) {
+        alert("Cart is empty.");
+        return;
+      }
+
+      placeOrderBtn.disabled = true;
+      placeOrderBtn.textContent = 'Placing Order...';
+
+      try {
+        for (const medicine of cart) {
+          const response = await fetch(`${BASE_URL}/api/medicine/order?userId=${userId}&medicineId=${medicine.medicineId}`, {
+            method: 'POST'
+          });
+
+          if (!response.ok) {
+            throw new Error(`Failed to order ${medicine.name}`);
+          }
+        }
+
+        alert("Order placed successfully!");
+        localStorage.removeItem('pharmaCart');
+        loadCart();
+      } catch (err) {
+        console.error(err);
+        alert("Failed to place order. Please try again.");
+      } finally {
+        placeOrderBtn.disabled = false;
+        placeOrderBtn.textContent = 'Place Order';
+      }
+    }
+
+    placeOrderBtn.addEventListener('click', placeOrder);
+
+    document.addEventListener('DOMContentLoaded', loadCart);
+  </script>
+</body>
+</html>

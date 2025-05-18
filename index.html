@@ -5,30 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PharmaConnect</title>
     <link rel="stylesheet" href="/css/style.css">
+     <link rel="stylesheet" href="/css/footer.css">
+     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 <body>
-    <!-- Header section of the project -->
-    <header>
-        <nav>
-            <h1>PharmaConnect</h1>
-            <div class="hamburger" onclick="toggleMenu()">&#9776;</div> <!-- Hamburger icon -->
-            <div class="navbar">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="/pages/about.html">About</a></li>
-                    <li><a href="/pages/pharmcay.html">Pharmacy</a></li>
-                    <li><a href="/pages/contact.html">Contact</a></li>
-                    <li><a href="/pages/alldoctor.html">All Doctors</a></li>
-                </ul>
-            </div>
-            <a href="/pages/user-login.html"><button>Create Account</button></a>
-        </nav>
-    </header>
+<header class="site-header">
+  <nav class="nav-container">
     
- 
+    <!-- Logo -->
+    <a href="/index.html" class="logo-link">
+      <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" class="logo-img">
+    </a>
 
-    </header>
+    <!-- Navigation Links -->
+    <ul class="nav-links">
+      <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="/pages/about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="/pages/pharmcay.html"><i class="fas fa-prescription-bottle-alt"></i> Pharmacy</a></li>
+      <li><a href="/pages/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+      <li><a href="/pages/alldoctor.html"><i class="fas fa-user-md"></i> All Doctors</a></li>
+    </ul>
+
+    <!-- Sign In Button -->
+    <div>
+      <a href="/pages/user-login.html" class="sign-in-btn">
+        <i class="fas fa-user-plus"></i> Sign In
+      </a>
+    </div>
+
+  </nav>
+</header>
+
+
+    <!-- hero section of the page -->
+
     <section class="hero">
         <div class="hero-container">
             <h1>PharmaConnect: Your Trusted Partner for Health & Wellness</h1>
@@ -37,11 +50,9 @@
                <a href="book-appointment.html"> <button>Book an Appointment</button></a>
                <a href="/pages/reservedMedicine.html"> <button>Reserve Medicines</button></a>
             </div>
-
         </div>
     </section>
-     <!-- Some extra info of page -->
-
+     
      <div class="container-features">
         <h1>Key Features of Our Doctor Appointment System</h1>
         <div class="features">
@@ -70,11 +81,10 @@
                 <h3>Patient Dashboard</h3>
                 <p>Track medical history, prescriptions, and upcoming visits.</p>
             </div>
-    
         </div>
     </div>
- <!-- Mid Section of the landing page -->
-       <section class="mid">
+    
+    <section class="mid">
         <div class="mid-part">
             <div class="mid-text">
                 <h1>Enhancing Patient Care Through Digital Connectivity</h1>
@@ -85,69 +95,56 @@
                 <img src="images/Doc-img.png" alt="Doctor Image">
             </div>
         </div>
-    
-       </section>
+    </section>
 
-    <!-- banner one -->
-    <section id = "banner-one" class = "banner-one text-center">
-        <div class = "container text-white">
-            <blockquote class = "lead"><i class = "fas fa-quote-left"></i> When you are young and healthy, it never occurs to you that in a single second your whole life could change. <i class = "fas fa-quote-right"></i></blockquote>
-            <small class = "text text-sm">- Anonim Nano</small>
+    <section id="banner-one" class="banner-one text-center">
+        <div class="container text-white">
+            <blockquote class="lead"><i class="fas fa-quote-left"></i> When you are young and healthy, it never occurs to you that in a single second your whole life could change. <i class="fas fa-quote-right"></i></blockquote>
+            <small class="text text-sm">- Anonim Nano</small>
         </div>
     </section>
 
-
-    <!-- end of banner one -->
-
-
-       <section class="testimonal">
-
+    <section class="testimonal">
         <div class="container-testimonial">
             <h2>What Our Patient Says</h2>
             <p class="testimonial" id="testimonial-text">"This hospital provided exceptional care and support during my treatment!"</p>
-            <p class="patient" id="patient-name">- John Doe</p>
+            <p class="patient" id="patient-name">- Rashii Varma</p>
             <button onclick="nextTestimonial()">Next Testimonial</button>
         </div>
+    </section>
 
-       </section>
-
-    <!-- --------------------Footer section of the page ------------- -->
-       <footer class="footer">
+    <footer class="footer">
         <div class="container-footer">
             <div class="footer-sections">
-                <!-- About Section -->
                 <div class="footer-about">
                     <h3>About Us</h3>
                     <p>Easily book doctor appointments and manage your healthcare with our seamless platform. Your well-being is just a click away!</p>
                     <em>"Your Health, Your Schedule—Book with Ease!"</em>
                 </div>
     
-                <!-- Quick Links Section -->
                 <div class="footer-links">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="#"><i class="fas fa-user-md"></i> Find a Doctor</a></li>
-                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Book Appointment</a></li>
-                        <li><a href="#"><i class="fas fa-heartbeat"></i> Health Tips</a></li>
-                        <li><a href="#"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
+                        <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="/pages/alldoctor.html"><i class="fas fa-user-md"></i> Find a Doctor</a></li>
+                        <li><a href="/book-appointment.html"><i class="fas fa-calendar-alt"></i> Book Appointment</a></li>
+                        <li><a href="/pages/about.html"><i class="fas fa-heartbeat"></i> Health Tips</a></li>
+                        <li><a href="/pages/contact.html"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
                     </ul>
                 </div>
     
-                <!-- Contact & Social Media Section -->
                 <div class="footer-contact">
                     <h3>Contact Us</h3>
-                    <p><i class="fas fa-envelope"></i> support@docbooking.com</p>
-                    <p><i class="fas fa-phone"></i> +1 234 567 890</p>
-                    <p><i class="fas fa-map-marker-alt"></i> 123 Medical Street, Health City</p>
+                    <p><i class="fas fa-envelope"></i> info.pharmaconnectt@gmail.com </p>
+                    <p><i class="fas fa-phone"></i> +91 9325954352 </p>
+                    <p><i class="fas fa-map-marker-alt"></i> Ashirwad Nagar, Hudkeshwar Road, Nagpur </p>
     
-                    <!-- Social Icons -->
-                    <div class="social-icons">
+                    <!-- <div class="social-icons">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
     
@@ -156,36 +153,8 @@
         </div>
     </footer>
     
-    <!-- Font Awesome for icons -->
     <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
     <script src="/js/script.js"></script>
-    <script>
-      // Toggle navbar visibility on hamburger click
-    function toggleMenu() {
-        document.querySelector('.navbar').classList.toggle('active');
-    }
-
-    // Variables for scroll behavior
-    let lastScrollTop = 0;
-    const navbar = document.querySelector('.navbar');
-
-    window.addEventListener('scroll', function() {
-        let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-        if (currentScroll > lastScrollTop) {
-            // Scrolling down
-            navbar.classList.remove('navbar-visible');
-            navbar.classList.add('navbar-hidden');
-        } else {
-            // Scrolling up
-            navbar.classList.remove('navbar-hidden');
-            navbar.classList.add('navbar-visible');
-        }
-
-        lastScrollTop = currentScroll <= 0 ? 0 : currentScroll; // Prevent negative scrolling
-    });
-      </script>
-      
-    
-    </body>
+ 
+</body>
 </html>

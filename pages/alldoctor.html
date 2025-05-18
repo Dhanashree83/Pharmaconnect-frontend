@@ -5,27 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>alldoctor</title>
     <link rel="stylesheet" href="/css/alldoctor.css">
+    <link rel="stylesheet" href="/css/footer.css">
+     <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  
 </head>
 <body>
-    <header>
-        <nav>
-            <h1>PharmaConnect</h1>
-            <div class="navbar">
-                <ul>
-                    <li><a href="/index.html">Home</a>
-                    <li><a href="/pages/about.html">About</a></li>
-                    <li><a href="/pages/pharmcay.html">Pharmacy</a></li>
-                    <li><a href="/pages/contact.html">Contact</a></li>
-                    <li><a href="/pages/alldoctor.html">All Doctors</a></li>
-                </ul>
-            </div>
-           <a href="/pages/user-login.html"> <button>Create Account</button></a>
-        </nav>
-    </header>
+   <header class="site-header">
+  <nav class="nav-container">
+    
+    <!-- Logo -->
+    <a href="/index.html" class="logo-link">
+      <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" class="logo-img">
+    </a>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links">
+      <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="/pages/about.html"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="/pages/pharmcay.html"><i class="fas fa-prescription-bottle-alt"></i> Pharmacy</a></li>
+      <li><a href="/pages/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+      <li><a href="/pages/alldoctor.html"><i class="fas fa-user-md"></i> All Doctors</a></li>
+    </ul>
+
+    <!-- Sign In Button -->
+    <div>
+      <a href="/pages/user-login.html" class="sign-in-btn">
+        <i class="fas fa-user-plus"></i> Sign In
+      </a>
+    </div>
+
+  </nav>
+</header>
+    
     <div class="container">
         <div class="sidebar">
             <h3>Specialties</h3>
-            <span class="filter-item" onclick="filterDoctors('all')">All Doctors</span>
+            <span class="filter-item active" onclick="filterDoctors('all')">All Doctors</span>
             <span class="filter-item" onclick="filterDoctors('Dermatologist')">Dermatologist</span>
             <span class="filter-item" onclick="filterDoctors('Cardiologist')">Cardiologist</span>
             <span class="filter-item" onclick="filterDoctors('Pediatrician')">Pediatrician</span>
@@ -81,44 +98,40 @@
                 <p>Location: San Diego, CA</p>
             </div>
         </div>
-    </div>
+    </div
     <!-- --------------------Footer section of the page ------------- -->
     <footer class="footer">
         <div class="container-footer">
             <div class="footer-sections">
-                <!-- About Section -->
                 <div class="footer-about">
                     <h3>About Us</h3>
                     <p>Easily book doctor appointments and manage your healthcare with our seamless platform. Your well-being is just a click away!</p>
                     <em>"Your Health, Your Schedule—Book with Ease!"</em>
                 </div>
     
-                <!-- Quick Links Section -->
                 <div class="footer-links">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="#"><i class="fas fa-user-md"></i> Find a Doctor</a></li>
-                        <li><a href="#"><i class="fas fa-calendar-alt"></i> Book Appointment</a></li>
-                        <li><a href="#"><i class="fas fa-heartbeat"></i> Health Tips</a></li>
-                        <li><a href="#"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
+                        <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="/pages/alldoctor.html"><i class="fas fa-user-md"></i> Find a Doctor</a></li>
+                        <li><a href="/book-appointment.html"><i class="fas fa-calendar-alt"></i> Book Appointment</a></li>
+                        <li><a href="/pages/about.html"><i class="fas fa-heartbeat"></i> Health Tips</a></li>
+                        <li><a href="/pages/contact.html"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
                     </ul>
                 </div>
     
-                <!-- Contact & Social Media Section -->
                 <div class="footer-contact">
                     <h3>Contact Us</h3>
-                    <p><i class="fas fa-envelope"></i> support@docbooking.com</p>
-                    <p><i class="fas fa-phone"></i> +1 234 567 890</p>
-                    <p><i class="fas fa-map-marker-alt"></i> 123 Medical Street, Health City</p>
+                    <p><i class="fas fa-envelope"></i> info.pharmaconnectt@gmail.com </p>
+                    <p><i class="fas fa-phone"></i> +91 9325954352 </p>
+                    <p><i class="fas fa-map-marker-alt"></i> Ashirwad Nagar, Hudkeshwar Road, Nagpur </p>
     
-                    <!-- Social Icons -->
-                    <div class="social-icons">
+                    <!-- <div class="social-icons">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
                         <a href="#"><i class="fab fa-twitter"></i></a>
                         <a href="#"><i class="fab fa-instagram"></i></a>
                         <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
     
@@ -134,6 +147,53 @@
                 doc.style.display = (specialty === 'all' || doc.dataset.specialty === specialty) ? 'block' : 'none';
             });
         }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    const hamburger = document.getElementById('hamburger');
+    const navbar = document.getElementById('navbar');
+    
+    // Check if elements exist
+    if (!hamburger || !navbar) {
+        console.error('Could not find hamburger or navbar elements!');
+        return;
+    }
+    
+    // Toggle menu function
+    function toggleMenu() {
+        navbar.classList.toggle('active');
+        const icon = hamburger.querySelector('i');
+        
+        // Toggle between bars and times icon
+        if (navbar.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    }
+    
+    // Event listeners
+    hamburger.addEventListener('click', toggleMenu);
+    
+    // Close menu when clicking on links (mobile)
+    const navLinks = document.querySelectorAll('.navbar ul li a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                toggleMenu();
+            }
+        });
+    });
+    
+    // Close menu when resizing to desktop
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768 && navbar.classList.contains('active')) {
+            toggleMenu();
+        }
+    });
+});
+
     </script>
 
 </body>

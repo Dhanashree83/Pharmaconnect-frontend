@@ -6,11 +6,15 @@
   <title>Sign In & Sign Up</title>
   <link rel="stylesheet" href="/css/user-login.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+   <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/header.css">
 </head>
 <body>
 
   <nav class="navbar">
-    <div class="logo">PharmaConnect</div>
+    <a href="/index.html" class="logo">
+                 <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" /> 
+            </a>
   </nav>
 
   <div class="container">
@@ -30,6 +34,9 @@
           </div>
           <button type="submit" class="btn">Sign In</button>
           <p id="loginMessage" style="text-align: center; margin-top: 10px;"></p>
+          <div class="forgot-password">
+            <a href="#" id="forgotPasswordLink">Forgot Password?</a>
+          </div>
         </form>
 
         <!-- Sign Up Form -->
@@ -61,7 +68,7 @@
             <input type="password" name="password" placeholder="Password" required />
           </div>
 
-          <!-- OTP Input Field - Hidden initially -->
+          <!-- OTP Input Field -->
           <div class="input-field otp-field" style="display: none;">
             <i class="fas fa-key"></i>
             <input type="text" name="otp" id="otp" placeholder="Enter OTP" />
@@ -97,29 +104,167 @@
     </div>
   </div>
 
-  <!-- JavaScript imports -->
+  <!-- Forgot Password Modal -->
+  <div id="forgotPasswordModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Reset Password</h2>
+
+      <div class="input-field">
+        <i class="fas fa-envelope"></i>
+        <input type="email" id="resetEmail" placeholder="Enter your email" required />
+      </div>
+
+      <div class="input-field">
+        <label>
+          <input type="radio" name="userType" value="patient" checked /> Patient
+        </label>
+        <label>
+          <input type="radio" name="userType" value="doctor" /> Doctor
+        </label>
+      </div>
+
+      <button id="sendResetLink" class="btn">Send Reset Link</button>
+
+      <div id="otpSection" style="display: none;">
+        <div class="input-field">
+          <i class="fas fa-key"></i>
+          <input type="text" id="resetOtp" placeholder="Enter OTP" required />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input type="password" id="newPassword" placeholder="New Password" required />
+        </div>
+        <button id="resetPasswordBtn" class="btn">Reset Password</button>
+      </div>
+      <p id="resetMessage" style="text-align: center; margin-top: 10px;"></p>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script src="/js/config.js"></script>
   <script src="/js/patientServiceApi.js"></script>
-  <script src="/js/loginApi.js"></script> <!-- 🔄 Your login script -->
-
-  <!-- Toggle Panel Mode -->
+  <script src="/js/loginApi.js"></script>
   <script>
-    const sign_in_btn = document.querySelector("#sign-in-btn");
-    const sign_up_btn = document.querySelector("#sign-up-btn");
-    const container = document.querySelector(".container");
 
-    if (sign_in_btn && sign_up_btn && container) {
-      sign_up_btn.addEventListener("click", () => {
-        container.classList.add("sign-up-mode");
-      });
+  // Show Forgot Password Modal
+  const modal = document.getElementById("forgotPasswordModal");
+  const forgotPasswordLink = document.getElementById("forgotPasswordLink");
+  const spanClose = document.querySelector(".modal .close");
 
-      sign_in_btn.addEventListener("click", () => {
-        container.classList.remove("sign-up-mode");
-      });
+  forgotPasswordLink.addEventListener("click", function (e) {
+    e.preventDefault();
+    modal.style.display = "block";
+  });
+
+  spanClose.addEventListener("click", function () {
+    modal.style.display = "none";
+  });
+
+  window.addEventListener("click", function (event) {
+    if (event.target === modal) {
+      modal.style.display = "none";
     }
-  </script>
+  });
+
+  // Send OTP (Forgot Password)
+  document.getElementById('sendResetLink').addEventListener('click', function () {
+    const email = document.getElementById('resetEmail').value.trim();
+    const userType = document.querySelector('input[name="userType"]:checked').value;
+    const resetMessage = document.getElementById('resetMessage');
+
+    if (!email) {
+      resetMessage.textContent = 'Please enter your email.';
+      resetMessage.style.color = 'red';
+      return;
+    }
+
+ const endpoint = userType === 'patient'
+  ? `${BASE_URL}/api/patient/forgot-password?email=${encodeURIComponent(email)}`
+  : `${BASE_URL}/api/doctor/forgot-password?email=${encodeURIComponent(email)}`;
+
+
+    fetch(endpoint, {
+      method: 'POST'
+    })
+      .then(async res => {
+        const message = await res.text();
+        if (!res.ok) throw new Error(message);
+
+        resetMessage.textContent = 'OTP sent to your email.';
+        resetMessage.style.color = 'green';
+
+        localStorage.setItem('resetEmail', email);
+        localStorage.setItem('isPatient', userType === 'patient');
+
+        document.getElementById('otpSection').style.display = 'block';
+      })
+      .catch(err => {
+        resetMessage.textContent = err.message;
+        resetMessage.style.color = 'red';
+      });
+  });
+
+  // Reset Password with OTP
+  document.getElementById('resetPasswordBtn').addEventListener('click', function () {
+    const email = localStorage.getItem('resetEmail');
+    const isPatient = localStorage.getItem('isPatient') === 'true';
+    const otp = document.getElementById('resetOtp').value.trim();
+    const newPassword = document.getElementById('newPassword').value.trim();
+    const resetMessage = document.getElementById('resetMessage');
+
+    if (!otp || !newPassword) {
+      resetMessage.textContent = 'Please enter OTP and new password.';
+      resetMessage.style.color = 'red';
+      return;
+    }
+
+    const endpoint = isPatient
+      ? `${BASE_URL}/api/patient/reset-password`
+      : `${BASE_URL}/api/doctor/reset-password`;
+
+    fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, otp, newPassword })
+    })
+      .then(async res => {
+        const message = await res.text();
+        if (!res.ok) throw new Error(message);
+
+        resetMessage.textContent = 'Password reset successful!';
+        resetMessage.style.color = 'green';
+        setTimeout(() => {
+          modal.style.display = "none";
+          document.getElementById('resetEmail').value = '';
+          document.getElementById('resetOtp').value = '';
+          document.getElementById('newPassword').value = '';
+          document.getElementById('otpSection').style.display = 'none';
+        }, 1500);
+      })
+      .catch(err => {
+        resetMessage.textContent = err.message;
+        resetMessage.style.color = 'red';
+      });
+  });
+</script>
+<script>
+  const signUpBtn = document.getElementById("sign-up-btn");
+  const signInBtn = document.getElementById("sign-in-btn");
+  const container = document.querySelector(".container");
+
+  signUpBtn.addEventListener("click", () => {
+    container.classList.add("sign-up-mode");
+  });
+
+  signInBtn.addEventListener("click", () => {
+    container.classList.remove("sign-up-mode");
+  });
+</script>
+
 
 </body>
 </html>
