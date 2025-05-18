@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://cdn.tailwindcss.com"></script>
   <title>Edit Patient Profile</title>
   <style>
     :root {
@@ -190,16 +191,37 @@
   <div class="main-container">
     <!-- Sidebar -->
     <div class="sidebar">
-      <h2>PharmaConnect</h2>
-       <nav class="space-y-4">
-        <a href="/dashboard/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
-        <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">Book an Appointments</a>
-        <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block text-gray-700 hover:text-blue-500 font-medium">All Doctors</a>
-        <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
-        <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
-        <a href="/dashboard/userDashboard/pages/myOrders.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Orders</a>
-
-      </nav>
+     <aside class="w-64 bg-[#0277b6] text-white shadow-lg h-screen p-4 hidden md:block fixed top-0 left-0">
+    <div class="flex justify-center mb-8">
+      <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" />
+    </div>
+    <nav class="space-y-2">
+      <a href="/dashboard/userDashboard/user-main.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+        <i class="bi bi-speedometer2 text-lg"></i>
+        <span class="font-medium">Dashboard</span>
+      </a>
+      <a href="/dashboard/userDashboard/pages/bookappointment.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+        <i class="bi bi-calendar-plus text-lg"></i>
+        <span class="font-medium">Book an Appointments</span>
+      </a>
+      <a href="/dashboard/userDashboard/pages/allDoctors.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+        <i class="bi bi-people text-lg"></i>
+        <span class="font-medium">All Doctors</span>
+      </a>
+      <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+        <i class="bi bi-capsule text-lg"></i>
+        <span class="font-medium">Pharmacy</span>
+      </a>
+      <a href="/dashboard/userDashboard/pages/myAppointment.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+        <i class="bi bi-calendar-check text-lg"></i>
+        <span class="font-medium">My Appointments</span>
+      </a>
+      <a href="/dashboard/userDashboard/pages/myOrders.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+        <i class="bi bi-bag-check text-lg"></i>
+        <span class="font-medium">My Orders</span>
+      </a>
+    </nav>
+  </aside>
     </div>
 
     <!-- Main Content -->

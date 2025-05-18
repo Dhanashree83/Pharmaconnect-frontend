@@ -30,13 +30,13 @@
       cursor: pointer;
     }
     .status-pending {
-      color: #d97706; /* amber-600 */
+      color: #d97706;
     }
     .status-cancelled {
-      color: #dc2626; /* red-600 */
+      color: #dc2626;
     }
     .status-confirmed {
-      color: #059669; /* green-600 */
+      color: #059669;
     }
   </style>
 </head>
@@ -44,21 +44,40 @@
 
 <div class="flex min-h-screen">
   <!-- Sidebar -->
-  <aside class="w-64 bg-blue-50 shadow-md p-6 hidden md:block">
-    <h2 class="text-2xl font-bold text-blue-700 mb-8">PharmaConnect</h2>
-      <nav class="space-y-4">
-        <a href="/dashboard/userDashboard/user-main.html" class="block text-gray-700 hover:text-blue-500 font-medium">Dashboard</a>
-        <a href="/dashboard/userDashboard/pages/bookappointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">Book an Appointments</a>
-        <a href="/dashboard/userDashboard/pages/allDoctors.html" class="block text-gray-700 hover:text-blue-500 font-medium">All Doctors</a>
-        <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="block text-gray-700 hover:text-blue-500 font-medium">Pharmacy</a>
-        <a href="/dashboard/userDashboard/pages/myAppointment.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Appointments</a>
-        <a href="/dashboard/userDashboard/pages/myOrders.html" class="block text-gray-700 hover:text-blue-500 font-medium">My Orders</a>
-      </nav>
+  <aside class="w-64 bg-[#0277b6] text-white shadow-lg h-screen p-4 hidden md:block fixed top-0 left-0">
+    <div class="flex justify-center mb-8">
+      <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" />
+    </div>
+    <nav class="space-y-2">
+      <a href="/dashboard/userDashboard/user-main.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+        <i class="bi bi-speedometer2 text-lg"></i>
+        <span class="font-medium">Dashboard</span>
+      </a>
+      <a href="/dashboard/userDashboard/pages/bookappointment.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+        <i class="bi bi-calendar-plus text-lg"></i>
+        <span class="font-medium">Book an Appointments</span>
+      </a>
+      <a href="/dashboard/userDashboard/pages/allDoctors.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+        <i class="bi bi-people text-lg"></i>
+        <span class="font-medium">All Doctors</span>
+      </a>
+      <a href="/dashboard/userDashboard/pages/pharmacy copy.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+        <i class="bi bi-capsule text-lg"></i>
+        <span class="font-medium">Pharmacy</span>
+      </a>
+      <a href="/dashboard/userDashboard/pages/myAppointment.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+        <i class="bi bi-calendar-check text-lg"></i>
+        <span class="font-medium">My Appointments</span>
+      </a>
+      <a href="/dashboard/userDashboard/pages/myOrders.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+        <i class="bi bi-bag-check text-lg"></i>
+        <span class="font-medium">My Orders</span>
+      </a>
+    </nav>
   </aside>
-  <script src="/js/config.js"></script>
 
   <!-- Main Content -->
-  <main class="flex-1 p-6">
+  <main class="flex-1 p-6 md:pl-64 overflow-x-hidden">
     <div class="bg-white rounded-xl shadow-lg p-6">
       <h2 class="text-2xl font-bold text-blue-800 text-center mb-6">My Appointments</h2>
       <div class="overflow-x-auto">
@@ -77,15 +96,13 @@
           <tbody id="appointmentTableBody" class="text-gray-700 text-sm"></tbody>
         </table>
         <p id="noAppointmentsMsg" class="text-center text-gray-600 mt-4 hidden">No appointments found.</p>
-
-        <!-- Pagination -->
         <div id="pagination" class="flex justify-center mt-4 gap-2 text-sm"></div>
       </div>
     </div>
   </main>
 </div>
 
-<!-- Modal -->
+<!-- Modals -->
 <div id="viewModal" class="modal fixed inset-0 hidden items-center justify-center">
   <div class="modal-content relative">
     <span class="close absolute top-2 right-4 text-gray-700 hover:text-red-500" onclick="closeModal()">&times;</span>
@@ -94,7 +111,6 @@
   </div>
 </div>
 
-<!-- Confirmation Modal -->
 <div id="confirmModal" class="modal fixed inset-0 hidden items-center justify-center">
   <div class="modal-content relative">
     <span class="close absolute top-2 right-4 text-gray-700 hover:text-red-500" onclick="closeConfirmModal()">&times;</span>
@@ -109,6 +125,8 @@
   </div>
 </div>
 
+<!-- Scripts -->
+<script src="/js/config.js"></script>
 <script>
   let currentPage = 0;
   const pageSize = 10;
@@ -146,7 +164,6 @@
           const patientName = `${appt.firstName} ${appt.lastName}`;
           const doctorContact = `${appt.doctorEmail}<br>${appt.doctorPhoneNumber}`;
           
-          // Determine status class based on status
           let statusClass = '';
           if (appt.status === 'PENDING') statusClass = 'status-pending';
           else if (appt.status === 'CANCELLED') statusClass = 'status-cancelled';
@@ -229,18 +246,15 @@
   }
 
   function closeModal() {
-    const modal = document.getElementById("viewModal");
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
+    document.getElementById("viewModal").classList.add("hidden");
+    document.getElementById("viewModal").classList.remove("flex");
   }
 
   function closeConfirmModal() {
-    const modal = document.getElementById("confirmModal");
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
+    document.getElementById("confirmModal").classList.add("hidden");
+    document.getElementById("confirmModal").classList.remove("flex");
   }
 
-  // Set up the confirm cancel button
   document.getElementById("confirmCancelBtn").addEventListener("click", () => {
     if (currentAppointmentId) {
       cancelAppointment(currentAppointmentId);
@@ -249,7 +263,6 @@
 
   function cancelAppointment(appointmentId) {
     const url = `${BASE_URL}/appointment/cancel/${appointmentId}`;
-    
     fetch(url, {
       method: 'PUT',
       headers: {
@@ -257,14 +270,11 @@
       }
     })
     .then(response => {
-      if (!response.ok) {
-        throw new Error('Failed to cancel appointment');
-      }
+      if (!response.ok) throw new Error('Failed to cancel appointment');
       return response.json();
     })
-    .then(data => {
+    .then(() => {
       closeConfirmModal();
-      // Refresh the appointments list
       const userId = localStorage.getItem("userId");
       fetchAppointments(userId, currentPage);
     })
