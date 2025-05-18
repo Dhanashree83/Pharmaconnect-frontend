@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>PharmaConnect - Doctor Orders</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" /> -->
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center bg-blue-600 text-white px-6 py-4">
+    <div class="text-xl font-bold">PharmaConnect</div>
+    <span>Doctor Dashboard</span>
+  </nav>
+
+  <!-- Layout: Sidebar + Content -->
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-[#0277b6] text-white shadow-lg h-screen p-4 hidden md:block fixed top-0 left-0">
+  <div class="flex justify-center mb-8">
+    <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" />
+  </div>
+  <nav class="space-y-2">
+    <a href="/dashboard/doctorDashboard/doctor-main.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-calendar-check text-lg"></i>
+      <span class="font-medium">Dashboard</span>
+    </a>
+    <a href="/dashboard/doctorDashboard/pages/Appointment.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-calendar-check text-lg"></i>
+      <span class="font-medium">Appointments</span>
+    </a>
+    <a href="/dashboard/doctorDashboard/pages/allPatient.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-person text-lg"></i>
+      <span class="font-medium">All Users</span>
+    </a>
+    <a href="/dashboard/doctorDashboard/pages/uploadMedicine.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-person-badge text-lg"></i>
+      <span class="font-medium">Upload Medicine</span>
+    </a>
+    <a href="/dashboard/doctorDashboard/pages/pharmacy.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-capsule text-lg"></i>
+      <span class="font-medium">Pharmacy</span>
+    </a>
+    <a href="/dashboard/doctorDashboard/pages/hospital.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-hospital text-lg"></i>
+      <span class="font-medium">Hospital</span>
+    </a>
+    <a href="/dashboard/doctorDashboard/pages/orders.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-calendar-check text-lg"></i>
+      <span class="font-medium">Orders</span>
+    </a>
+  </nav>
+</aside>
+    <!-- Main Content -->
+    <main class="flex-1 p-6 ml-64">
+      <h2 class="text-2xl font-semibold text-blue-700 mb-4">Medicine Orders</h2>
+      <div class="bg-white p-4 rounded-lg shadow overflow-x-auto">
+        <table class="min-w-full text-sm text-center border">
+          <thead class="bg-blue-100 text-gray-700">
+            <tr>
+              <th class="p-2 border">Order ID</th>
+              <th class="p-2 border">Medicine Name</th>
+              <th class="p-2 border">Order Date</th>
+              <th class="p-2 border">Total Price</th>
+              <th class="p-2 border">Current Status</th>
+              <th class="p-2 border">Update Status</th>
+            </tr>
+          </thead>
+          <tbody id="orderTableBody" class="text-gray-800">
+            <tr><td colspan="6" class="p-4 text-gray-500">Loading...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+  <script src="/js/config.js"></script>
+  <script>
+    const doctorId = localStorage.getItem('userId');
+
+    const statusOptions = ["PENDING", "APPROVED", "REJECTED", "CANCELLED", "DELIVERED"];
+
+    async function fetchOrders() {
+      const tableBody = document.getElementById('orderTableBody');
+
+      if (!doctorId) {
+        tableBody.innerHTML = `<tr><td colspan="6" class="p-4 text-red-600">Doctor ID not found in localStorage.</td></tr>`;
+        return;
+      }
+
+      try {
+        const res = await fetch(`${BASE_URL}/api/medicine/doctor/${doctorId}/orders`);
+        const orders = await res.json();
+
+        if (!Array.isArray(orders) || orders.length === 0) {
+          tableBody.innerHTML = `<tr><td colspan="6" class="p-4 text-gray-500">No orders found.</td></tr>`;
+          return;
+        }
+
+        tableBody.innerHTML = '';
+        orders.forEach(order => {
+          const row = document.createElement('tr');
+          row.classList.add('border', 'hover:bg-blue-50');
+
+          row.innerHTML = `
+            <td class="p-2 border">${order.orderId}</td>
+            <td class="p-2 border">${order.medicineName || 'N/A'}</td>
+            <td class="p-2 border">${new Date(order.orderDate).toLocaleString()}</td>
+            <td class="p-2 border">₹${order.totalPrice.toFixed(2)}</td>
+            <td class="p-2 border status">${order.status}</td>
+            <td class="p-2 border">
+              <select class="status-dropdown border px-2 py-1 text-sm rounded bg-gray-50">
+                ${statusOptions.map(status => `<option value="${status}" ${status === order.status ? 'selected' : ''}>${status}</option>`).join('')}
+              </select>
+              <button class="ml-2 bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs" onclick="updateOrderStatus('${order.orderId}', this)">Update</button>
+            </td>
+          `;
+
+          tableBody.appendChild(row);
+        });
+      } catch (error) {
+        console.error('Error loading orders:', error);
+        tableBody.innerHTML = `<tr><td colspan="6" class="p-4 text-red-600">Failed to load orders.</td></tr>`;
+      }
+    }
+
+    async function updateOrderStatus(orderId, btn) {
+      const row = btn.closest('tr');
+      const select = row.querySelector('.status-dropdown');
+      const newStatus = select.value;
+
+      try {
+        const res = await fetch(`${BASE_URL}/api/medicine/order/${orderId}/status?status=${newStatus}`, {
+          method: 'PUT'
+        });
+
+        if (!res.ok) throw new Error('Failed to update status');
+
+        const result = await res.json();
+        row.querySelector('.status').textContent = result.status;
+        alert(`Order ${orderId} updated to ${result.status}`);
+      } catch (error) {
+        console.error('Error updating status:', error);
+        alert('Failed to update order status.');
+      }
+    }
+
+    window.onload = fetchOrders;
+  </script>
+</body>
+</html>

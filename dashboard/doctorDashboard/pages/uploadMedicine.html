@@ -1,138 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/dashboard/doctorDashboard/styles/uploadMedicine.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"> -->
+  <link rel="stylesheet" href="/dashboard/doctorDashboard/styles/uploadMedicine.css">
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 </head>
 
 <body>
-    <nav class="flex justify-between items-center bg-blue-600 text-white px-6 py-4">
-        <!-- Logo -->
-        <div class="text-xl font-bold">PharmaConnect</div>
-      </nav>
+  <nav class="flex justify-between items-center bg-blue-600 text-white px-6 py-4">
+    <div class="text-xl font-bold">PharmaConnect</div>
+  </nav>
 
+  <aside class="w-64 bg-[#0277b6] text-white shadow-lg h-screen p-4 hidden md:block fixed top-0 left-0">
+  <div class="flex justify-center mb-8">
+    <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" />
+  </div>
+  <nav class="space-y-2">
+    <a href="/dashboard/doctorDashboard/doctor-main.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-calendar-check text-lg"></i>
+      <span class="font-medium">Dashboard</span>
+    </a>
+    <a href="/dashboard/doctorDashboard/pages/Appointment.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-calendar-check text-lg"></i>
+      <span class="font-medium">Appointments</span>
+    </a>
+    <a href="/dashboard/doctorDashboard/pages/allPatient.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-person text-lg"></i>
+      <span class="font-medium">All Users</span>
+    </a>
+    <a href="/dashboard/doctorDashboard/pages/uploadMedicine.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-person-badge text-lg"></i>
+      <span class="font-medium">Upload Medicine</span>
+    </a>
+    <a href="/dashboard/doctorDashboard/pages/pharmacy.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-capsule text-lg"></i>
+      <span class="font-medium">Pharmacy</span>
+    </a>
+    <a href="/dashboard/doctorDashboard/pages/hospital.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-hospital text-lg"></i>
+      <span class="font-medium">Hospital</span>
+    </a>
+    <a href="/dashboard/doctorDashboard/pages/orders.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+      <i class="bi bi-calendar-check text-lg"></i>
+      <span class="font-medium">Orders</span>
+    </a>
+  </nav>
+</aside>
 
-      <div class="sidebar-container">
-        <!-- Sidebar -->
-        <div class="sidebar">
-          <a href="#"><i class="bi bi-calendar-check"></i>Appointments</a>
-          <a href="/dashboard/doctorDashboard/pages/allPatient.html"><i class="bi bi-person"></i>All Patient</a>
-          <a href="/dashboard/doctorDashboard/pages/uploadMedicine.html"><i class="bi bi-person-badge"></i>Upload Medicine</a>
-          <a href="/dashboard/doctorDashboard/pages/pharmacy.html"><i class="bi bi-capsule"></i>Pharmacy</a>
-          <a href="/dashboard/doctorDashboard/pages/hospital.html"><i class="bi bi-hospital"></i>Hospital</a>
-         
+    <div class="medicine-container">
+      <h2 class="form-heading">Add New Medicine</h2>
+      <form id="medicineForm" class="medicine-form">
+        <div class="form-group">
+          <label for="name">Medicine Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter medicine name" required />
         </div>
-       <!-- Medicine container goes here -->
 
-       <div class="medicine-container">
-        <h2 class="form-heading">Add New Medicine</h2>
-        <form id="medicineForm" class="medicine-form">
-          
-          <input type="hidden" name="doctorId" value="DRE3A69C5A" />
-      
-          <div class="form-group">
-            <label for="name">Medicine Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter medicine name" required />
-          </div>
-      
-          <div class="form-group">
-            <label for="type">Type</label>
-            <input type="text" id="type" name="type" placeholder="e.g. Tablet, Cream" />
-          </div>
-      
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea id="description" name="description" rows="3" placeholder="Write a short description..."></textarea>
-          </div>
-      
-          <div class="form-group">
-            <label for="dosage">Dosage</label>
-            <input type="text" id="dosage" name="dosage" placeholder="e.g. 1 tablet twice a day" />
-          </div>
-      
-          <div class="form-group">
-            <label for="manufacturer">Manufacturer</label>
-            <input type="text" id="manufacturer" name="manufacturer" placeholder="Enter manufacturer name" />
-          </div>
-      
-          <div class="form-group">
-            <label for="price">Price (₹)</label>
-            <input type="number" id="price" name="price" step="0.01" placeholder="e.g. 99.99" />
-          </div>
-      
-          <button type="submit" class="submit-btn">Add Medicine</button>
-        </form>
-      </div>
+        <div class="form-group">
+          <label for="type">Type</label>
+          <input type="text" id="type" name="type" placeholder="e.g. Tablet, Cream" />
+        </div>
 
-      
-      <div id="toast" class="toast"></div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" rows="3" placeholder="Write a short description..."></textarea>
+        </div>
 
-      <script src="/js/config.js"></script>
+        <div class="form-group">
+          <label for="dosage">Dosage</label>
+          <input type="text" id="dosage" name="dosage" placeholder="e.g. 1 tablet twice a day" />
+        </div>
 
-        <script>
- 
-          const form = document.getElementById("medicineForm");
-  const toast = document.getElementById("toast");
+        <div class="form-group">
+          <label for="manufacturer">Manufacturer</label>
+          <input type="text" id="manufacturer" name="manufacturer" placeholder="Enter manufacturer name" />
+        </div>
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
+        <div class="form-group">
+          <label for="price">Price (₹)</label>
+          <input type="number" id="price" name="price" step="0.01" placeholder="e.g. 99.99" />
+        </div>
 
-    const data = {
-      doctorId: form.doctorId.value.trim(),
-      name: form.name.value.trim(),
-      type: form.type.value.trim(),
-      description: form.description.value.trim(),
-      dosage: form.dosage.value.trim(),
-      manufacturer: form.manufacturer.value.trim(),
-      price: form.price.value.trim(),
-    };
+        <button type="submit" class="submit-btn">Add Medicine</button>
+      </form>
+    </div>
 
-    // Basic Validation
-    if (!data.name || !data.price) {
-      showToast("Medicine Name and Price are required!", "error");
-      return;
-    }
+    <div id="toast" class="toast"></div>
+  </div>
 
-    try {
-      // Replace with your actual API endpoint
-      const response = await fetch(`${BASE_URL}/api/medicine/add`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+  <script src="/js/config.js"></script>
 
-      const result = await response.json();
+  <script>
+    const form = document.getElementById("medicineForm");
+    const toast = document.getElementById("toast");
 
-      if (response.ok) {
-        showToast("Medicine added successfully!", "success");
-        form.reset();
-      } else {
-        showToast(result.message || "Failed to add medicine.", "error");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const userId = localStorage.getItem("userId");
+
+      if (!userId) {
+        showToast("Doctor ID not found. Please login again.", "error");
+        return;
       }
-    } catch (error) {
-      showToast("Server error. Please try again later.", "error");
+
+      const data = {
+        doctorId: userId,
+        name: form.name.value.trim(),
+        type: form.type.value.trim(),
+        description: form.description.value.trim(),
+        dosage: form.dosage.value.trim(),
+        manufacturer: form.manufacturer.value.trim(),
+        price: parseFloat(form.price.value.trim()),
+      };
+
+      // Basic Validation
+      if (!data.name || isNaN(data.price)) {
+        showToast("Medicine Name and Price are required!", "error");
+        return;
+      }
+
+      try {
+        const response = await fetch(`${BASE_URL}/api/medicine/add`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          showToast("Medicine added successfully!", "success");
+          form.reset();
+        } else {
+          showToast(result.message || "Failed to add medicine.", "error");
+        }
+      } catch (error) {
+        showToast("Server error. Please try again later.", "error");
+      }
+    });
+
+    function showToast(message, type) {
+      toast.textContent = message;
+      toast.className = `toast show ${type}`;
+      setTimeout(() => {
+        toast.className = "toast";
+      }, 3000);
     }
-  });
-
-  function showToast(message, type) {
-    toast.textContent = message;
-    toast.className = `toast show ${type}`;
-    setTimeout(() => {
-      toast.className = "toast";
-    }, 3000);
-  }
-        </script>
-  
-          
-
-
+  </script>
 
 </body>
 </html>

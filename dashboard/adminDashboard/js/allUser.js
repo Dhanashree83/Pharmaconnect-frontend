@@ -89,3 +89,5 @@ window.onload = () => {
   fetchPatients(1);
   fetchDoctors(1);
 };
+
+
