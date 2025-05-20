@@ -11,7 +11,6 @@
   <!-- Navbar -->
   <nav class="flex justify-between items-center bg-blue-600 text-white px-6 py-4">
     <div class="text-xl font-bold">PharmaConnect</div>
-    <span>Doctor Dashboard</span>
   </nav>
 
   <!-- Layout: Sidebar + Content -->
@@ -74,6 +73,13 @@
             <tr><td colspan="8" class="p-4 text-gray-500">Loading...</td></tr>
           </tbody>
         </table>
+
+        <!-- Pagination Controls -->
+        <div id="paginationControls" class="mt-4 flex justify-between items-center">
+          <button id="prevPageBtn" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 disabled:opacity-50" disabled>Previous</button>
+          <span id="pageInfo" class="text-sm text-gray-700">Page 1</span>
+          <button id="nextPageBtn" class="bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 disabled:opacity-50">Next</button>
+        </div>
       </div>
     </main>
   </div>
@@ -81,25 +87,36 @@
   <script src="/js/config.js"></script>
   <script>
     const userId = localStorage.getItem('userId'); // Doctor ID from local storage
+    const pageSize = 10;
+    let currentPage = 0; // zero-based index
+    let totalPages = 1;
 
     const loadAppointments = async () => {
       const tableBody = document.getElementById('appointmentTableBody');
+      const pageInfo = document.getElementById('pageInfo');
+      const prevBtn = document.getElementById('prevPageBtn');
+      const nextBtn = document.getElementById('nextPageBtn');
 
       if (!userId) {
         tableBody.innerHTML = `<tr><td colspan="8" class="p-4 text-red-600">Doctor ID not found in local storage.</td></tr>`;
         return;
       }
 
-      const apiUrl = `${BASE_URL}/appointment/doctor?doctorId=${userId}&page=1&size=10`;
+      // API expects page number 1-based, so add 1 to currentPage
+      const apiUrl = `${BASE_URL}/appointment/doctor?doctorId=${userId}&page=${currentPage + 1}&size=${pageSize}`;
 
       try {
         const res = await fetch(apiUrl);
         const data = await res.json();
 
         const appointments = data.content || [];
+        totalPages = data.totalPages || 1;
 
         if (appointments.length === 0) {
           tableBody.innerHTML = `<tr><td colspan="8" class="p-4 text-gray-500">No appointments found.</td></tr>`;
+          pageInfo.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+          prevBtn.disabled = currentPage === 0;
+          nextBtn.disabled = currentPage >= totalPages - 1;
           return;
         }
 
@@ -108,9 +125,8 @@
           const row = document.createElement('tr');
           row.classList.add('border', 'hover:bg-blue-50');
 
-          // Only show Confirm button if status is not CONFIRMED
-          const confirmButton = app.status === 'CONFIRMED' 
-            ? '' 
+          const confirmButton = app.status === 'CONFIRMED'
+            ? ''
             : `<button onclick="handleAction('${app.appointmentId}', 'confirm', this)" class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs mr-2">Confirm</button>`;
 
           row.innerHTML = `
@@ -129,6 +145,11 @@
 
           tableBody.appendChild(row);
         });
+
+        pageInfo.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+        prevBtn.disabled = currentPage === 0;
+        nextBtn.disabled = currentPage >= totalPages - 1;
+
       } catch (error) {
         console.error('Error fetching appointments:', error);
         tableBody.innerHTML = `<tr><td colspan="8" class="p-4 text-red-600">Error loading appointments.</td></tr>`;
@@ -139,38 +160,44 @@
       const url = `${BASE_URL}/appointment/${action}/${appointmentId}`;
       const row = btn.closest('tr');
       const statusCell = row.querySelector('.status');
-      const actionCell = row.querySelector('td:last-child');
 
       try {
         const res = await fetch(url, { method: 'PUT' });
         const result = await res.json();
 
         if (res.ok && result.status) {
-          // Update status
           statusCell.textContent = result.status;
-          
-          // If action was confirm, remove the confirm button
           if (action === 'confirm') {
-            const confirmBtn = btn;
-            confirmBtn.remove();
-            
-            // Alternatively, you could rebuild the actions cell:
-            // actionCell.innerHTML = `
-            //   <button onclick="handleAction('${appointmentId}', 'cancel', this)" 
-            //     class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs">
-            //     Cancel
-            //   </button>
-            // `;
+            btn.remove();
           }
         } else {
-          console.error(`Failed to ${action} appointment`);
+          alert(`Failed to ${action} appointment`);
         }
       } catch (error) {
         console.error(`Error on ${action}:`, error);
+        alert(`An error occurred while trying to ${action} the appointment.`);
       }
     };
 
-    window.onload = loadAppointments;
+    // Pagination button listeners
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('prevPageBtn').addEventListener('click', () => {
+        if (currentPage > 0) {
+          currentPage--;
+          loadAppointments();
+        }
+      });
+
+      document.getElementById('nextPageBtn').addEventListener('click', () => {
+        if (currentPage < totalPages - 1) {
+          currentPage++;
+          loadAppointments();
+        }
+      });
+
+      loadAppointments();
+    });
   </script>
+
 </body>
 </html>

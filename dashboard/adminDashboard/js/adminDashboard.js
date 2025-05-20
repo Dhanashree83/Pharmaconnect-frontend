@@ -17,8 +17,8 @@ $(document).ready(function () {
                     $("#dropdownButton span").text(`${res.firstName} ${res.lastName}`);
 
                     // Set other details (example: total patients and appointments)
-                    $(".total-patients").text(res.totalPatients); 
-                    $(".total-appointments").text(res.totalAppointments); 
+                    $(".total-patients").text(res.totalPatients);
+                    $(".total-appointments").text(res.totalAppointments);
                 } else {
                     // alert("❌ Failed to fetch admin details.");
                 }
