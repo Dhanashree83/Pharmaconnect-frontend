@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PharmaConnect - Doctor Appointments</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" /> -->
 </head>
 <body class="bg-gray-100 text-gray-800">
 
@@ -19,41 +18,40 @@
   <div class="flex">
     <!-- Sidebar -->
     <aside class="w-64 bg-[#0277b6] text-white shadow-lg h-screen p-4 hidden md:block fixed top-0 left-0">
-  <div class="flex justify-center mb-8">
-    <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" />
-  </div>
-  <nav class="space-y-2">
-    <a href="/dashboard/doctorDashboard/doctor-main.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
-      <i class="bi bi-calendar-check text-lg"></i>
-      <span class="font-medium">Dashboard</span>
-    </a>
-    <a href="/dashboard/doctorDashboard/pages/Appointment.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
-      <i class="bi bi-calendar-check text-lg"></i>
-      <span class="font-medium">Appointments</span>
-    </a>
-    <a href="/dashboard/doctorDashboard/pages/allPatient.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
-      <i class="bi bi-person text-lg"></i>
-      <span class="font-medium">All Users</span>
-    </a>
-    <a href="/dashboard/doctorDashboard/pages/uploadMedicine.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
-      <i class="bi bi-person-badge text-lg"></i>
-      <span class="font-medium">Upload Medicine</span>
-    </a>
-    <a href="/dashboard/doctorDashboard/pages/pharmacy.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
-      <i class="bi bi-capsule text-lg"></i>
-      <span class="font-medium">Pharmacy</span>
-    </a>
-    <a href="/dashboard/doctorDashboard/pages/hospital.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
-      <i class="bi bi-hospital text-lg"></i>
-      <span class="font-medium">Hospital</span>
-    </a>
-    <a href="/dashboard/doctorDashboard/pages/orders.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
-      <i class="bi bi-calendar-check text-lg"></i>
-      <span class="font-medium">Orders</span>
-    </a>
-  </nav>
-</aside>
-      <script src="/js/config.js"></script>
+      <div class="flex justify-center mb-8">
+        <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" />
+      </div>
+      <nav class="space-y-2">
+        <a href="/dashboard/doctorDashboard/doctor-main.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+          <i class="bi bi-calendar-check text-lg"></i>
+          <span class="font-medium">Dashboard</span>
+        </a>
+        <a href="/dashboard/doctorDashboard/pages/Appointment.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+          <i class="bi bi-calendar-check text-lg"></i>
+          <span class="font-medium">Appointments</span>
+        </a>
+        <a href="/dashboard/doctorDashboard/pages/allPatient.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+          <i class="bi bi-person text-lg"></i>
+          <span class="font-medium">All Users</span>
+        </a>
+        <a href="/dashboard/doctorDashboard/pages/uploadMedicine.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+          <i class="bi bi-person-badge text-lg"></i>
+          <span class="font-medium">Upload Medicine</span>
+        </a>
+        <a href="/dashboard/doctorDashboard/pages/pharmacy.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+          <i class="bi bi-capsule text-lg"></i>
+          <span class="font-medium">Pharmacy</span>
+        </a>
+        <a href="/dashboard/doctorDashboard/pages/hospital.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+          <i class="bi bi-hospital text-lg"></i>
+          <span class="font-medium">Hospital</span>
+        </a>
+        <a href="/dashboard/doctorDashboard/pages/orders.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+          <i class="bi bi-calendar-check text-lg"></i>
+          <span class="font-medium">Orders</span>
+        </a>
+      </nav>
+    </aside>
 
     <!-- Main Content -->
     <main class="flex-1 p-6 ml-64">
@@ -80,6 +78,7 @@
     </main>
   </div>
 
+  <script src="/js/config.js"></script>
   <script>
     const userId = localStorage.getItem('userId'); // Doctor ID from local storage
 
@@ -109,6 +108,11 @@
           const row = document.createElement('tr');
           row.classList.add('border', 'hover:bg-blue-50');
 
+          // Only show Confirm button if status is not CONFIRMED
+          const confirmButton = app.status === 'CONFIRMED' 
+            ? '' 
+            : `<button onclick="handleAction('${app.appointmentId}', 'confirm', this)" class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs mr-2">Confirm</button>`;
+
           row.innerHTML = `
             <td class="p-2 border">${app.appointmentId}</td>
             <td class="p-2 border">${app.firstName || ''} ${app.lastName || ''}</td>
@@ -118,7 +122,7 @@
             <td class="p-2 border">${app.doctorName || '-'}</td>
             <td class="p-2 border status">${app.status || '-'}</td>
             <td class="p-2 border">
-              <button onclick="handleAction('${app.appointmentId}', 'confirm', this)" class="bg-green-500 hover:bg-green-600 text-white px-2 py-1 rounded text-xs mr-2">Confirm</button>
+              ${confirmButton}
               <button onclick="handleAction('${app.appointmentId}', 'cancel', this)" class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs">Cancel</button>
             </td>
           `;
@@ -135,20 +139,34 @@
       const url = `${BASE_URL}/appointment/${action}/${appointmentId}`;
       const row = btn.closest('tr');
       const statusCell = row.querySelector('.status');
+      const actionCell = row.querySelector('td:last-child');
 
       try {
         const res = await fetch(url, { method: 'PUT' });
         const result = await res.json();
 
         if (res.ok && result.status) {
+          // Update status
           statusCell.textContent = result.status;
-          // alert(`Appointment ${appointmentId} ${action.toUpperCase()}ED successfully.`);
+          
+          // If action was confirm, remove the confirm button
+          if (action === 'confirm') {
+            const confirmBtn = btn;
+            confirmBtn.remove();
+            
+            // Alternatively, you could rebuild the actions cell:
+            // actionCell.innerHTML = `
+            //   <button onclick="handleAction('${appointmentId}', 'cancel', this)" 
+            //     class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs">
+            //     Cancel
+            //   </button>
+            // `;
+          }
         } else {
-          // alert(`Failed to ${action} appointment.`);
+          console.error(`Failed to ${action} appointment`);
         }
       } catch (error) {
         console.error(`Error on ${action}:`, error);
-        // alert(`Error during ${action} action.`);
       }
     };
 
