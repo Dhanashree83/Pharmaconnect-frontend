@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" /> -->
   <link rel="stylesheet" href="/dashboard/adminDashboard/styles/allUser.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body class="bg-gray-100 text-gray-800">
   <!-- Navbar -->
   <nav class="flex justify-between items-center bg-blue-600 text-white px-6 py-4">
@@ -18,52 +20,61 @@
   <!-- Layout: Sidebar + Content -->
   <div class="flex">
 
-<aside class="w-64 bg-[#0277b6] text-white shadow-lg h-screen p-4 hidden md:block fixed top-0 left-0 overflow-y-auto">
-  <div class="flex justify-center mb-8">
-    <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" />
-  </div>
-  <nav class="space-y-2">
-    <a href="/dashboard/adminDashboard/admin-main.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
-      <i class="bi bi-calendar-check text-lg"></i>
-      <span class="font-medium">Dashboard</span>
-    </a>
-    <a href="/dashboard/adminDashboard/pages/appointment.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
-      <i class="bi bi-calendar-check text-lg"></i>
-      <span class="font-medium">Appointments</span>
-    </a>
-    <a href="/dashboard/adminDashboard/pages/allUser.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
-      <i class="bi bi-person text-lg"></i>
-      <span class="font-medium">All Users</span>
-    </a>
-    <a href="/dashboard/adminDashboard/pages/uploadMedicine.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
-      <i class="bi bi-person-badge text-lg"></i>
-      <span class="font-medium">Upload Medicine</span>
-    </a>
-    <a href="/dashboard/adminDashboard/pages/pharmacy.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
-      <i class="bi bi-capsule text-lg"></i>
-      <span class="font-medium">Pharmacy</span>
-    </a>
-    <a href="/dashboard/adminDashboard/pages/hospital.html" class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
-      <i class="bi bi-hospital text-lg"></i>
-      <span class="font-medium">Hospital</span>
-    </a>
-  </nav>
-</aside>
+    <aside
+      class="w-64 bg-[#0277b6] text-white shadow-lg h-screen p-4 hidden md:block fixed top-0 left-0 overflow-y-auto">
+      <div class="flex justify-center mb-8">
+        <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" />
+      </div>
+      <nav class="space-y-2">
+        <a href="/dashboard/adminDashboard/admin-main.html"
+          class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+          <i class="bi bi-calendar-check text-lg"></i>
+          <span class="font-medium">Dashboard</span>
+        </a>
+        <a href="/dashboard/adminDashboard/pages/appointment.html"
+          class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+          <i class="bi bi-calendar-check text-lg"></i>
+          <span class="font-medium">Appointments</span>
+        </a>
+        <a href="/dashboard/adminDashboard/pages/allUser.html"
+          class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+          <i class="bi bi-person text-lg"></i>
+          <span class="font-medium">All Users</span>
+        </a>
+        <a href="/dashboard/adminDashboard/pages/uploadMedicine.html"
+          class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+          <i class="bi bi-person-badge text-lg"></i>
+          <span class="font-medium">Upload Medicine</span>
+        </a>
+        <a href="/dashboard/adminDashboard/pages/pharmacy.html"
+          class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+          <i class="bi bi-capsule text-lg"></i>
+          <span class="font-medium">Pharmacy</span>
+        </a>
+        <a href="/dashboard/adminDashboard/pages/hospital.html"
+          class="flex items-center gap-3 p-3 rounded-lg hover:bg-blue-800 transition-colors">
+          <i class="bi bi-hospital text-lg"></i>
+          <span class="font-medium">Hospital</span>
+        </a>
+      </nav>
+    </aside>
 
 
     <!-- Main Content -->
     <div class="flex-1 p-6 ml-64">
       <!-- Tabs -->
-<div class="w-full flex justify-center mt-10">
-  <div class="button-group flex flex-row gap-4 flex-nowrap">
-    <button onclick="showTab('patient'); fetchPatients(1);" class="tab-btn px-6 py-2 rounded-lg border border-gray-400 text-gray-700 transition-all duration-300 ease-in-out transform hover:scale-105 hover:text-blue-600 hover:border-blue-600 hover:shadow-md active:scale-95">
-      Patient
-    </button>
-    <button onclick="showTab('doctor'); fetchDoctors(1);" class="tab-btn px-6 py-2 rounded-lg border border-gray-400 text-gray-700 transition-all duration-300 ease-in-out transform hover:scale-105 hover:text-green-600 hover:border-green-600 hover:shadow-md active:scale-95">
-      Doctor
-    </button>
-  </div>
-</div>
+      <div class="w-full flex justify-center mt-10">
+        <div class="button-group flex flex-row gap-4 flex-nowrap">
+          <button onclick="showTab('patient'); fetchPatients(1);"
+            class="tab-btn px-6 py-2 rounded-lg border border-gray-400 text-gray-700 transition-all duration-300 ease-in-out transform hover:scale-105 hover:text-blue-600 hover:border-blue-600 hover:shadow-md active:scale-95">
+            Patient
+          </button>
+          <button onclick="showTab('doctor'); fetchDoctors(1);"
+            class="tab-btn px-6 py-2 rounded-lg border border-gray-400 text-gray-700 transition-all duration-300 ease-in-out transform hover:scale-105 hover:text-green-600 hover:border-green-600 hover:shadow-md active:scale-95">
+            Doctor
+          </button>
+        </div>
+      </div>
 
 
 
@@ -116,4 +127,5 @@
   <script src="/js/config.js"></script>
   <script src="/dashboard/adminDashboard/js/allUser.js"></script>
 </body>
+
 </html>

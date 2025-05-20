@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Book Appointment - PharmaConnect</title>
-   <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link rel="stylesheet" href="/css/footer.css">
+  <link rel="stylesheet" href="/css/header.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
   <style>
     * {
       box-sizing: border-box;
@@ -16,10 +18,12 @@
 
     body {
       font-family: 'Arial', sans-serif;
-      background-image: linear-gradient(#1e49d8, #2a3457, #7f8cba);
+      background-color: #ffffff;
       margin: 0;
       padding-top: 70px;
+      min-height: 100vh;
     }
+
 
     header {
       background: #0077b6;
@@ -54,59 +58,91 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    nav button:hover {
+      background-color: #f0f0f0;
+      transform: translateY(-1px);
     }
 
     /* Appointment Container */
     .appointment-container {
-      background-color: rgb(218, 217, 228);
+      background-color: #ffffff;
       width: 90%;
-      max-width: 600px;
-      padding: 20px;
-      margin: 20px auto;
-      box-shadow: 0px 0px 10px gray;
-      border-radius: 10px;
+      max-width: 650px;
+      padding: 30px;
+      margin: 30px auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border-radius: 15px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .appointment-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, #0077b6, #28a745);
     }
 
     .appointment-container h2 {
-      margin: 10px 0;
-      color: #333;
+      margin: 10px 0 5px;
+      color: #2c3e50;
+      font-size: 28px;
+      text-align: center;
     }
 
     .appointment-container p {
-      margin-bottom: 20px;
-      color: #555;
+      margin-bottom: 25px;
+      color: #7f8c8d;
+      text-align: center;
+      font-size: 15px;
     }
 
     form {
-      margin: 15px 0;
+      margin: 20px 0;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
     }
 
     label {
-      font-weight: bold;
+      font-weight: 600;
       display: block;
-      margin-bottom: 5px;
-      color: #333;
+      margin-bottom: 8px;
+      color: #2c3e50;
       text-align: left;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
       font-size: 14px;
     }
 
-    input:focus, select:focus {
+    input,
+    select {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 5px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      background-color: #f9f9f9;
+    }
+
+    input:focus,
+    select:focus {
       border-color: #007BFF;
       outline: none;
-      box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5);
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+      background-color: #fff;
     }
 
     .name-container {
       display: flex;
-      gap: 10px;
+      gap: 15px;
     }
 
     .name-container input {
@@ -116,7 +152,7 @@
     .contact-container {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
+      gap: 15px;
     }
 
     .contact-container div {
@@ -124,20 +160,21 @@
     }
 
     .radio-group {
-      margin: 15px 0;
+      margin: 20px 0;
       text-align: left;
     }
 
     .radio-group label {
       display: inline;
       font-weight: normal;
+      margin-right: 5px;
     }
 
     .radio-group div {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 5px;
-      margin: 5px 0;
+      gap: 8px;
+      margin-right: 15px;
     }
 
     .radio-group input {
@@ -145,296 +182,196 @@
     }
 
     button[type="submit"] {
-      background-color: #28a745;
+      background: linear-gradient(135deg, #28a745, #218838);
       color: white;
-      padding: 12px 20px;
+      padding: 14px 20px;
       border: none;
       cursor: pointer;
-      font-size: 1rem;
-      border-radius: 5px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
       width: 100%;
-      margin-top: 10px;
-      transition: background-color 0.3s;
+      margin-top: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     button[type="submit"]:hover {
-      background-color: #218838;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+      background: linear-gradient(135deg, #218838, #1e7e34);
     }
 
-    /* Footer */
-    .footer {
-      background-color: #f8f9fa;
-      padding: 30px 0;
-      color: #333;
-      font-family: Arial, sans-serif;
+    /* Select2 customization */
+    .select2-container--default .select2-selection--single {
+      height: 46px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
     }
 
-    .container {
-      width: 90%;
-      margin: auto;
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+      line-height: 46px;
+      padding-left: 15px;
     }
 
-    .footer-sections {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      text-align: center;
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+      height: 44px;
     }
 
-    .footer-sections > div {
-      flex: 1 1 100%;
+    .select2-container--default .select2-search--dropdown .select2-search__field {
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 8px;
     }
 
-    .footer h3 {
-      color: #007bff;
-      margin-bottom: 15px;
-      font-weight: bold;
+    .select2-results__option {
+      padding: 10px 15px;
     }
 
-    .footer-about p {
-      margin-bottom: 10px;
-      text-align: left;
-    }
-
-    .footer-about em {
-      display: block;
-      text-align: left;
-      font-style: italic;
-      margin-top: 10px;
-    }
-
-    .footer-links ul {
-      list-style: none;
-      padding: 0;
-      text-align: left;
-    }
-
-    .footer-links ul li {
-      margin: 10px 0;
-    }
-
-    .footer-links ul li a {
-      text-decoration: none;
-      color: #007bff;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      transition: color 0.3s ease;
-    }
-
-    .footer-links ul li a:hover {
-      color: #0056b3;
-    }
-
-    .footer-contact p {
-      margin: 8px 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #007bff;
-      justify-content: center;
-    }
-
-    /* Social Icons */
-    .social-icons {
-      margin-top: 15px;
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-    }
-
-    .social-icons a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 35px;
-      height: 35px;
-      background-color: #000000;
-      color: #124ee6e3;
-      font-size: 18px;
-      border-radius: 50%;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-
-    .social-icons a:hover {
-      transform: scale(1.1);
-      background-color: #0056b3;
-    }
-
-    hr {
-      margin: 20px auto;
-      width: 80%;
-      border: 1px solid #0b43dc;
-    }
-
-    .footer-copy {
-      font-size: 0.9rem;
-      color: #1b1919;
-      margin-top: 10px;
-    }
-
-    /* Media Queries */
-    @media (min-width: 480px) {
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
       .appointment-container {
-        padding: 30px;
+        padding: 25px;
       }
-      
-      .footer-sections > div {
-        flex: 1 1 45%;
-      }
-      
-      .footer-contact p {
-        justify-content: flex-start;
-      }
-      
-      .social-icons {
-        justify-content: flex-start;
-      }
-    }
 
-    @media (min-width: 768px) {
-      .appointment-container {
-        padding: 40px;
-      }
-      
-      .footer-sections {
-        text-align: left;
-      }
-      
-      .footer-sections > div {
-        flex: 1;
-      }
-      
-      .radio-group {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
-      
-      .radio-group label {
-        margin-right: 15px;
-      }
-      
-      .radio-group div {
-        margin: 0;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .name-container {
-        flex-direction: column;
-        gap: 0;
-      }
-      
+      .name-container,
       .contact-container {
         flex-direction: column;
         gap: 0;
       }
-      
-      .footer-links ul li a {
-        justify-content: center;
+
+      .radio-group div {
+        display: flex;
+        margin: 8px 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .appointment-container {
+        padding: 20px;
+        margin: 20px auto;
+      }
+
+      .appointment-container h2 {
+        font-size: 24px;
       }
     }
   </style>
 </head>
+
 <body>
   <header>
     <nav>
       <a href="index.html" class="logo">
-                 <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" /> 
-            </a>
+        <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" />
+      </a>
       <a href="/pages/user-login.html"><button>Sign In</button></a>
     </nav>
   </header>
 
   <div class="appointment-container">
     <h2>Book Your Appointment</h2>
-    <p>Let us know how we can help you!</p>
+    <p>Schedule your visit with our healthcare professionals</p>
     <form id="appointmentForm">
-      <label>Name</label>
-      <div class="name-container">
-        <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
-        <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
-      </div>
-
-      <div class="contact-container">
-        <div>
-          <label>Phone Number</label>
-          <input type="text" id="phoneNumber" name="phoneNumber" placeholder="(000) 000-0000" required />
-        </div>
-        <div>
-          <label>E-mail</label>
-          <input type="email" id="email" name="email" placeholder="ex: myname@example.com" required />
+      <div class="form-group">
+        <label>Name</label>
+        <div class="name-container">
+          <input type="text" id="firstName" name="firstName" placeholder="First Name" required />
+          <input type="text" id="lastName" name="lastName" placeholder="Last Name" required />
         </div>
       </div>
 
-      <div class="radio-group">
-        <label>First Time Visit?</label>
-        <div>
-          <input type="radio" name="firstTimeVisit" id="yes" value="true" required />
-          <label for="yes">Yes</label>
-        </div>
-        <div>
-          <input type="radio" name="firstTimeVisit" id="no" value="false" />
-          <label for="no">No</label>
+      <div class="form-group">
+        <div class="contact-container">
+          <div>
+            <label>Phone Number</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="(000) 000-0000" required />
+          </div>
+          <div>
+            <label>E-mail</label>
+            <input type="email" id="email" name="email" placeholder="ex: myname@example.com" required />
+          </div>
         </div>
       </div>
 
-      <label for="appointmentDate">Appointment Date:</label>
-      <input type="datetime-local" id="appointmentDate" name="appointmentDate" required />
+      <div class="form-group">
+        <div class="radio-group">
+          <label>First Time Visit?</label>
+          <div>
+            <input type="radio" name="firstTimeVisit" id="yes" value="true" required />
+            <label for="yes">Yes</label>
+          </div>
+          <div>
+            <input type="radio" name="firstTimeVisit" id="no" value="false" />
+            <label for="no">No</label>
+          </div>
+        </div>
+      </div>
 
-      <label for="doctor">Select Doctor:</label>
-      <select id="doctor" name="doctorId" required>
-        <option value="">Loading doctors...</option>
-      </select>
+      <div class="form-group">
+        <label for="appointmentDate">Appointment Date:</label>
+        <input type="datetime-local" id="appointmentDate" name="appointmentDate" required />
+      </div>
+
+      <div class="form-group">
+        <label for="doctor">Select Doctor:</label>
+        <select id="doctor" name="doctorId" class="doctor-select" required>
+          <option value="">Loading doctors...</option>
+        </select>
+      </div>
 
       <button type="submit">Confirm Appointment</button>
     </form>
   </div>
 
   <footer class="footer">
-    <div class="container">
+    <div class="container-footer">
       <div class="footer-sections">
         <div class="footer-about">
           <h3>About Us</h3>
-          <p>Easily book doctor appointments and manage your healthcare with our seamless platform. Your well-being is just a click away!</p>
+          <p>Easily book doctor appointments and manage your healthcare with our seamless platform. Your well-being is
+            just a click away!</p>
           <em>"Your Health, Your Schedule—Book with Ease!"</em>
         </div>
 
         <div class="footer-links">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="#"><i class="fas fa-user-md"></i> Find a Doctor</a></li>
-            <li><a href="#"><i class="fas fa-calendar-alt"></i> Book Appointment</a></li>
-            <li><a href="#"><i class="fas fa-heartbeat"></i> Health Tips</a></li>
-            <li><a href="#"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
+            <li><a href="/index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="/pages/alldoctor.html"><i class="fas fa-user-md"></i> Find a Doctor</a></li>
+            <li><a href="/book-appointment.html"><i class="fas fa-calendar-alt"></i> Book Appointment</a></li>
+            <li><a href="/pages/about.html"><i class="fas fa-heartbeat"></i> Health Tips</a></li>
+            <li><a href="/pages/contact.html"><i class="fas fa-phone-alt"></i> Contact Us</a></li>
           </ul>
         </div>
 
         <div class="footer-contact">
           <h3>Contact Us</h3>
-          <p><i class="fas fa-envelope"></i> support@docbooking.com</p>
-          <p><i class="fas fa-phone"></i> +1 234 567 890</p>
-          <p><i class="fas fa-map-marker-alt"></i> 123 Medical Street, Health City</p>
-          <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
+          <p><i class="fas fa-envelope"></i> info.pharmaconnectt@gmail.com </p>
+          <p><i class="fas fa-phone"></i> +91 9325954352 </p>
+          <p><i class="fas fa-map-marker-alt"></i> Ashirwad Nagar, Hudkeshwar Road, Nagpur </p>
         </div>
       </div>
-      <hr />
+
+      <hr>
       <p class="footer-copy">&copy; 2025 Doctor Appointment Booking. All rights reserved.</p>
     </div>
   </footer>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
   <script src="/js/config.js"></script>
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    $(document).ready(function () {
+      // Initialize Select2 for doctor dropdown
+      $('.doctor-select').select2({
+        placeholder: "Select a doctor",
+        allowClear: true,
+        width: '100%'
+      });
+
+      // Fetch doctors
       fetch(`${BASE_URL}/api/doctor/all`)
         .then(response => {
           if (!response.ok) {
@@ -444,53 +381,60 @@
         })
         .then(data => {
           console.log("Doctors fetched:", data);
-          const doctorSelect = document.getElementById("doctor");
+          const doctorSelect = $("#doctor");
+          doctorSelect.empty();
+          doctorSelect.append('<option value="">Select a doctor</option>');
+
           data.forEach(doctor => {
             const fullName = `${doctor.firstName} ${doctor.lastName}`;
-            const specialization = doctor.specialization || "General";
-            const option = document.createElement("option");
-            option.value = doctor.doctorId;
-            option.textContent = `${fullName} - ${specialization}`;
-            doctorSelect.appendChild(option);
+            const specialization = doctor.specialization || "General Practitioner";
+            const option = new Option(`${fullName} - ${specialization}`, doctor.doctorId);
+            doctorSelect.append(option);
           });
+
+          // Refresh Select2 to show new options
+          doctorSelect.trigger('change');
         })
         .catch(error => {
           console.error("Error fetching doctors:", error);
-          // alert("Failed to load doctors. Please try again later.");
+          $("#doctor").html('<option value="">Error loading doctors. Please refresh.</option>');
         });
-    });
 
-    // Handle form submission
-    $("#appointmentForm").submit(function (e) {
-      e.preventDefault();
+      // Handle form submission
+      $("#appointmentForm").submit(function (e) {
+        e.preventDefault();
 
-      const payload = {
-        firstName: $("#firstName").val(),
-        lastName: $("#lastName").val(),
-        phoneNumber: $("#phoneNumber").val(),
-        email: $("#email").val(),
-        firstTimeVisit: $("input[name='firstTimeVisit']:checked").val() === "true",
-        appointmentDate: new Date($("#appointmentDate").val()).toISOString(),
-        doctorId: $("#doctor").val(),
-      };
+        const payload = {
+          patientId: "",  // Explicitly add this for common users
+          firstName: $("#firstName").val(),
+          lastName: $("#lastName").val(),
+          phoneNumber: $("#phoneNumber").val(),
+          email: $("#email").val(),
+          firstTimeVisit: $("input[name='firstTimeVisit']:checked").val() === "true",
+          appointmentDate: new Date($("#appointmentDate").val()).toISOString(),
+          doctorId: $("#doctor").val(),
+        };
 
-      console.log("Appointment Payload:", payload);
+        console.log("Appointment Payload:", payload);
 
-      $.ajax({
-        url: `${BASE_URL}/appointment/book`,
-        method: "POST",
-        contentType: "application/json",
-        data: JSON.stringify(payload),
-        success: function () {
-          // alert("Your appointment has been booked successfully!");
-          window.location.href = "/index.html";
-        },
-        error: function (xhr) {
-          console.error("Appointment error:", xhr.responseText);
-          // alert("Failed to book appointment. Please check your data and try again.");
-        },
+        $.ajax({
+          url: `${BASE_URL}/appointment/book`,
+          method: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(payload),
+          success: function () {
+            alert("Your appointment has been booked successfully!");
+            window.location.href = "/index.html";
+          },
+          error: function (xhr) {
+            console.error("Appointment error:", xhr.responseText);
+            alert("Failed to book appointment. Please check your data and try again.");
+          },
+        });
       });
+
     });
   </script>
 </body>
+
 </html>
