@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +25,7 @@
 <body class="bg-gray-100 font-sans min-h-screen">
   <div class="flex">
     <!-- Sidebar -->
-     <aside class="w-64 bg-[#0277b6] text-white shadow-lg h-screen p-4 hidden md:block fixed top-0 left-0">
+    <aside class="w-64 bg-[#0277b6] text-white shadow-lg h-screen p-4 hidden md:block fixed top-0 left-0">
       <div class="flex justify-center mb-8">
         <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" height="50" width="240" />
       </div>
@@ -110,23 +109,24 @@
             <label for="doctor" class="block text-sm font-medium text-gray-700">Select Doctor</label>
             <select id="doctor" name="doctorId" class="input" required>
               <option value="">Choose a Doctor</option>
-              <!-- <option value="DRE3A69C5A">Dr. John Smith - Cardiologist</option>
-              <option value="DRE3A69C5B">Dr. Emily Davis - Dermatologist</option>
-              <option value="DRE3A69C5C">Dr. Mark Wilson - Orthopedic</option> -->
+              <!-- Doctors will be populated via JavaScript -->
             </select>
           </div>
 
-          <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition">Confirm Appointment</button>
+          <button type="submit" id="submitBtn" class="w-full py-2 px-4 bg-blue-600 text-white font-medium rounded hover:bg-blue-700 transition">Confirm Appointment</button>
         </form>
       </div>
     </div>
   </div>
   
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="/js/config.js"></script>
-<script src="/dashboard/userDashboard/js/bookAppointment.js"></script>
-<script>
+  <script src="/js/config.js"></script>
+  <script>
+    // Prevent multiple form submissions
+    let isSubmitting = false;
+
     document.addEventListener("DOMContentLoaded", function () {
+      // Fetch doctors list
       fetch(`${BASE_URL}/api/doctor/all`)
         .then(response => {
           if (!response.ok) {
@@ -148,15 +148,31 @@
         })
         .catch(error => {
           console.error("Error fetching doctors:", error);
-          // alert("Failed to load doctors. Please try again later.");
         });
     });
 
-    // Handle form submission
+    // Single form submission handler
     $("#appointmentForm").submit(function (e) {
       e.preventDefault();
+      
+      if (isSubmitting) return;
+      isSubmitting = true;
+      
+      // Disable submit button to prevent double clicks
+      $("#submitBtn").prop("disabled", true).text("Booking...");
+
+      // Get userId from localStorage
+      const userId = localStorage.getItem("userId");
+
+      if (!userId) {
+        alert("User not logged in. Please log in again.");
+        isSubmitting = false;
+        $("#submitBtn").prop("disabled", false).text("Confirm Appointment");
+        return;
+      }
 
       const payload = {
+        patientId: userId,
         firstName: $("#firstName").val(),
         lastName: $("#lastName").val(),
         phoneNumber: $("#phoneNumber").val(),
@@ -174,59 +190,21 @@
         contentType: "application/json",
         data: JSON.stringify(payload),
         success: function () {
-          // alert("Your appointment has been booked successfully!");
           window.location.href = "/dashboard/userDashboard/user-main.html";
         },
         error: function (xhr) {
           console.error("Appointment error:", xhr.responseText);
-          // alert("Failed to book appointment. Please check your data and try again.");
+          alert("Failed to book appointment. Please check your data and try again.");
+          isSubmitting = false;
+          $("#submitBtn").prop("disabled", false).text("Confirm Appointment");
         },
+        complete: function() {
+          // Re-enable if request completes (success or error)
+          isSubmitting = false;
+          $("#submitBtn").prop("disabled", false).text("Confirm Appointment");
+        }
       });
     });
-
-
-    // Handle form submission
-$("#appointmentForm").submit(function (e) {
-  e.preventDefault();
-
-  // Get userId from localStorage
-  const userId = localStorage.getItem("userId");
-
-  if (!userId) {
-    // alert("User not logged in. Please log in again.");
-    return;
-  }
-
-  const payload = {
-    patientId: userId,
-    firstName: $("#firstName").val(),
-    lastName: $("#lastName").val(),
-    phoneNumber: $("#phoneNumber").val(),
-    email: $("#email").val(),
-    firstTimeVisit: $("input[name='firstTimeVisit']:checked").val() === "true",
-    appointmentDate: new Date($("#appointmentDate").val()).toISOString(),
-    doctorId: $("#doctor").val(),
-  };
-
-  console.log("Appointment Payload:", payload);
-
-  $.ajax({
-    url: `${BASE_URL}/appointment/book`,
-    method: "POST",
-    contentType: "application/json",
-    data: JSON.stringify(payload),
-    success: function () {
-      // alert("Your appointment has been booked successfully!");
-      window.location.href = "/dashboard/userDashboard/user-main.html";
-    },
-    error: function (xhr) {
-      console.error("Appointment error:", xhr.responseText);
-      // alert("Failed to book appointment. Please check your data and try again.");
-    },
-  });
-});
-
-    </script>
-
+  </script>
 </body>
 </html>
