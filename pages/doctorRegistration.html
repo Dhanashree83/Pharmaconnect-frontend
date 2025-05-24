@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Registration | PharmaConnect</title>
+    <link rel="stylesheet" href="/css/doctor-registration.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="registration-container">
+        <a href="/index.html" class="logo-link">
+            <img src="/images/PC-Logo.png" alt="PharmaConnect Logo" class="logo-img">
+        </a>
+        
+        <h1>Doctor Registration</h1>
+        <div class="progress-bar">
+            <div class="progress-step active" data-step="1"></div>
+            <div class="progress-step" data-step="2"></div>
+            <div class="progress-step" data-step="3"></div>
+            <div class="progress-step" data-step="4"></div>
+            <div class="progress-step" data-step="5"></div>
+        </div>
+
+        <form id="doctorRegistrationForm">
+            <!-- Personal Information Section -->
+            <div class="form-section active" id="section1">
+                <h2>Personal Information</h2>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="firstName">First Name*</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="lastName">Last Name*</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="email">Email*</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="mobile">Mobile Number*</label>
+                            <input type="tel" id="mobile" name="mobile" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="password">Password*</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="confirmPassword">Confirm Password*</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="gender">Gender*</label>
+                            <select id="gender" name="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-col">
+                            <label for="dob">Date of Birth*</label>
+                            <input type="date" id="dob" name="dob" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="next-btn">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Address Information Section -->
+            <div class="form-section" id="section2">
+                <h2>Address Information</h2>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="address">Address*</label>
+                            <input type="text" id="address" name="address" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="street">Street*</label>
+                            <input type="text" id="street" name="street" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="city">City*</label>
+                            <input type="text" id="city" name="city" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="state">State*</label>
+                            <input type="text" id="state" name="state" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="postalCode">Postal Code*</label>
+                            <input type="text" id="postalCode" name="postalCode" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="phoneNumber">Phone Number</label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="prev-btn"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button type="button" class="next-btn">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Professional Information Section -->
+            <div class="form-section" id="section3">
+                <h2>Professional Information</h2>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="specialization">Specialization*</label>
+                            <input type="text" id="specialization" name="specialization" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="consultationFee">Consultation Fee*</label>
+                            <input type="number" id="consultationFee" name="consultationFee" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="startDate">Availability Start Date*</label>
+                            <input type="date" id="startDate" name="startDate" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="endDate">Availability End Date*</label>
+                            <input type="date" id="endDate" name="endDate" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="startTime">Daily Start Time*</label>
+                            <input type="time" id="startTime" name="startTime" required>
+                        </div>
+                        <div class="form-col">
+                            <label for="endTime">Daily End Time*</label>
+                            <input type="time" id="endTime" name="endTime" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label>Available Days*</label>
+                            <div class="days-checkbox-container">
+                                <div class="days-row">
+                                    <label class="day-checkbox">
+                                        <input type="checkbox" name="availableDays" value="MONDAY"> Mon
+                                    </label>
+                                    <label class="day-checkbox">
+                                        <input type="checkbox" name="availableDays" value="TUESDAY"> Tue
+                                    </label>
+                                    <label class="day-checkbox">
+                                        <input type="checkbox" name="availableDays" value="WEDNESDAY"> Wed
+                                    </label>
+                                    <label class="day-checkbox">
+                                        <input type="checkbox" name="availableDays" value="THURSDAY"> Thu
+                                    </label>
+                                </div>
+                                <div class="days-row">
+                                    <label class="day-checkbox">
+                                        <input type="checkbox" name="availableDays" value="FRIDAY"> Fri
+                                    </label>
+                                    <label class="day-checkbox">
+                                        <input type="checkbox" name="availableDays" value="SATURDAY"> Sat
+                                    </label>
+                                    <label class="day-checkbox">
+                                        <input type="checkbox" name="availableDays" value="SUNDAY"> Sun
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-col">
+                            <label for="holidays">Holidays (comma separated dates)</label>
+                            <input type="text" id="holidays" name="holidays" placeholder="e.g., 2025-04-15, 2025-05-01">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="prev-btn"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button type="button" class="next-btn">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Education & Experience Section -->
+            <div class="form-section" id="section4">
+                <h2>Education & Experience</h2>
+                <div class="form-group">
+                    <h3>Qualifications</h3>
+                    <div class="education-group">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="schoolName">School/University Name*</label>
+                                <input type="text" id="schoolName" name="schoolName" required>
+                            </div>
+                            <div class="form-col">
+                                <label for="degree">Degree*</label>
+                                <input type="text" id="degree" name="degree" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="passingYear">Passing Year*</label>
+                                <input type="number" id="passingYear" name="passingYear" required>
+                            </div>
+                            <div class="form-col">
+                                <label for="qualificationLocation">Location*</label>
+                                <input type="text" id="qualificationLocation" name="qualificationLocation" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="add-btn" id="addEducation"><i class="fas fa-plus"></i> Add Another Qualification</button>
+                    
+                    <h3>Work Experience</h3>
+                    <div class="experience-group">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="organisationName">Organization Name*</label>
+                                <input type="text" id="organisationName" name="organisationName" required>
+                            </div>
+                            <div class="form-col">
+                                <label for="hospitalName">Hospital Name</label>
+                                <input type="text" id="hospitalName" name="hospitalName">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="position">Position*</label>
+                                <input type="text" id="position" name="position" required>
+                            </div>
+                            <div class="form-col">
+                                <label for="yearOfExperience">Years of Experience*</label>
+                                <input type="number" step="0.1" id="yearOfExperience" name="yearOfExperience" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <label for="responsibilities">Responsibilities (comma separated)</label>
+                                <input type="text" id="responsibilities" name="responsibilities" placeholder="e.g., Performing surgeries, Supervising staff">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" class="add-btn" id="addExperience"><i class="fas fa-plus"></i> Add Another Experience</button>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="prev-btn"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button type="button" class="next-btn">Next <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Review Section -->
+            <div class="form-section" id="section5">
+                <h2>Review Your Information</h2>
+                <div class="review-section">
+                    <h3>Personal Information</h3>
+                    <div id="reviewPersonal"></div>
+                    
+                    <h3>Address Information</h3>
+                    <div id="reviewAddress"></div>
+                    
+                    <h3>Professional Information</h3>
+                    <div id="reviewProfessional"></div>
+                    
+                    <h3>Education & Experience</h3>
+                    <div id="reviewEducationExperience"></div>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="prev-btn"><i class="fas fa-arrow-left"></i> Previous</button>
+                    <button type="button" id="submitBtn" class="submit-btn"><i class="fas fa-user-plus"></i> Submit Registration</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- OTP Verification Section -->
+        <div id="otpSection" class="otp-section">
+            <h2>OTP Verification</h2>
+            <p>We've sent a 6-digit OTP to your email address. Please enter it below to verify your account.</p>
+            
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="form-col">
+                        <label for="otpInput">OTP*</label>
+                        <input type="text" id="otpInput" maxlength="6" placeholder="Enter 6-digit OTP">
+                    </div>
+                </div>
+            </div>
+            
+            <button id="verifyOtpBtn" class="submit-btn"><i class="fas fa-check-circle"></i> Verify OTP</button>
+            <!-- <p class="resend-otp">Didn't receive OTP? <a href="#" id="resendOtp">Resend OTP</a></p> -->
+        </div>
+    </div>
+    <script src="/js/config.js"></script>
+    <script src="/js/doctor-registration.js"></script>
+</body>
+</html>
