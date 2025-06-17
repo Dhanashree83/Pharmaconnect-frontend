@@ -44,7 +44,7 @@ new Chart(doctorPatientCtx, {
     datasets: [
       {
         label: 'Patients',
-        data: [0, 0.8, 0, 2.0, 1.8, 0, 0, 0, 0, 0, 0, 0],
+        data: [0, 4, 6, 2, 8, 10, 20, 30, 0, 0, 0, 0],
         borderColor: '#007bff',
         fill: true,
         backgroundColor: 'rgba(0, 123, 255, 0.1)',
@@ -52,7 +52,7 @@ new Chart(doctorPatientCtx, {
       },
       {
         label: 'Doctors',
-        data: [0, 0.2, 0, 0.2, 0.2, 0, 0, 0, 0, 0, 0, 0],
+        data: [0, 2, 10, 20, 5, 0, 30, 10, 0, 0, 0, 0],
         borderColor: '#ffa940',
         fill: false,
         tension: 0.4
